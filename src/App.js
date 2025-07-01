@@ -28,6 +28,7 @@ import RegisterToMakePayment from './components/RegisterToMakePayment';
 import LogInToMakePayment from './components/LogInToMakePayment';
 import SuccessPage from './components/SuccessPage';
 import CancelPage from './components/CancelPage';
+import OrdersAdmin from './components/OrdersAdmin';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
         <Route path="/log-in-to-make-payment" element={<LogInToMakePayment/>} />
         <Route path="/success" element={<SuccessPage/>} />
         <Route path="/cancel" element={<CancelPage/>} />
+        <Route path="/zamowieniaadmin" element={<OrdersAdmin/>} />
        </Routes>
     </Router>
     </Provider>

@@ -2,19 +2,100 @@ import React, { useEffect, useState } from 'react';
 import '../styles/basket.css'; // Import stylów
 import Header from './Header';
 import Footer from './Footer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios'
 
 const Basket = () => {
   const [basket, setBasket] = useState([]);
   const [accesses, setAccesses] = useState('');
- 
+  const [customers, setCustomers] = useState([])
+
+const [name, setName] = useState('')
+const [surname, setSurname] = useState('')
+const [street, setStreet] = useState('')
+const [postcode, setPostCode] = useState('')
+const [city, setCity] = useState('')
+const [companyname, setCompanyName] = useState('')
+const [companystreet, setCompanyStreet] = useState('')
+const [companypostcode, setCompanyPostCode] = useState('')
+const [companycity, setCompanyCity] = useState('')
+const [email, setEmail] = useState('')
+const [invoice, setInvoice] = useState(false)
+const [login, setLogin] = useState('')
+const [newsletter, setNewsletter] = useState(false)
+const [password, setPassword] = useState('')
+const [phonenumber, setPhoneNumber] = useState('')
+const [regulations, setRegulations] = useState(false)
+const [companynip, setCompanyNip] = useState(0)
+const [companyregon, setCompanyRegon] = useState(0)
+
+   
+
+
 
   const navigate = useNavigate()
 
   
   const stripePromise = loadStripe('pk_live_51RfLvJAmHEF4S4jOFufZ6W3hId3WQPoYP89kmoLS57Anyn33rI0Ndt0Kr2rYSIIly1a7z5qrWseCHZ6dAGRrncAe00TShy05sf'); // Użyj swojego klucza publicznego Stripe
   
+
+useEffect(() => {
+  axios.get('http://localhost:5000/customers')
+    .then((response) => {
+      setCustomers(response.data)
+
+      const userCookie = getCookie('user')
+      if(userCookie){
+        const login = userCookie.split(';')[0]
+        const myUser = response.data.find(customer => customer.login === login)
+        if(myUser){
+          setName(myUser.name)
+          setSurname(myUser.surname)
+          setStreet(myUser.street)
+          setPostCode(myUser.postcode)
+          setCity(myUser.city)
+          setCompanyName(myUser.companyname)
+          setCompanyStreet(myUser.companystreet)
+          setCompanyPostCode(myUser.companypostcode)
+          setCompanyCity(myUser.companycity)
+          setEmail(myUser.email)
+          setInvoice(myUser.invoice)
+          setLogin(myUser.login)
+          setNewsletter(myUser.newsletter)
+          setPassword(myUser.password)
+          setPhoneNumber(myUser.phonenumber)
+          setRegulations(myUser.regulations)
+          setCompanyNip(myUser.companynip)
+          setCompanyRegon(myUser.companyregon)
+        }
+      }
+    })
+    .catch((err) => console.log('error fetching customers, error: ' + err))
+}, [])
+
+
+
+function getFormattedDate() {
+  const date = new Date();
+
+  const day = String(date.getDate()).padStart(2, '0');
+
+  const months = [
+    'styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
+    'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'
+  ];
+  const month = months[date.getMonth()];
+
+  const year = date.getFullYear();
+
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+}
+
 
 
 
@@ -77,49 +158,74 @@ const handleRemove = (id) => {
   const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price), 0);
 
   if (basket.length === 0) {
-    return <p>Koszyk jest pusty.</p>;
+    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej </Link></p>;
   }
 
 
 
-  const  handleBuyNow = async () => {
-    setCookie('newaccesses', accesses, 30)
+ // ... cała reszta kodu bez zmian
 
+const handleBuyNow = async () => {
+  setCookie('newaccesses', accesses, 30);
 
-    const userCookie = getCookie('user')
-    if(userCookie){
-       try {
+  const userCookie = getCookie('user');
+  if (!userCookie) {
+    navigate('/sign-up-or-sign-in');
+    return;
+  }
 
-        sessionStorage.setItem('paymentStarted', 'true');
+  try {
+    sessionStorage.setItem('paymentStarted', 'true');
 
+    // Zapisz dane zamówienia tymczasowo do sessionStorage
+    const orderData = {
+      name,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      password,
+      phonenumber,
+      regulations,
+      companynip,
+      companyregon,
+      ordercontent: JSON.stringify(basket),
+      orderamount: totalPrice,
+      ordertime: getFormattedDate(),
+    };
+    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+    // Tworzymy sesję Stripe
     const response = await fetch('http://localhost:5000/create-checkout-session', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: basket }),
     });
-
     const session = await response.json();
-    console.log('session z backendu:', session);
 
     const stripe = await stripePromise;
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id
-    });
+    const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
     if (result.error) {
       console.error(result.error.message);
+      sessionStorage.removeItem('paymentStarted');
+      sessionStorage.removeItem('orderData');
     }
   } catch (error) {
     sessionStorage.removeItem('paymentStarted');
+    sessionStorage.removeItem('orderData');
     console.error('Błąd podczas tworzenia sesji Stripe:', error);
   }
-      
-    }else{
-      navigate('/sign-up-or-sign-in')
-    }
-  }
+};
+
 
   return (
 <div className="app">

@@ -635,16 +635,16 @@ form.editMyProfileData {
   padding-bottom: 10px;
 }
 
-.clientsAdminWrapper {
+.clientsAdminWrapper, .ordersAdminWrapper {
   background-color: black;
 }
 
-.clientsAdminWrapper h1 {
+.clientsAdminWrapper h1, .ordersAdminWrapper h1 {
   color: white;
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
 
-.clientsAdminItem {
+.clientsAdminItem, .ordersAdminItem {
   background-color: white;
   color: black;
   border-radius: 5px;
@@ -686,7 +686,7 @@ button.buttonToDelete {
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
 
-.clientsAdminWrapper form button {
+.clientsAdminWrapper form button, .ordersAdminWrapper form button {
   background-color: rgb(42, 13, 94);
   color: white;
   font-family: 'Funnel Display', 'Verdana', sans-serif;

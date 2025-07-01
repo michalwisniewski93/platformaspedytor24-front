@@ -27,57 +27,55 @@ const SuccessPage = () => {
     const sessionId = queryParams.get('session_id');
 
     if (!sessionId) {
-      // Brak sessionId - przekieruj
       navigate('/', { replace: true });
       return;
     }
 
-    // Zapytaj backend o status płatności
     fetch(`http://localhost:5000/check-payment-status?sessionId=${sessionId}`)
       .then(res => res.json())
-      .then(data => {
+      .then(async data => {
         if (data.paid) {
-          // Płatność OK - ustaw flagę i pobierz klientów
           sessionStorage.setItem('paymentStarted', 'true');
 
+          // Pobierz dane tymczasowe zamówienia z sessionStorage
+          const orderData = JSON.parse(sessionStorage.getItem('orderData'));
+          if (!orderData) {
+            console.error("Brak danych zamówienia w sessionStorage");
+            navigate('/', { replace: true });
+            return;
+          }
+
+          // Dodaj zamówienie do bazy
+          try {
+            await axios.post('http://localhost:5000/orders', orderData);
+          } catch (error) {
+            console.error("Błąd dodawania zamówienia do bazy:", error);
+            // Możesz przekierować lub pokazać błąd użytkownikowi
+          }
+
+          // Pobierz klientów, aby zaktualizować dostęp do kursów
           axios.get('http://localhost:5000/customers')
-            .then((response) => {
-              setCustomers(response.data);
-            })
-            .catch((err) => {
-              console.log('error fetching customers, error: ' + err);
-              // Jeśli nie da się pobrać klientów, przekieruj
-              navigate('/', { replace: true });
-            });
+            .then(response => setCustomers(response.data))
+            .catch(() => navigate('/', { replace: true }));
         } else {
-          // Płatność nieudana - przekieruj
           navigate('/', { replace: true });
         }
       })
-      .catch(() => {
-        // Błąd fetch - przekieruj
-        navigate('/', { replace: true });
-      });
+      .catch(() => navigate('/', { replace: true }));
   }, [location, navigate]);
 
   useEffect(() => {
-    // Ta logika wykona się dopiero, gdy mamy customers i paymentStarted
     const paymentStarted = sessionStorage.getItem('paymentStarted');
 
     if (!paymentStarted) {
-      // Nie było płatności - przekieruj
       navigate('/', { replace: true });
       return;
     }
 
-    if (customers.length === 0) {
-      // Jeszcze nie ma klientów, czekaj
-      return;
-    }
+    if (customers.length === 0) return; // Czekaj na dane klientów
 
     const foundUser = getCookie('user');
     if (!foundUser) {
-      // Nie znaleziono user cookie, przekieruj
       navigate('/', { replace: true });
       return;
     }
@@ -100,11 +98,10 @@ const SuccessPage = () => {
     axios.put(`http://localhost:5000/customers/${editingId}`, { accesses: finalAccesses })
       .then(() => {
         deleteCookie('newaccesses');
-        // Możesz tu wyczyścić flagę płatności jeśli chcesz,
-        // aby użytkownik nie mógł odświeżać strony i ponownie robić update
         sessionStorage.removeItem('paymentStarted');
+        sessionStorage.removeItem('orderData');
       })
-      .catch((err) => console.error("Error updating customer accesses:", err));
+      .catch(err => console.error("Error updating customer accesses:", err));
 
   }, [customers, navigate]);
 
