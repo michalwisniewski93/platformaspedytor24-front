@@ -216,6 +216,9 @@ const handleClickOnBasket = () => {
   navigate('/basket')
 }
 
+const handleMyInvoices = () => {
+  navigate('/moje-faktury')
+}
 
     return (
         <>
@@ -242,6 +245,7 @@ const handleClickOnBasket = () => {
           {getCookie('user') ? <button onClick={handleMyProfile}>Profil</button> : null }
           {getCookie('user') ? <button onClick={handleMyCourses}>Moje kursy</button> : null }
           {getCookie('user') ? <button onClick={handleMyOrders}>Moje zamówienia</button> : null }
+          {getCookie('user') ? <button onClick={handleMyInvoices}>Moje faktury</button> : null }
           {getCookie('user') ? <button onClick={handleLogout}>Wyloguj się</button> : null }
           {getCookie('user') ? null : <button onClick={handleSignIn}>Zarejestruj się</button> }
           <button onClick={handleClickOnBasket}>Koszyk ({basketLength})</button>

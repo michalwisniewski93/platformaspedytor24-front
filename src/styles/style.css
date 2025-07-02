@@ -779,7 +779,7 @@ button.buttonToDelete {
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
 
-.coursesContent {
+.coursesContent, .myCoursesList {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
@@ -787,7 +787,7 @@ button.buttonToDelete {
   /* Pozwala zawijać elementy na kolejne linie */
 }
 
-.coursesContentItem {
+.coursesContentItem, .myCoursesListItem {
   width: calc(33.333% - 10px);
   /* Skorygowana szerokość dla 3 elementów w rzędzie z uwzględnieniem gap */
   box-sizing: border-box;
@@ -799,20 +799,20 @@ button.buttonToDelete {
   border-radius: 5px;
 }
 
-.coursesContentItem img {
+.coursesContentItem img, .myCoursesListItem img {
   width: 100%;
   height: auto;
   display: block;
 }
 
 @media (max-width: 600px) {
-  .coursesContentItem {
+  .coursesContentItem, .myCoursesListItem {
     width: 100%;
     /* Pełna szerokość na małych ekranach */
   }
 }
 
-.coursesContentItem button {
+.coursesContentItem button, .myCoursesListItem button {
   background-color: black;
   color: white;
   border-radius: 7px;
@@ -826,11 +826,11 @@ button.buttonToDelete {
 
 .coursesContentItem h1,
 .coursesContentItem h4,
-.coursesContentItem img {
+.coursesContentItem img, .myCoursesListItem h1, .myCoursesListItem h4, .myCoursesListItem img {
   cursor: pointer;
 }
 
-.coursesContentItem h4 {
+.coursesContentItem h4, .myCoursesListItem h4 {
   color: rgb(102, 102, 214);
 
 }
@@ -1164,5 +1164,25 @@ button.buyNowButton {
 }
 
 .logInToMakePayment, .logInToMakePayment h1 {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.fourhundredfour p {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.myOrdersPresentation h1, .myOrdersPresentation h2 {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.myOrdersPresentationItem {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  border: 1px solid rgb(102, 102, 214);
+  border-radius: 5px;
+  padding: 3px;
+  margin: 5px;
+}
+
+.myCoursesPresentation, .myCoursesPresentation h1 {
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }

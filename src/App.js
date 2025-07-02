@@ -29,6 +29,8 @@ import LogInToMakePayment from './components/LogInToMakePayment';
 import SuccessPage from './components/SuccessPage';
 import CancelPage from './components/CancelPage';
 import OrdersAdmin from './components/OrdersAdmin';
+import MyInvoices from './components/MyInvoices'
+import NotFound from './components/NotFound';
 
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
         <Route path="/success" element={<SuccessPage/>} />
         <Route path="/cancel" element={<CancelPage/>} />
         <Route path="/zamowieniaadmin" element={<OrdersAdmin/>} />
+        <Route path="/moje-faktury" element={<MyInvoices/>} />
+        <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>
     </Provider>
