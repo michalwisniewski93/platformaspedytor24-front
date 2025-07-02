@@ -1186,3 +1186,79 @@ button.buyNowButton {
 .myCoursesPresentation, .myCoursesPresentation h1 {
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
+
+.courseViewPresentation, .courseViewPresentation h1 {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.courseViewPresentation, .courseViewPresentation h1 {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.courseViewPresentationWrapper {
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  /* bardzo ważne, żeby sticky działał w flex */
+  overflow: visible;
+  /* upewnij się, że nie ma overflow: hidden lub auto */
+}
+
+.courseViewPresentationCourseContent {
+  background-color: white;
+  flex-basis: 70%;
+}
+
+.courseViewPresentationCourseContent p {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.courseViewPresentationCourseContent p iframe {
+  margin: 0 auto;
+  display: block;
+}
+
+.courseViewPresentationCourseLinks {
+
+  flex-basis: 30%;
+  position: sticky;
+  top: 10px;
+  /* odległość od góry viewport */
+  align-self: flex-start;
+  /* ważne, żeby sticky działało poprawnie w flex */
+  background-color: rgb(102, 102, 214);
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  border-radius: 5px;
+  margin: 3px;
+  color: white;
+  padding: 5px;
+}
+
+
+.courseViewPresentationCourseLinks a {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.courseViewPresentationCourseLinks a:hover {
+  color: black;
+}
+
+@media(max-width: 600px) {
+  .courseViewPresentationWrapper {
+    flex-direction: column;
+  }
+
+  .courseViewPresentationCourseContent p iframe {
+    width: 90%;
+    height: auto;
+  }
+
+  .courseViewPresentationCourseContent, .courseViewPresentationCourseLinks {
+    flex-basis: 100%;
+    width: 100%
+  }
+}

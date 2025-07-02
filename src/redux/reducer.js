@@ -15,6 +15,12 @@ const initialState = {
     temporaryCourseAuthor: '',
     temporaryCourseId: '',
     temporaryCourseAccessCode: '',
+    temporaryCourseViewId: '',
+    temporaryCourseViewNumberOfLessons: '',
+    temporaryCourseViewTitle: '',
+    temporaryCourseViewAuthor: '',
+    temporaryCourseViewCourseContent: '',
+    temporaryCourseViewCourseLinks: '',
 } 
 
 function reducer(state=initialState, action){
@@ -51,6 +57,18 @@ function reducer(state=initialState, action){
             return {...state, temporaryCourseId: action.temporaryCourseId}
         case 'CHANGE_TEMPORARY_COURSE_ACCESS_CODE':
             return {...state, temporaryCourseAccessCode: action.temporaryCourseAccessCode}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_ID':
+            return {...state, temporaryCourseViewId: action.temporaryCourseViewId}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_NUMBER_OF_LESSONS':
+            return {...state, temporaryCourseViewNumberOfLessons: action.temporaryCourseViewNumberOfLessons}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_TITLE':
+            return {...state, temporaryCourseViewTitle: action.temporaryCourseViewTitle}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_AUTHOR':
+            return {...state, temporaryCourseViewAuthor: action.temporaryCourseViewAuthor}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_COURSE_CONTENT':
+            return {...state, temporaryCourseViewCourseContent: action.temporaryCourseViewCourseContent}
+        case 'CHANGE_TEMPORARY_COURSE_VIEW_COURSE_LINKS':
+            return {...state, temporaryCourseViewCourseLinks: action.temporaryCourseViewCourseLinks}
          default:
             return {...state}
     }

@@ -30,6 +30,7 @@ import SuccessPage from './components/SuccessPage';
 import CancelPage from './components/CancelPage';
 import OrdersAdmin from './components/OrdersAdmin';
 import MyInvoices from './components/MyInvoices'
+import CourseView from './components/CourseView';
 import NotFound from './components/NotFound';
 
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/cancel" element={<CancelPage/>} />
         <Route path="/zamowieniaadmin" element={<OrdersAdmin/>} />
         <Route path="/moje-faktury" element={<MyInvoices/>} />
+        <Route path="/widok-kursu" element={<CourseView/>} />
         <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>

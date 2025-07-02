@@ -2,13 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const MyCourses = () => {
   const [hasAccess, setHasAccess] = useState(false);
   const [login, setLogin] = useState('');
   const [user, setUser] = useState(null);
   const [userAccesses, setUserAccesses] = useState([]);
-  const [courses, setCourses] = useState([]); // wszystkie kursy
+  const [courses, setCourses] = useState([]); 
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
+  const changeCourseViewId = (id) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_ID', temporaryCourseViewId: id})
+  const changeCourseViewTitle = (title) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_TITLE', temporaryCourseViewTitle: title})
+  const changeCourseViewNumberOfLessons = (numberoflessons) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_NUMBER_OF_LESSONS', temporaryCourseViewNumberOfLessons: numberoflessons})
+  const changeCourseViewAuthor = (author) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_AUTHOR', temporaryCourseViewAuthor: author})
+  const changeCourseViewCourseContent = (coursecontent) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_COURSE_CONTENT', temporaryCourseViewCourseContent: coursecontent})
+  const changeCourseViewCourseLinks = (courselinks) => dispatch({type: 'CHANGE_TEMPORARY_COURSE_VIEW_COURSE_LINKS', temporaryCourseViewCourseLinks: courselinks})
+  
+
 
   function getCookie(name) {
     const cookies = document.cookie.split('; ');
@@ -59,8 +74,15 @@ const MyCourses = () => {
 
 
 
-  const handleDisplayMore = (id, numberoflessons, author, coursecontent, courselinks) => {
-
+  const handleDisplayMore = (id, title, numberoflessons, author, coursecontent, courselinks) => {
+    
+  changeCourseViewId(id)
+  changeCourseViewNumberOfLessons(numberoflessons)
+  changeCourseViewTitle(title)
+  changeCourseViewAuthor(author)
+  changeCourseViewCourseContent(coursecontent)
+  changeCourseViewCourseLinks(courselinks)
+  navigate('/widok-kursu')
   }
 
   return (
