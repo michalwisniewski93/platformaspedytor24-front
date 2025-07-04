@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.css'
+import CookieConsent from './CookieConsent'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,6 +25,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
+      <CookieConsent/>
     </footer>
   );
 };

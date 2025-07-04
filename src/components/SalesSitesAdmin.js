@@ -3,6 +3,8 @@ import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
+
+
 const SalesSitesAdmin = () => {
   const isAdminLogged = useSelector(state => state.isAdminLogged);
   const [visibilityAddForm, setVisibilityAddForm] = useState(false);
@@ -216,6 +218,7 @@ const SalesSitesAdmin = () => {
             <div className="salesSitesPresentationOnAdmin">
               <h1>Strony sprzedażowe kursów - ({salessites.length})</h1>
               {salessites.map(site => (
+                
                 <div className="salesSitesItem" key={site._id}>
                   <h3>Tytuł kursu: {site.title}</h3>
                   <img src={`http://localhost:5000/${site.imageurl}`} alt={site.title} />
@@ -225,6 +228,7 @@ const SalesSitesAdmin = () => {
                   <div>
                     <h4>Treść sprzedażowa:</h4>
                     <div style={{ border: '1px dotted black' }} dangerouslySetInnerHTML={{ __html: site.salescontent }} />
+                    
                   </div>
                   <h4>Link do YouTube: {site.linktoyoutube}</h4>
                   <iframe
@@ -254,6 +258,7 @@ const SalesSitesAdmin = () => {
                   <button onClick={() => handleEditSalessite(site)}>Edytuj stronę</button>
                 </div>
               )).reverse()}
+              
             </div>
           </div>
         </div>

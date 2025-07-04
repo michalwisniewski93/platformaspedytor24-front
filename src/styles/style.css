@@ -427,35 +427,35 @@ input.captcha {
 }
 
 
-.addNewArticle form {
+.addNewArticle form, .editTaxDatasWrapper form {
   margin-left: 10px;
   margin-bottom: 5px;
 }
 
-.addNewArticle form label, .addNewArticle form input, .addNewArticle form textarea {
+.addNewArticle form label, .addNewArticle form input, .addNewArticle form textarea, .editTaxDatasWrapper form label, .editTaxDatasWrapper form input, .editTaxDatasWrapper form textarea {
   display: block;
 }
 
-.addNewArticle form input, .addNewArticle form textarea {
+.addNewArticle form input, .addNewArticle form textarea, .editTaxDatasWrapper form input, .editTaxDatasWrapper form textarea {
   width: 99%;
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
 
-.addNewArticle form textarea {
+.addNewArticle form textarea, .editTaxDatasWrapper form textarea {
   height: 30vh;
 }
 
-.addNewArticle form input {
+.addNewArticle form input, .editTaxDatasWrapper form input {
   height: 30px;
   font-family: 30px;
 }
 
-.addNewArticle form input {
+.addNewArticle form input, .editTaxDatasWrapper form input {
   border: 2px solid black;
   border-radius: 5px;
 }
 
-.addNewArticle form textarea {
+.addNewArticle form textarea, .editTaxDatasWrapper form textarea {
   border: 2px solid black;
   border-radius: 5px;
 }
@@ -1261,4 +1261,39 @@ button.buyNowButton {
     flex-basis: 100%;
     width: 100%
   }
+}
+
+.invoicesAdminWrapper {
+  background-color: black;
+  color: white;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.invoicesAdminWrapper h1 {
+  color: white;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.taxdatasPresentation {
+  margin: 5px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+
+.taxdatasPresentation h2 {
+  color: black;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+
+.editTaxDatasWrapper {
+  background-color: white;
+  color: black;
+}
+
+.editTaxDatasWrapper h3 {
+  color: black;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
