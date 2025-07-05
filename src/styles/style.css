@@ -1297,3 +1297,14 @@ button.buyNowButton {
   color: black;
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
+
+h1.courseLabel {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  display: block;
+  background-color: rgb(102, 102, 214);
+  color: white;
+  font-size: 23px;
+  margin: 5px;
+  border-radius: 5px;
+
+}

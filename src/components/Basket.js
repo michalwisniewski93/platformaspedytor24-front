@@ -30,6 +30,9 @@ const [regulations, setRegulations] = useState(false)
 const [companynip, setCompanyNip] = useState(0)
 const [companyregon, setCompanyRegon] = useState(0)
 
+
+const [taxdatas, setTaxDatas] = useState([])
+
    
 
 
@@ -39,6 +42,16 @@ const [companyregon, setCompanyRegon] = useState(0)
   
   const stripePromise = loadStripe('pk_live_51RfLvJAmHEF4S4jOFufZ6W3hId3WQPoYP89kmoLS57Anyn33rI0Ndt0Kr2rYSIIly1a7z5qrWseCHZ6dAGRrncAe00TShy05sf'); // Użyj swojego klucza publicznego Stripe
   
+useEffect(() => {
+  axios.get('http://localhost:5000/taxdatas')
+  .then((response) => {setTaxDatas(response.data)})
+   .catch((err) => console.log('error fetching taxdatas, error: ' + err))
+
+  
+
+
+
+}, [])
 
 useEffect(() => {
   axios.get('http://localhost:5000/customers')
@@ -177,7 +190,6 @@ const handleBuyNow = async () => {
   try {
     sessionStorage.setItem('paymentStarted', 'true');
 
-    // Zapisz dane zamówienia tymczasowo do sessionStorage
     const orderData = {
       name,
       surname,
@@ -201,17 +213,29 @@ const handleBuyNow = async () => {
       orderamount: totalPrice,
       ordertime: getFormattedDate(),
     };
+
+    // Zapisz dane tymczasowo w sessionStorage
     sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
-    // Tworzymy sesję Stripe
+    //  Dodaj zamówienie do bazy (axios POST do /orders)
+    await axios.post('http://localhost:5000/orders', orderData)
+      .then(() => {
+        
+      })
+      .catch(err => {
+        console.error('Błąd przy dodawaniu zamówienia', err);
+      });
+
+    // 👉 Tworzenie sesji Stripe
     const response = await fetch('http://localhost:5000/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: basket }),
     });
-    const session = await response.json();
 
+    const session = await response.json();
     const stripe = await stripePromise;
+
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
     if (result.error) {
@@ -222,9 +246,10 @@ const handleBuyNow = async () => {
   } catch (error) {
     sessionStorage.removeItem('paymentStarted');
     sessionStorage.removeItem('orderData');
-    console.error('Błąd podczas tworzenia sesji Stripe:', error);
+    console.error('Błąd w handleBuyNow:', error);
   }
 };
+
 
 
   return (
