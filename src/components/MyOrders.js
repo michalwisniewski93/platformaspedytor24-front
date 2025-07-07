@@ -61,9 +61,7 @@ const MyOrders = () => {
                     <p>
                       e-mail: {order.email} numer telefonu: {order.phonenumber}
                     </p>
-                    <p>
-                      login: {order.login} hasło: {order.password}
-                    </p>
+                    
                     <p>newsletter: {order.newsletter ? 'TAK' : 'NIE'}</p>
                     <p>regulamin: {order.regulations ? 'TAK' : 'NIE'}</p>
                     <p>faktura: {order.invoice ? 'TAK' : 'NIE'}</p>
