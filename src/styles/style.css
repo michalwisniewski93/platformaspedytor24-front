@@ -1308,3 +1308,24 @@ h1.courseLabel {
   border-radius: 5px;
 
 }
+
+
+.invoicesAdminPresentationList {
+  background-color: black;
+  color: white;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.invoicesAdminPresentationList h1 {
+  color: white;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.invoicesAdminPresentationList .singleInvoice {
+  background-color: white;
+  color: black;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  margin: 10px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
