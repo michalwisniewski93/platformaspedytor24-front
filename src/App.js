@@ -32,6 +32,8 @@ import OrdersAdmin from './components/OrdersAdmin';
 import MyInvoices from './components/MyInvoices'
 import CourseView from './components/CourseView';
 import InvoicesAdmin from './components/InvoicesAdmin';
+import MyInvoiceView from './components/MyInvoiceView';
+import ShowSingleInvoiceAdmin from './components/ShowSingleInvoiceAdmin';
 import NotFound from './components/NotFound';
 
 
@@ -71,6 +73,8 @@ function App() {
         <Route path="/moje-faktury" element={<MyInvoices/>} />
         <Route path="/widok-kursu" element={<CourseView/>} />
         <Route path="/fakturyadmin" element={<InvoicesAdmin/>} />
+        <Route path="/faktura" element={<MyInvoiceView/>} />
+        <Route path="/widokfaktury" element={<ShowSingleInvoiceAdmin/>} />
         <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>

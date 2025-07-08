@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const InvoicesAdmin = () => {
  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const isAdminLogged = useSelector(state => state.isAdminLogged);
 
   const [taxdatas, setTaxdatas] = useState([])
@@ -63,6 +66,41 @@ const [correctioninvoiceterm, Setcorrectioninvoiceterm] = useState('')
 const [correctionordertime, Setcorrectionordertime] = useState('')     
 const [correctionlogin, Setcorrectionlogin] = useState('') 
 const [correctionid, setCorrectionid] = useState('')
+
+
+
+useEffect(() => {
+  dispatch({
+    type: 'CHANGE_INVOICE_DATA',
+    invoicenumber: '',
+    invoicedateofissue: '',
+    dateofsale: '',
+    sellercompanyname: '',
+    sellercompanystreet: '',
+    sellercompanypostcode: '',
+    sellercompanycity: '',
+    sellercompanynip: '',
+    sellercompanyregon: '',
+    customername: '',
+    customersurname: '',
+    customerstreet: '',
+    customerpostcode: '',
+    customercity: '',
+    customercompanyname: '',
+    customercompanystreet: '',
+    customercompanypostcode: '',
+    customercompanycity: '',
+    customerinvoice: '',
+    customercompanynip: '',
+    customercompanyregon: '',
+    ordercontent: '',
+    orderamount: '',
+    basisforvatexemption: '',
+    paymentterm: '',
+    ordertime: '',
+    login: ''
+  });
+}, []);
 
 
   
@@ -280,6 +318,70 @@ invoicenumber: correctioninvoicenumber,
 
   setIsForm2Visible(false)
 }
+
+
+
+const handleShowInvoice = (
+  invoicenumber,
+  invoicedateofissue,
+  dateofsale,
+  sellercompanyname,
+  sellercompanystreet,
+  sellercompanypostcode,
+  sellercompanycity,
+  sellercompanynip,
+  sellercompanyregon,
+  customername,
+  customersurname,
+  customerstreet,
+  customerpostcode,
+  customercity,
+  customercompanyname,
+  customercompanystreet,
+  customercompanypostcode,
+  customercompanycity,
+  customerinvoice,
+  customercompanynip,
+  customercompanyregon,
+  ordercontent,
+  orderamount,
+  basisforvatexemption,
+  paymentterm,
+  ordertime,
+  login
+) => {
+ dispatch({
+    type: 'CHANGE_INVOICE_DATA',
+    invoicenumber,
+    invoicedateofissue,
+    dateofsale,
+    sellercompanyname,
+    sellercompanystreet,
+    sellercompanypostcode,
+    sellercompanycity,
+    sellercompanynip,
+    sellercompanyregon,
+    customername,
+    customersurname,
+    customerstreet,
+    customerpostcode,
+    customercity,
+    customercompanyname,
+    customercompanystreet,
+    customercompanypostcode,
+    customercompanycity,
+    customerinvoice,
+    customercompanynip,
+    customercompanyregon,
+    ordercontent,
+    orderamount,
+    basisforvatexemption,
+    paymentterm,
+    ordertime,
+    login
+  });
+  navigate('/widokfaktury')
+};
 
  
 
@@ -606,7 +708,36 @@ invoicenumber: correctioninvoicenumber,
                 <p><strong>Login:</strong>{invoice.login}</p>
                 <button className="buttonToEdit" onClick={() => handleEditInvoice(invoice._id, invoice.invoicenumber, invoice.invoicedateofissue, invoice.dateofsale, invoice.sellercompanyname, invoice.sellercompanystreet, invoice.sellercompanypostcode, invoice.sellercompanycity, invoice.sellercompanynip, invoice.sellercompanyregon, invoice.customername, invoice.customersurname, invoice.customerstreet, invoice.customerpostcode, invoice.customercity, invoice.customercompanyname, invoice.customercompanystreet, invoice.customercompanypostcode, invoice.customercompanycity, invoice.customerinvoice, invoice.customercompanynip, invoice.customercompanyregon, invoice.ordercontent, invoice.orderamount, invoice.basisforvatexemption, invoice.paymentterm, invoice.ordertime, invoice.login)
 }>Koryguj fakturę</button>
-                <button className="buttonToEdit">Zobacz fakturę</button>
+                <button className="buttonToEdit" onClick={() => handleShowInvoice(
+  invoice.invoicenumber,
+  invoice.invoicedateofissue,
+  invoice.dateofsale,
+  invoice.sellercompanyname,
+  invoice.sellercompanystreet,
+  invoice.sellercompanypostcode,
+  invoice.sellercompanycity,
+  invoice.sellercompanynip,
+  invoice.sellercompanyregon,
+  invoice.customername,
+  invoice.customersurname,
+  invoice.customerstreet,
+  invoice.customerpostcode,
+  invoice.customercity,
+  invoice.customercompanyname,
+  invoice.customercompanystreet,
+  invoice.customercompanypostcode,
+  invoice.customercompanycity,
+  invoice.customerinvoice,
+  invoice.customercompanynip,
+  invoice.customercompanyregon,
+  invoice.ordercontent,
+  invoice.orderamount,
+  invoice.basisforvatexemption,
+  invoice.paymentterm,
+  invoice.ordertime,
+  invoice.login
+)}
+>Zobacz fakturę</button>
               </div>
               ))}
             </div>

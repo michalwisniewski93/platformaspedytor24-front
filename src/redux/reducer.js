@@ -21,6 +21,34 @@ const initialState = {
     temporaryCourseViewAuthor: '',
     temporaryCourseViewCourseContent: '',
     temporaryCourseViewCourseLinks: '',
+
+    invoicenumber: '',
+    invoicedateofissue: '',
+    dateofsale: '',
+    sellercompanyname: '',
+    sellercompanystreet: '',
+    sellercompanypostcode: '',
+    sellercompanycity: '',
+    sellercompanynip: '',
+    sellercompanyregon: '',
+    customername: '',
+    customersurname: '',
+    customerstreet: '',
+    customerpostcode: '',
+    customercity: '',
+    customercompanyname: '',
+    customercompanystreet: '',
+    customercompanypostcode: '',
+    customercompanycity: '',
+    customerinvoice: '',
+    customercompanynip: '',
+    customercompanyregon: '',
+    ordercontent: '',
+    orderamount: '',
+    basisforvatexemption: '',
+    paymentterm: '',
+    ordertime: '',
+    login: '',
 } 
 
 function reducer(state=initialState, action){
@@ -69,6 +97,36 @@ function reducer(state=initialState, action){
             return {...state, temporaryCourseViewCourseContent: action.temporaryCourseViewCourseContent}
         case 'CHANGE_TEMPORARY_COURSE_VIEW_COURSE_LINKS':
             return {...state, temporaryCourseViewCourseLinks: action.temporaryCourseViewCourseLinks}
+        case 'CHANGE_INVOICE_DATA':
+            return {...state, 
+                invoicenumber: action.invoicenumber,
+    invoicedateofissue: action.invoicedateofissue,
+    dateofsale: action.dateofsale,
+    sellercompanyname: action.sellercompanyname,
+    sellercompanystreet: action.sellercompanystreet,
+    sellercompanypostcode: action.sellercompanypostcode,
+    sellercompanycity: action.sellercompanycity,
+    sellercompanynip: action.sellercompanynip,
+    sellercompanyregon: action.sellercompanyregon,
+    customername: action.customername,
+    customersurname: action.customersurname,
+    customerstreet: action.customerstreet,
+    customerpostcode: action.customerpostcode,
+    customercity: action.customercity,
+    customercompanyname: action.customercompanyname,
+    customercompanystreet: action.customercompanystreet,
+    customercompanypostcode: action.customercompanypostcode,
+    customercompanycity: action.customercompanycity,
+    customerinvoice: action.customerinvoice,
+    customercompanynip: action.customercompanynip,
+    customercompanyregon: action.customercompanyregon,
+    ordercontent: action.ordercontent,
+    orderamount: action.orderamount,
+    basisforvatexemption: action.basisforvatexemption,
+    paymentterm: action.paymentterm,
+    ordertime: action.ordertime,
+    login: action.login,
+            }
          default:
             return {...state}
     }

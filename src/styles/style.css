@@ -1329,3 +1329,65 @@ h1.courseLabel {
   border: 1px solid transparent;
   border-radius: 5px;
 }
+
+
+.singleInvoiceView h1, .singleInvoiceForUserView {
+  color: black;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
+
+.singleInvoiceForUserView {
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.firstDataInvoice {
+  text-align: center;
+}
+
+.secondDataInvoice {
+  display: flex;
+}
+
+.sellerdata, .customerdata {
+  flex-basis: 50%;
+}
+
+
+.fifthDataInvoice {
+  display: flex;
+}
+
+.signseller, .signcustomer {
+  flex-basis: 50%;
+}
+
+
+@media print {
+  .print-button {
+    display: none;
+  }
+}
+
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.invoice-table th,
+.invoice-table td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  vertical-align: top;
+}
+
+.invoice-table th {
+  background-color: #f0f0f0;
+  /* wyszarzenie */
+  text-align: left;
+  font-weight: bold;
+}
