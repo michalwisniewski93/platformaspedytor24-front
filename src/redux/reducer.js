@@ -21,7 +21,6 @@ const initialState = {
     temporaryCourseViewAuthor: '',
     temporaryCourseViewCourseContent: '',
     temporaryCourseViewCourseLinks: '',
-
     invoicenumber: '',
     invoicedateofissue: '',
     dateofsale: '',

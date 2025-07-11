@@ -50,7 +50,7 @@ const MyCourses = () => {
             setUser(foundUser);
 
             const rawAccesses = foundUser.accesses || '';
-            const accessList = rawAccesses.split(/[\s;,]+/).filter(Boolean); // usuń puste wartości
+            const accessList = rawAccesses.split(/[\s;,]+/).filter(Boolean); 
             setUserAccesses(accessList);
           }
         })

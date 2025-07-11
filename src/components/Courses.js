@@ -60,9 +60,9 @@ const Courses = () => {
                     <h1>Kursy z certyfikatem</h1>
                     <div className="coursesContent">
                         {courses.map(course => <div className="coursesContentItem" key={course._id}>
-                         <img src={`http://localhost:5000/${course.imageurl}`} alt={course.title} onClick={handleDisplayMore} />
-                         <h1 onClick={handleDisplayMore}>{course.title}</h1>
-                         <h4 onClick={handleDisplayMore}>{course.price} zł</h4>
+                         <img src={`http://localhost:5000/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)} />
+                         <h1 onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.title}</h1>
+                         <h4 onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.price} zł</h4>
                          <button onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>Zobacz więcej</button>
                         </div>)}
                     </div>

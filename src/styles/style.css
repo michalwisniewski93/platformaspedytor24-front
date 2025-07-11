@@ -1391,3 +1391,76 @@ h1.courseLabel {
   text-align: left;
   font-weight: bold;
 }
+
+
+.certContent {
+  width: 1024px;
+  height: 1536px;
+  text-align: center;
+  background-image: url('../images/certificateframe.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+
+}
+
+.certContent .certHero {
+  margin-top: 200px;
+  font-size: 100px;
+}
+
+.certContent .success1 {
+  font-size: 45px;
+}
+
+.certContent .success2 {
+  margin-top: 30px;
+}
+
+.certContent .success3 {
+  margin-top: 45px;
+}
+
+.certContent .userofcert {
+  font-size: 70px;
+  margin-top: 30px;
+}
+
+.certContent .title {
+  font-size: 50px;
+  width: 700px;
+  margin: 50px auto 0 auto;
+  font-size: 50px;
+}
+
+
+.certContent .footercert {
+  display: flex;
+  flex-direction: row;
+}
+
+.footer1, .footer2 {
+  flex-basis: 50%;
+}
+
+.footer1 {
+  text-align: center;
+  font-size: 20px;
+  margin-left: 140px;
+}
+
+.footer2 {
+  text-align: center;
+  font-size: 20px;
+  margin-right: 140px;
+}
+
+.certContent .footercert {
+  margin-top: 100px;
+}
+
+.certContent .footerlogo {
+  margin-top: 30px;
+  font-size: 30px;
+}
