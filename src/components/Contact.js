@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import axios from 'axios'
@@ -24,25 +24,66 @@ const [email, setEmail] = useState('')
 const [messageContent, setMessageContent] = useState('')
 const [tickets, setTickets] = useState([])
 
+const [num1, setNum1] = useState(0)
+const [num2, setNum2] = useState(0)
+const [userAnswer, setUserAnswer] = useState('')
+const [captchaError, setCaptchaError] = useState('')
+
+
+
+
+const generateCaptcha = () => {
+  const a = Math.floor(Math.random() * 10) + 1
+  const b = Math.floor(Math.random() * 10) + 1
+  setNum1(a)
+  setNum2(b)
+  setUserAnswer('')
+  setCaptchaError('')
+}
+
+
+useEffect(() => {
+  generateCaptcha()
+}, [])
+
 
 const handleMessage = (e) => {
-e.preventDefault()
-     
+  e.preventDefault();
 
-    const message = messageContent
-    const time = formatted
-    const status = false
+  const correctAnswer = num1 + num2;
+  const answer = parseInt(userAnswer);
 
-    axios.post("http://localhost:5000/tickets", {nameandsurname, email, message, time, status})
-        .then((response => setTickets([...tickets, response.data])))
-        .catch(err => console.error('Error adding tickets', err))
-    alert('Wiadomość została wysłana, dziękujemy.')
-    setNameandsurname('')
-    setEmail('')
-    setMessageContent('')
-    setTickets('')
+  if (isNaN(answer) || answer !== correctAnswer) {
+    setCaptchaError('Niepoprawna odpowiedź. Spróbuj ponownie.');
+    return; // NIE generuj nowej captcha od razu
+  }
 
-}
+  // CAPTCHA ok — więc nowa captcha może być wygenerowana:
+  generateCaptcha();
+  setCaptchaError('');
+
+  const message = messageContent;
+  const time = formatted;
+  const status = false;
+
+  axios
+    .post("http://localhost:5000/tickets", {
+      nameandsurname,
+      email,
+      message,
+      time,
+      status,
+    })
+    .then((response) => setTickets([...tickets, response.data]))
+    .catch((err) => console.error("Error adding tickets", err));
+
+  alert("Wiadomość została wysłana, dziękujemy.");
+  setNameandsurname("");
+  setEmail("");
+  setMessageContent("");
+  setTickets([]);
+};
+
 
 
 
@@ -61,7 +102,7 @@ e.preventDefault()
                 </div>
                 <div className="contactFormContainer">
                     <h3>Formularz kontaktowy</h3>
-                    <form action="">
+                    <form onSubmit={handleMessage}>
                         Czas pisania wiadomości: {formatted}
                         <label htmlFor="">Imię i nazwisko:
                             <input type="text" value={nameandsurname} onChange={(e) => setNameandsurname(e.target.value)}/>
@@ -72,7 +113,18 @@ e.preventDefault()
                         <label htmlFor="">Treść wiadomości: 
                             <textarea name="" id="" value={messageContent} onChange={(e) => setMessageContent(e.target.value)}></textarea>
                         </label>
-                        <button onClick={handleMessage}>Wyślij wiadomość {String.fromCodePoint(0x1F680)}</button>
+                        <label>
+  Potwierdź, że nie jesteś robotem: ile to {num1} + {num2}?
+  <input
+  style={{width: '50px'}}
+    type="number"
+    value={userAnswer}
+    onChange={(e) => setUserAnswer(e.target.value)}
+    required
+  />
+</label>
+{captchaError && <p style={{ color: 'red' }}>{captchaError}</p>}
+                        <button type="submit">Wyślij wiadomość {String.fromCodePoint(0x1F680)}</button>
                     </form>
                 </div>
             </div>

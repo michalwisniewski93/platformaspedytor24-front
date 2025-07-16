@@ -32,8 +32,8 @@ Każde zagadnienie omawiane jest na przykładach z życia tak abyś mógł sobie
 
 <b>Szkolenia zawierają tylko wartościową wiedzę która pozwoli Ci zarabiać pieniądze.</b><br/><br/>
 
-Kursy zostały przygotowane w taki sposób abyś mógł zostać spedytorem w ciągu 20 dni, nawet jeżeli jesteś początkujący i zielony w temacie. Wszystko oczywiście zależy od twojego zaangażowania w naukę,
-ale 20 dni to optymalny czas w którym każdy jest w stanie przyswoić podaną przeze mnie wiedzę.{String.fromCodePoint(0x1F552)}
+Kursy zostały przygotowane w taki sposób abyś mógł zostać spedytorem w ciągu 30 - 40 dni, nawet jeżeli jesteś początkujący i zielony w temacie. Wszystko oczywiście zależy od twojego zaangażowania w naukę,
+ale około miesiąc to optymalny czas w którym każdy jest w stanie przyswoić podaną przeze mnie wiedzę.{String.fromCodePoint(0x1F552)}
 <br /><br />
 {String.fromCodePoint(0x274C)} Rynek szkoleń TSL niestety zawiera często nieaktualną wiedzę - na naszej platformie jest zupełnie inaczej, stale
 aktualizujemy nasze kursy, tak abyś uczył się tego co dzisiaj jest wymagane w branży.

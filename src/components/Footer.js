@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
 
         <div style={styles.sectionRight}>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" style={styles.fbLink}>
+          <a href="https://www.facebook.com/profile.php?id=61578173259896" target="_blank" rel="noopener noreferrer" style={styles.fbLink}>
             <i className="fab fa-facebook-f" style={styles.fbIcon}></i>
           </a>
         </div>
