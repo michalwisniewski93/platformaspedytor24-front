@@ -35,6 +35,8 @@ const InvoicesAdmin = () => {
 
   const [isForm2Visible, setIsForm2Visible] = useState(false)
 
+  const [isForm3Visible, setIsForm3Visible] = useState(false)
+
 
 
 
@@ -66,6 +68,46 @@ const [correctioninvoiceterm, Setcorrectioninvoiceterm] = useState('')
 const [correctionordertime, Setcorrectionordertime] = useState('')     
 const [correctionlogin, Setcorrectionlogin] = useState('') 
 const [correctionid, setCorrectionid] = useState('')
+
+
+
+
+
+
+
+const [cinvoicenumber, setCinvoicenumber] = useState('')
+const [cdateofsale, setCdateofsale] = useState('')
+const [csellercompanyname, setCsellercompanyname] = useState('')
+const [csellercompanystreet, setCsellercompanystreet] = useState('')
+const [csellercompanypostcode, setCsellercompanypostcode] = useState('')
+const [csellercompanycity, setCsellercompanycity] = useState('')
+const [csellercompanynip, setCsellercompanynip] = useState('')
+const [csellercompanyregon, setCsellercompanyregon] = useState('')
+const [ccustomername, setCcustomername] = useState('')
+const [ccustomersurname, setCcustomersurname] = useState('')
+const [ccustomerstreet, setCcustomerstreet] = useState('')
+const [ccustomerpostcode, setCcustomerpostcode] = useState('')
+const [ccustomercity, setCcustomercity] = useState('')
+const [ccustomercompanyname, setCcustomercompanyname] = useState('')
+const [ccustomercompanystreet, setCcustomercompanystreet] = useState('')
+const [ccustomercompanypostcode, setCcustomercompanypostcode] = useState('')
+const [ccustomercompanycity, setCcustomercompanycity] = useState('')
+const [ccustomerinvoice, setCcustomerinvoice] = useState(false)
+const [ccustomercompanynip, setCcustomercompanynip] = useState('')
+const [ccustomercompanyregon, setCcustomercompanyregon] = useState('')
+const [cordercontent, setCordercontent] = useState('')
+const [corderamount, setCorderamount] = useState(0)
+const [cbasisforvatexemption, setCbasisforvatexemption] = useState('')
+const [cpaymentterm, setCpaymentterm] = useState('')
+const [cordertime, setCordertime] = useState('')
+const [clogin, setClogin] = useState('')
+const [correctionreason, setCorrectionreason] = useState('')
+const [correcteditems, setCorrecteditems] = useState('')
+
+
+const [correctives, setCorrectives] = useState([])
+
+
 
 
 
@@ -108,6 +150,12 @@ useEffect(() => {
         axios.get('http://localhost:5000/taxdatas')
         .then((response) => setTaxdatas(response.data))
         .catch((err) => console.log('error fetching taxdatas, error: ' + err))
+    }, [])
+
+      useEffect(() => {
+        axios.get('http://localhost:5000/correctives')
+        .then((response) => setCorrectives(response.data))
+        .catch((err) => console.log('error fetching correctives, error: ' + err))
     }, [])
 
     
@@ -198,6 +246,71 @@ function scrollToTop() {
     top: 0,
     behavior: 'smooth'  // opcjonalnie płynne przewijanie
   });
+}
+
+
+
+const handleCreateCorrectiveInvoice = (invoicenumber,
+   dateofsale,
+    sellercompanyname,
+     sellercompanystreet,
+      sellercompanypostcode,
+       sellercompanycity, 
+       sellercompanynip,
+        sellercompanyregon,
+         customername, 
+         customersurname, 
+         customerstreet, 
+         customerpostcode, 
+         customercity, 
+         customercompanyname, 
+         customercompanystreet, 
+         customercompanypostcode, 
+         customercompanycity, 
+         customerinvoice,
+          customercompanynip, 
+          customercompanyregon, 
+          ordercontent, 
+          orderamount, 
+          basisforvatexemption, 
+          paymentterm, 
+          ordertime,
+           login) => {
+  setIsForm3Visible(!isForm3Visible)
+  scrollToTop()
+
+setCinvoicenumber(invoicenumber)
+setCdateofsale(dateofsale)
+setCsellercompanyname(sellercompanyname)
+setCsellercompanystreet(sellercompanystreet)
+setCsellercompanypostcode(sellercompanypostcode)
+setCsellercompanycity(sellercompanycity)
+setCsellercompanynip(sellercompanynip)
+setCsellercompanyregon(sellercompanyregon)
+setCcustomername(customername)
+setCcustomersurname(customersurname)
+setCcustomerstreet(customerstreet)
+setCcustomerpostcode(customerpostcode)
+setCcustomercity(customercity)
+setCcustomercompanyname(customercompanyname)
+setCcustomercompanystreet(customercompanystreet)
+setCcustomercompanypostcode(customercompanypostcode)
+setCcustomercompanycity(customercompanycity)
+setCcustomerinvoice(customerinvoice)
+setCcustomercompanynip(customercompanynip)
+setCcustomercompanyregon(customercompanyregon)
+setCordercontent(ordercontent)
+setCorderamount(orderamount)
+setCbasisforvatexemption(basisforvatexemption)
+setCpaymentterm(paymentterm)
+setCordertime(ordertime)
+setClogin(login)
+setCorrecteditems(ordercontent)
+
+
+
+
+
 }
 
 
@@ -383,6 +496,158 @@ const handleShowInvoice = (
   navigate('/widokfaktury')
 };
 
+
+
+function getFormattedDate() {
+  const date = new Date();
+
+  const day = date.getDate();
+  const monthIndex = date.getMonth(); // 0 = styczeń, 6 = lipiec
+  const year = date.getFullYear();
+
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const seconds = date.getSeconds().toString().padStart(2, '0');
+
+  const polishMonths = [
+    'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
+    'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
+  ];
+
+  const formattedDate = `${day}-${polishMonths[monthIndex]}-${year} ${hours}:${minutes}:${seconds}`;
+  return formattedDate;
+}
+
+
+const fetchCorrectives = () => {
+  axios.get('http://localhost:5000/correctives')
+    .then((res) => setCorrectives(res.data))
+    .catch((err) => console.error('Error fetching correctives:', err));
+};
+
+
+const handleAddCorrectiveInvoice = (e) => {
+e.preventDefault()
+
+  // TUTAJ UZUPEŁNIĆ PARAMETRY 
+   axios.post("http://localhost:5000/correctives", {
+      
+      numberofcorrectiveinvoice: 'KOR/' +  cinvoicenumber,
+    dateofissuecorrectiveinvoice : getFormattedDate(),
+    dateofsale: cdateofsale,
+    numberofnativeinvoice: cinvoicenumber,
+    sellercompanyname: csellercompanyname,
+    sellercompanystreet: csellercompanystreet,
+    sellercompanypostcode: csellercompanypostcode,
+    sellercompanycity: csellercompanycity,
+    sellercompanynip: csellercompanynip,
+    sellercompanyregon: csellercompanyregon,
+    customername: ccustomername,
+    customersurname: ccustomersurname,
+    customerstreet: ccustomerstreet,
+    customerpostcode: ccustomerpostcode,
+    customercity: ccustomercity,
+    customercompanyname: ccustomercompanyname,
+    customercompanystreet: ccustomercompanystreet,
+    customercompanypostcode: ccustomercompanypostcode,
+    customercompanycity: ccustomercompanycity,
+    invoice: ccustomerinvoice,
+    customercompanynip: ccustomercompanynip,
+    customercompanyregon: ccustomercompanyregon,
+    correctionreason: correctionreason,
+    correcteditems: correcteditems,
+    summary: '',
+    orderamount: corderamount,
+    basisforvatexemption: cbasisforvatexemption,
+    paymentterm: cpaymentterm,
+    ordertime: cordertime,
+    login: clogin,
+    })
+    .then(() => {
+  setCorrecteditems('');
+  setCorrectionreason('');
+  setIsForm3Visible(false);
+  fetchCorrectives(); 
+})
+    .catch((err) => console.error("Error adding correctives", err));
+}
+
+
+
+const viewCorrectiveInvoiceAsAdmin = (
+  coradminnumberofcorrectiveinvoice,
+  coradmindateofissuecorrectiveinvoice,
+  coradmindateofsale,
+  coradminnumberofnativeinvoice,
+  coradminsellercompanyname,
+  coradminsellercompanystreet,
+  coradminsellercompanypostcode,
+  coradminsellercompanycity,
+  coradminsellercompanynip,
+  coradminsellercompanyregon,
+  coradmincustomername,
+  coradmincustomersurname,
+  coradmincustomerstreet,
+  coradmincustomerpostcode,
+  coradmincustomercity,
+  coradmincustomercompanyname,
+  coradmincustomercompanystreet,
+  coradmincustomercompanypostcode,
+  coradmincustomercompanycity,
+  coradmininvoice,
+  coradmincustomercompanynip,
+  coradmincustomercompanyregon,
+  coradmincorrectionreason,
+  coradmincorrecteditems,
+  coradminsummary,
+  coradminorderamount,
+  coradminbasisforvatexemption,
+  coradminpaymentterm,
+  coradminordertime,
+  coradminlogin
+) => {
+
+dispatch({
+  type: 'CHANGE_CORRECTIVE_ADMIN',
+  coradminnumberofcorrectiveinvoice: coradminnumberofcorrectiveinvoice,
+  coradmindateofissuecorrectiveinvoice: coradmindateofissuecorrectiveinvoice,
+  coradmindateofsale: coradmindateofsale,
+  coradminnumberofnativeinvoice: coradminnumberofnativeinvoice,
+  coradminsellercompanyname: coradminsellercompanyname,
+  coradminsellercompanystreet: coradminsellercompanystreet,
+  coradminsellercompanypostcode: coradminsellercompanypostcode,
+  coradminsellercompanycity: coradminsellercompanycity,
+  coradminsellercompanynip: coradminsellercompanynip,
+  coradminsellercompanyregon: coradminsellercompanyregon,
+  coradmincustomername: coradmincustomername,
+  coradmincustomersurname: coradmincustomersurname,
+  coradmincustomerstreet: coradmincustomerstreet,
+  coradmincustomerpostcode: coradmincustomerpostcode,
+  coradmincustomercity: coradmincustomercity,
+  coradmincustomercompanyname: coradmincustomercompanyname,
+  coradmincustomercompanystreet: coradmincustomercompanystreet,
+  coradmincustomercompanypostcode: coradmincustomercompanypostcode,
+  coradmincustomercompanycity: coradmincustomercompanycity,
+  coradmininvoice: coradmininvoice,
+  coradmincustomercompanynip: coradmincustomercompanynip,
+  coradmincustomercompanyregon: coradmincustomercompanyregon,
+  coradmincorrectionreason: coradmincorrectionreason,
+  coradmincorrecteditems: coradmincorrecteditems,
+  coradminsummary: coradminsummary,
+  coradminorderamount: coradminorderamount,
+  coradminbasisforvatexemption: coradminbasisforvatexemption,
+  coradminpaymentterm: coradminpaymentterm,
+  coradminordertime: coradminordertime,
+  coradminlogin: coradminlogin
+});
+
+
+  navigate('/widokfakturykorygujacejadmin')
+
+}
+
+
+
  
 
   return (
@@ -427,6 +692,35 @@ const handleShowInvoice = (
             <div>
                 <h3 className="adminInfo1" style={{color: 'black'}}>Aktualny obrót w roku {new Date().getFullYear().toString()} to {totalamount} zł. Jeśli przekroczy 200 000 zł zmień stawkę VAT z 0 na 23% i ustaw podstawę zwolnienia z VAT na pusty string lub znak "-". </h3>
             </div>
+            {isForm3Visible ? (<>
+            <h1 style={{marginBottom: '10px', marginTop: '10px'}}>Wystaw fakturę korygującą</h1>
+            <div className="editTaxDatasWrapper  handleAddCorrectiveInvoiceForm">
+              <form onSubmit={handleAddCorrectiveInvoice}>
+
+
+               
+                <label>Powód korekty np. Zwrot produktu „Szkoła kontaktów” przez klienta w dniu 16.07.2025.<input type="text" value={correctionreason} onChange={(e) => setCorrectionreason(e.target.value)} /></label>
+                <label>Pozycje korygowane (tabela JSON)
+                  <br/>
+                  Zawiera zakupione produkty w tablicy formacie JSON np.  jest tablica a wewnątrz jej obiekty (klamerka otwierająca i zamykająca)
+                  <br/>
+                  To co musisz zrobić to zostawić w tej tablicy produkt który ma być zwracany np. jeżeli 'React od podstaw' ktoś chce zwrócić to zostaw w tablicy tylko ten obiekt a inne obiekty pousuwaj.<br/>
+                  Ten produkt będzie widniał jako przedmiot korekty faktury.<br/>
+                  
+                  <textarea style={{height: '120px'}} type="text" value={correcteditems} onChange={(e) => setCorrecteditems(e.target.value)}/></label>
+                
+                
+
+                <button type="submit" className="buttonToEdit">Dodaj fakturę korygującą</button>
+              </form>
+              </div>
+
+
+
+            </>) : null}
+
+
+
             {isForm2Visible ? (
             <div className="editTaxDatasWrapper editInvoiceDataWrapper">
             <form onSubmit={handleSubmit2}>
@@ -706,8 +1000,7 @@ const handleShowInvoice = (
                 <p><strong>Termin płatności: </strong> {invoice.paymentterm}</p>
                 <p><strong>Czas zamówienia: </strong>{invoice.ordertime}</p>
                 <p><strong>Login:</strong>{invoice.login}</p>
-                <button className="buttonToEdit" onClick={() => handleEditInvoice(invoice._id, invoice.invoicenumber, invoice.invoicedateofissue, invoice.dateofsale, invoice.sellercompanyname, invoice.sellercompanystreet, invoice.sellercompanypostcode, invoice.sellercompanycity, invoice.sellercompanynip, invoice.sellercompanyregon, invoice.customername, invoice.customersurname, invoice.customerstreet, invoice.customerpostcode, invoice.customercity, invoice.customercompanyname, invoice.customercompanystreet, invoice.customercompanypostcode, invoice.customercompanycity, invoice.customerinvoice, invoice.customercompanynip, invoice.customercompanyregon, invoice.ordercontent, invoice.orderamount, invoice.basisforvatexemption, invoice.paymentterm, invoice.ordertime, invoice.login)
-}>Koryguj fakturę</button>
+                
                 <button className="buttonToEdit" onClick={() => handleShowInvoice(
   invoice.invoicenumber,
   invoice.invoicedateofissue,
@@ -738,8 +1031,78 @@ const handleShowInvoice = (
   invoice.login
 )}
 >Zobacz fakturę</button>
+<button className="buttonToEdit" onClick={() => handleCreateCorrectiveInvoice(invoice.invoicenumber, invoice.dateofsale, invoice.sellercompanyname, invoice.sellercompanystreet, invoice.sellercompanypostcode, invoice.sellercompanycity, invoice.sellercompanynip, invoice.sellercompanyregon, invoice.customername, invoice.customersurname, invoice.customerstreet, invoice.customerpostcode, invoice.customercity, invoice.customercompanyname, invoice.customercompanystreet, invoice.customercompanypostcode, invoice.customercompanycity, invoice.customerinvoice, invoice.customercompanynip, invoice.customercompanyregon, invoice.ordercontent, invoice.orderamount, invoice.basisforvatexemption, invoice.paymentterm, invoice.ordertime, invoice.login)}>Wystaw fakturę korygującą do tej faktury</button>
               </div>
               ))}
+            </div>
+            <div className="invoicesAdminPresentationList">
+              <h1>Lista faktur korygujących: </h1>
+              {correctives.map(corrective => (
+              <div className="singleInvoice">
+                <p><strong>numer faktury korygującej: </strong> {corrective.numberofcorrectiveinvoice}</p>
+                <p><strong>data wystawienia faktury korygującej: {corrective.dateofissuecorrectiveinvoice}</strong></p>
+                <p><strong>data sprzedaży:</strong> {corrective.dateofsale}</p>
+                <p><strong>numer pierwotnej faktury: </strong> {corrective.numberofnativeinvoice}</p>
+                <p><strong>nazwa firmy sprzedającego: </strong>{corrective.sellercompanyname}</p>
+                <p><strong>adres firmy sprzedającego ulica nr mieszkania/nr domu: </strong>{corrective.sellercompanystreet}</p>
+                <p><strong>kod pocztowy firmy sprzedającego: </strong>{corrective.sellercompanypostcode}</p>
+                <p><strong>miasto firmy sprzedającego: </strong>{corrective.sellercompanycity}</p>
+                <p><strong>NIP firmy sprzedającego: </strong>{corrective.sellercompanynip}</p>
+                <p><strong>REGON firmy sprzedającego: </strong>{corrective.sellercompanyregon}</p>
+                <p><strong>imię klienta: </strong>{corrective.customername}</p>
+                <p><strong>nazwisko klienta: </strong>{corrective.customersurname}</p>
+                <p><strong>ulica nr mieszkania/nr domu klienta: </strong>{corrective.customerstreet}</p>
+                <p><strong>kod pocztowy klienta: </strong>{corrective.customerpostcode}</p>
+                <p><strong>miasto klienta: </strong>{corrective.customercity}</p>
+                <p><strong>nazwa firmy klienta: </strong>{corrective.customercompanyname}</p>
+                <p><strong>adres firmy klienta ulica nr domu/nr mieszkania: </strong>{corrective.customercompanystreet}</p>
+                <p><strong>kod pocztowy firmy klienta: </strong>{corrective.customercompanypostcode}</p>
+                <p><strong>miasto firmy klienta: </strong>{corrective.customercompanycity}</p>
+                <p><strong>czy chce fakturę?: </strong>{corrective.invoice ? 'TAK' : 'NIE'}</p>
+                <p><strong>NIP firmy klienta: </strong>{corrective.customercompanynip}</p>
+                <p><strong>REGON firmy klienta: </strong>{corrective.customercompanyregon}</p>
+                <p><strong>Powód korekty: </strong>{corrective.correctionreason}</p>
+                <p><strong>Zwracane produkty: </strong></p>
+                <table>
+  <thead>
+    <tr>
+      <th>L.p.</th>
+      <th>Tytuł</th>
+      <th>Autor</th>
+      <th>Cena brutto</th>
+    </tr>
+  </thead>
+  <tbody>
+    {JSON.parse(corrective.correcteditems).map((item, index) => (
+      <tr key={index}>
+        <td>{index + 1}</td>
+        <td>{item.title}</td>
+        <td>{item.author}</td>
+        <td>{item.price} zł</td>
+      </tr>
+    ))}
+  </tbody>
+                </table>
+                <p><strong>Podsumowanie: </strong>generuje system na fakturze korygującej</p>
+                <p><strong>Kwota zamówienia z faktury pierwotnej: </strong>{corrective.orderamount}</p>
+                <p><strong>Podstawa zwolnienia z VAT: </strong>{corrective.basisforvatexemption}</p>
+                <p><strong>Termin płatności z faktury pierwotnej: </strong>{corrective.paymentterm}</p>
+                <p><strong>Czas zamówienia z faktury pierwotnej: </strong>{corrective.ordertime}</p>
+                <p><strong>Login klienta: </strong>{corrective.login}</p>
+                
+             
+
+               <button className="buttonToEdit" onClick={() => viewCorrectiveInvoiceAsAdmin(corrective.numberofcorrectiveinvoice, corrective.dateofissuecorrectiveinvoice, corrective.dateofsale, corrective.numberofnativeinvoice, corrective.sellercompanyname, corrective.sellercompanystreet, corrective.sellercompanypostcode, corrective.sellercompanycity, corrective.sellercompanynip, corrective.sellercompanyregon, corrective.customername, corrective.customersurname, corrective.customerstreet, corrective.customerpostcode, corrective.customercity, corrective.customercompanyname, corrective.customercompanystreet, corrective.customercompanypostcode, corrective.customercompanycity, corrective.invoice, corrective.customercompanynip, corrective.customercompanyregon, corrective.correctionreason, corrective.correcteditems, corrective.summary, corrective.orderamount, corrective.basisforvatexemption, corrective.paymentterm, corrective.ordertime, corrective.login)
+}>Zobacz fakturę korygującą</button>
+                
+            
+     </div>
+              ))}
+            </div>
+
+            <div className="invoicesAdminPresentationList">
+              <h1>Wygeneruj raport zbiorczy faktur (faktury + faktury korygujące)</h1>
+              <button className="buttonToEdit">Wygeneruj raport do wydruku</button>
             </div>
             
           </div>

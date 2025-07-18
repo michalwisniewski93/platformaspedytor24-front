@@ -146,6 +146,7 @@ const handlePrint = () => {
            <table className="invoice-table">
   <thead>
     <tr>
+      <th>L.p.</th>
       <th>Opis produktu lub usługi</th>
       <th>Ilość</th>
       <th></th>
@@ -154,13 +155,20 @@ const handlePrint = () => {
   <tbody>
     {JSON.parse(ordercontent).map((item, index) => (
       <tr key={index}>
+        <td>{index + 1}</td> {/* L.p. */}
         <td>{item.title}</td>
         <td>1 szt.</td>
         <td>
-            <p>Cena jednostkowa brutto: {item.price} zł</p>
-            <p>Wartość netto: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>{(item.price/1.23).toFixed(2)} zł</>) : (<>{item.price} zł</>)} </p>
-            <p>Stawka VAT: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>23%</>) : (<>zw. (zwolnione)</>)}</p>
-            <p>Kwota VAT: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>{item.price - (item.price/1.23)}</>) : (<>0,00 zł</>)}</p>
+
+
+<p>Cena jednostkowa netto: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>{(item.price/1.23).toFixed(2)} zł</>) : (<>{item.price} zł</>)} </p>
+<p>Stawka VAT: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>23%</>) : (<>zwolnione (art. 113 ust. 1 ustawy o VAT)</>)}</p>
+<p>Kwota VAT: {basisforvatexemption === '' || basisforvatexemption === '-' ? (<>{(item.price - (item.price/1.23)).toFixed(2)} zł</>) : (<>0,00 zł</>)}</p>         
+<p>Cena jednostkowa brutto: {item.price} zł</p>
+
+
+
+
             
         </td>
       </tr>

@@ -99,8 +99,8 @@ const MyCourses = () => {
                   <div className="myCoursesList">
                     {availableCourses.map(course => (
                       <div className="myCoursesListItem">
-                        <img src={`http://localhost:5000/${course.imageurl}`} alt={course.title} onClick={handleDisplayMore} />
-                         <h1 onClick={handleDisplayMore}>{course.title}</h1>
+                        <img src={`http://localhost:5000/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)} />
+                         <h1 onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>{course.title}</h1>
                          <button onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>Oglądaj</button>
                         
                       </div>
