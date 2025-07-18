@@ -673,6 +673,7 @@ dispatch({
                     </form>
                 </div>
             ): null}
+            
             <h1>Faktury Admin</h1>
             {taxdatas.map(taxdata => (
                 <div className="taxdatasPresentation" key={taxdata._id}>

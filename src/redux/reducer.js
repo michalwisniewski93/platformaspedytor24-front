@@ -78,6 +78,45 @@ coradminbasisforvatexemption: '',
 coradminpaymentterm: '',
 coradminordertime: '',
 coradminlogin: '',
+
+
+
+
+corusnumberofcorrectiveinvoice: '',
+     corusdateofissuecorrectiveinvoice: '',
+    corusdateofsale: '',
+    corusnumberofnativeinvoice: '',
+        corussellercompanyname: '',
+         corussellercompanystreet: '',
+          corussellercompanypostcode: '',
+           corussellercompanycity: '',
+            corussellercompanynip: '',
+            corussellercompanyregon: '',
+            coruscustomername: '',
+            coruscustomersurname: '', 
+            coruscustomerstreet: '',
+            coruscustomerpostcode: '',
+            coruscustomercity: '',
+            coruscustomercompanyname: '',
+            coruscustomercompanystreet: '',
+            coruscustomercompanypostcode: '',
+            coruscustomercompanycity: '',
+            corusinvoice: false,
+            coruscustomercompanynip: '',
+            coruscustomercompanyregon: '',
+            coruscorrectionreason: '',
+            coruscorrecteditems: '',
+            corussummary: '',
+            corusorderamount: 0,
+            corusbasisforvatexemption: '',
+            coruspaymentterm: '',
+            corusordertime: '',
+            coruslogin: '',
+
+
+
+
+
 } 
 
 function reducer(state=initialState, action){
@@ -189,6 +228,41 @@ coradminpaymentterm: action.coradminpaymentterm,
 coradminordertime: action.coradminordertime,
 coradminlogin: action.coradminlogin,
             }
+        case 'CHANGE_COR_USER':
+        return {
+  ...state,
+  corusnumberofcorrectiveinvoice: action.corusnumberofcorrectiveinvoice,
+  corusdateofissuecorrectiveinvoice: action.corusdateofissuecorrectiveinvoice,
+  corusdateofsale: action.corusdateofsale,
+  corusnumberofnativeinvoice: action.corusnumberofnativeinvoice,
+  corussellercompanyname: action.corussellercompanyname,
+  corussellercompanystreet: action.corussellercompanystreet,
+  corussellercompanypostcode: action.corussellercompanypostcode,
+  corussellercompanycity: action.corussellercompanycity,
+  corussellercompanynip: action.corussellercompanynip,
+  corussellercompanyregon: action.corussellercompanyregon,
+  coruscustomername: action.coruscustomername,
+  coruscustomersurname: action.coruscustomersurname,
+  coruscustomerstreet: action.coruscustomerstreet,
+  coruscustomerpostcode: action.coruscustomerpostcode,
+  coruscustomercity: action.coruscustomercity,
+  coruscustomercompanyname: action.coruscustomercompanyname,
+  coruscustomercompanystreet: action.coruscustomercompanystreet,
+  coruscustomercompanypostcode: action.coruscustomercompanypostcode,
+  coruscustomercompanycity: action.coruscustomercompanycity,
+  corusinvoice: action.corusinvoice,
+  coruscustomercompanynip: action.coruscustomercompanynip,
+  coruscustomercompanyregon: action.coruscustomercompanyregon,
+  coruscorrectionreason: action.coruscorrectionreason,
+  coruscorrecteditems: action.coruscorrecteditems,
+  corussummary: action.corussummary,
+  corusorderamount: action.corusorderamount,
+  corusbasisforvatexemption: action.corusbasisforvatexemption,
+  coruspaymentterm: action.coruspaymentterm,
+  corusordertime: action.corusordertime,
+  coruslogin: action.coruslogin
+}
+
          default:
             return {...state}
     }

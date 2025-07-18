@@ -35,6 +35,7 @@ import InvoicesAdmin from './components/InvoicesAdmin';
 import MyInvoiceView from './components/MyInvoiceView';
 import ShowSingleInvoiceAdmin from './components/ShowSingleInvoiceAdmin';
 import CorrectiveViewAdmin from './components/CorrectiveViewAdmin';
+import CorrectiveUserInvoiceView from './components/CorrectiveUserInvoiceView';
 import NotFound from './components/NotFound';
 
 
@@ -77,6 +78,7 @@ function App() {
         <Route path="/faktura" element={<MyInvoiceView/>} />
         <Route path="/widokfaktury" element={<ShowSingleInvoiceAdmin/>} />
         <Route path="/widokfakturykorygujacejadmin" element={<CorrectiveViewAdmin/>} />
+        <Route path="/fakturakorygujaca" element={<CorrectiveUserInvoiceView/>} />
         <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>

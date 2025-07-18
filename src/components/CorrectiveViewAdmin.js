@@ -1,8 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const CorrectiveViewAdmin = () => {
+
+  const navigate = useNavigate()
 
     const [hasAccess, setHasAccess] = useState(true)
 
@@ -40,6 +44,58 @@ const coradminlogin = useSelector(state => state.coradminlogin)
 
 const login = useSelector((state) => state.coradminlogin);
 
+const itemsArray = JSON.parse(coradmincorrecteditems || '[]');
+const totalPrice = (-(itemsArray.reduce((sum, item) => sum + parseFloat(item.price), 0))).toFixed(2);
+
+
+
+useEffect(() => {
+  if(coradminnumberofnativeinvoice === ''){
+    navigate('/fakturyadmin')
+  }
+}, [])
+
+
+const handleGoToList = () => {
+  navigate('/fakturyadmin')
+}
+
+
+
+const handlePrint = () => {
+  const content = document.querySelector('.singleInvoiceView').innerHTML;
+  const styles = Array.from(document.querySelectorAll('style, link[rel="stylesheet"]'))
+    .map((node) => node.outerHTML)
+    .join('\n');
+
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write(`
+    <html>
+      <head>
+        <title>Drukowanie faktury</title>
+        ${styles}
+        <style>
+          @media print {
+            .print-button, .buttonToEdit {
+              display: none !important;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="singleInvoiceView">
+          ${content}
+        </div>
+      </body>
+    </html>
+  `);
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+};
+
+
 
     return(
          <div className="app">
@@ -48,7 +104,7 @@ const login = useSelector((state) => state.coradminlogin);
         {hasAccess ? (
           <>
             <h1>Faktura korygująca nr {coradminnumberofcorrectiveinvoice}</h1>
-            <h1>{login}</h1>
+            
             {true ? (
               
               <div className="singleInvoiceForUserView">
@@ -101,20 +157,37 @@ const login = useSelector((state) => state.coradminlogin);
      
     </tr>
   </thead>
-  <tbody>
-    {JSON.parse(coradmincorrecteditems).map((item, index) => (
+ <tbody>
+  {(itemsArray || []).map((item, index) => (
+    
       <tr key={index}>
         <td>{index + 1}</td>
         <td>{item.title}</td>
-        <td>1 szt.</td>
-        <td>cena jedn. netto</td>
-        <td>wartość netto</td>
-        <td>stawka vat</td>
-        <td>kwota vat</td>
-        <td>wartość brutto</td>
+        <td>-1 szt.</td>
+        <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? (item.price/1.23).toFixed(2): item.price} zł </td>
+        <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? (-item.price/1.23).toFixed(2): -item.price} zł </td> 
+        <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? 23: 0} %</td>
+        <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? (-(item.price * 0.23 / 1.23)).toFixed(2): 0} zł</td>
+       
+        <td>{-item.price} zł</td>
         
       </tr>
     ))}
+  </tbody>
+</table>
+<h1>Podsumowanie</h1>
+<table className="invoice-table">
+  <thead>
+    <th></th>
+    <th>Netto</th>
+    <th>VAT {coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? 23 : 0} %</th>
+    <th>Brutto</th>
+  </thead>
+  <tbody>
+    <td></td>
+    <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? (totalPrice/1.23).toFixed(2): totalPrice} zł</td>
+    <td>{coradminbasisforvatexemption === '' || coradminbasisforvatexemption === '-' ? (totalPrice*(0.23/1.23)).toFixed(2): 0} zł</td>
+    <td>{totalPrice} zł</td>
   </tbody>
 </table>
 
@@ -131,8 +204,8 @@ const login = useSelector((state) => state.coradminlogin);
           <h2>Nie masz dostępu</h2>
         )}
       </div>
-      <button  className="buttonToEdit">Drukuj fakturę</button>
-      <button  className="buttonToEdit">Lista faktur</button>
+      <button  className="buttonToEdit" onClick={handlePrint}>Drukuj fakturę</button>
+      <button  className="buttonToEdit" onClick={handleGoToList}>Lista faktur</button>
      
     </div>
         

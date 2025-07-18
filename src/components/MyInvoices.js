@@ -9,6 +9,7 @@ const MyInvoices = () => {
   const [userinvoices, setUserInvoices] = useState([]);
   const [login, setLogin] = useState('');
   const [hasAccess, setHasAccess] = useState(false);
+  const [correctives, setCorrectives] = useState([])
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -144,6 +145,106 @@ const handleShowInvoice = (
 };
 
 
+useEffect(() => {
+
+  const cookie = getCookie('user');
+
+
+if (cookie) {
+      const loginFromCookie = cookie.split(';')[0];
+      setLogin(loginFromCookie);
+      setHasAccess(true);
+ axios.get('http://localhost:5000/correctives')
+    .then((response) => {
+      const foundCorrectives = response.data.filter(corrective => corrective.login === loginFromCookie);
+      setCorrectives(foundCorrectives);
+    })
+    .catch((err) => console.log('error fetching correctives', err));
+      
+    } else {
+      setHasAccess(false);
+    }
+
+
+
+
+ 
+}, []);
+
+
+
+
+const handleShowCorrectiveInvoice = (corusnumberofcorrectiveinvoice,
+     corusdateofissuecorrectiveinvoice,
+    corusdateofsale,
+    corusnumberofnativeinvoice,
+        corussellercompanyname,
+         corussellercompanystreet,
+          corussellercompanypostcode,
+           corussellercompanycity,
+            corussellercompanynip,
+            corussellercompanyregon,
+            coruscustomername,
+            coruscustomersurname, 
+            coruscustomerstreet,
+            coruscustomerpostcode,
+            coruscustomercity,
+            coruscustomercompanyname,
+            coruscustomercompanystreet,
+            coruscustomercompanypostcode,
+            coruscustomercompanycity,
+            corusinvoice,
+            coruscustomercompanynip,
+            coruscustomercompanyregon,
+            coruscorrectionreason,
+            coruscorrecteditems,
+            corussummary,
+            corusorderamount,
+            corusbasisforvatexemption,
+            coruspaymentterm,
+            corusordertime,
+            coruslogin
+ ) => {
+
+dispatch({
+    type: 'CHANGE_COR_USER',
+    corusnumberofcorrectiveinvoice,
+     corusdateofissuecorrectiveinvoice,
+    corusdateofsale,
+    corusnumberofnativeinvoice,
+        corussellercompanyname,
+         corussellercompanystreet,
+          corussellercompanypostcode,
+           corussellercompanycity,
+            corussellercompanynip,
+            corussellercompanyregon,
+            coruscustomername,
+            coruscustomersurname, 
+            coruscustomerstreet,
+            coruscustomerpostcode,
+            coruscustomercity,
+            coruscustomercompanyname,
+            coruscustomercompanystreet,
+            coruscustomercompanypostcode,
+            coruscustomercompanycity,
+            corusinvoice,
+            coruscustomercompanynip,
+            coruscustomercompanyregon,
+            coruscorrectionreason,
+            coruscorrecteditems,
+            corussummary,
+            corusorderamount,
+            corusbasisforvatexemption,
+            coruspaymentterm,
+            corusordertime,
+            coruslogin
+  });
+navigate('/fakturakorygujaca')
+
+} 
+
+
+
 
 
   return (
@@ -196,6 +297,46 @@ const handleShowInvoice = (
             ) : (
               <p>Ładowanie danych...</p>
             )}
+            {correctives.length > 0 ? (<h1>Moje faktury korygujące</h1>) : null}
+            {correctives.map(corrective => (
+              <div className="myOrdersPresentationItem myInvoicesPresentationItem CorrectiveItemsPresentationForUser">
+                <h4>numer systemowy faktury: {corrective.numberofcorrectiveinvoice}</h4>
+                <button className="buttonToEdit" onClick={() => handleShowCorrectiveInvoice(corrective.numberofcorrectiveinvoice,
+     corrective.dateofissuecorrectiveinvoice,
+      corrective.dateofsale,
+       corrective.numberofnativeinvoice,
+        corrective.sellercompanyname,
+         corrective.sellercompanystreet,
+          corrective.sellercompanypostcode,
+           corrective.sellercompanycity,
+            corrective.sellercompanynip,
+            corrective.sellercompanyregon,
+            corrective.customername,
+            corrective.customersurname, 
+            corrective.customerstreet,
+            corrective.customerpostcode,
+            corrective.customercity,
+            corrective.customercompanyname,
+            corrective.customercompanystreet,
+            corrective.customercompanypostcode,
+            corrective.customercompanycity,
+            corrective.invoice,
+            corrective.customercompanynip,
+            corrective.customercompanyregon,
+            corrective.correctionreason,
+            corrective.correcteditems,
+            corrective.summary,
+            corrective.orderamount,
+            corrective.basisforvatexemption,
+            corrective.paymentterm,
+            corrective.ordertime,
+            corrective.login
+        
+        )}>Zobacz fakturę korygującą</button>
+              </div>
+
+            ))}
+           
           </>
         ) : (
           <h2>Nie masz dostępu</h2>
