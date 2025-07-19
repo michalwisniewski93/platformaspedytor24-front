@@ -1464,3 +1464,9 @@ h1.courseLabel {
   margin-top: 30px;
   font-size: 30px;
 }
+
+
+.invoicesReport h1 {
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  color: black;
+}

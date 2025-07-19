@@ -647,7 +647,9 @@ dispatch({
 }
 
 
-
+const generateReport = () => {
+  navigate('/raport-fakturowy')
+}
  
 
   return (
@@ -1103,7 +1105,7 @@ dispatch({
 
             <div className="invoicesAdminPresentationList">
               <h1>Wygeneruj raport zbiorczy faktur (faktury + faktury korygujące)</h1>
-              <button className="buttonToEdit">Wygeneruj raport do wydruku</button>
+              <button className="buttonToEdit" onClick={generateReport}>Wygeneruj raport do wydruku</button>
             </div>
             
           </div>
