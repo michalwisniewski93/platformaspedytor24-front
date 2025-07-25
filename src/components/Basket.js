@@ -40,10 +40,10 @@ const [taxdatas, setTaxDatas] = useState([])
   const navigate = useNavigate()
 
   
-  const stripePromise = loadStripe('pk_live_51RfLvJAmHEF4S4jOFufZ6W3hId3WQPoYP89kmoLS57Anyn33rI0Ndt0Kr2rYSIIly1a7z5qrWseCHZ6dAGRrncAe00TShy05sf'); // Użyj swojego klucza publicznego Stripe
+  const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY); // Użyj swojego klucza publicznego Stripe
   
 useEffect(() => {
-  axios.get('http://localhost:5000/taxdatas')
+  axios.get('https://platformaspedytor8-back.vercel.app/taxdatas')
   .then((response) => {setTaxDatas(response.data)})
    .catch((err) => console.log('error fetching taxdatas, error: ' + err))
 
@@ -54,7 +54,7 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  axios.get('http://localhost:5000/customers')
+  axios.get('https://platformaspedytor8-back.vercel.app/customers')
     .then((response) => {
       setCustomers(response.data)
 
@@ -218,7 +218,7 @@ const handleBuyNow = async () => {
     sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
     //  Dodaj zamówienie do bazy (axios POST do /orders)
-    await axios.post('http://localhost:5000/orders', orderData)
+    await axios.post('https://platformaspedytor8-back.vercel.app/orders', orderData)
       .then(() => {
         
       })
@@ -227,7 +227,7 @@ const handleBuyNow = async () => {
       });
 
     // 👉 Tworzenie sesji Stripe
-    const response = await fetch('http://localhost:5000/create-checkout-session', {
+    const response = await fetch('https://platformaspedytor8-back.vercel.app/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: basket }),
@@ -274,7 +274,7 @@ const handleBuyNow = async () => {
             <tr key={item.id}>
               <td>
                 <img
-                  src={`http://localhost:5000/${item.imageurl}`}
+                  src={`https://platformaspedytor8-back.vercel.app/${item.imageurl}`}
                   alt={item.title}
                   style={{ width: '80px', height: 'auto' }}
                 />
@@ -293,7 +293,7 @@ const handleBuyNow = async () => {
         {basket.map(item => (
           <li key={item.id} className="basket-list-item">
             <img
-              src={`http://localhost:5000/${item.imageurl}`}
+              src={`https://platformaspedytor8-back.vercel.app/${item.imageurl}`}
               alt={item.title}
               style={{ width: '100px', height: 'auto' }}
             />

@@ -10,7 +10,7 @@ const OrdersAdmin = () => {
   const isAdminLogged = useSelector(state => state.isAdminLogged);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/orders')
+    axios.get('https://platformaspedytor8-back.vercel.app/orders')
       .then(response => setOrders(response.data))
       .catch(err => console.log('error fetching customers, error: ' + err));
   }, []);

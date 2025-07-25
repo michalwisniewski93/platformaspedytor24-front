@@ -94,7 +94,7 @@ useEffect(() => {
 
      
   useEffect(() => {
-    axios.get('http://localhost:5000/customers')
+    axios.get('https://platformaspedytor8-back.vercel.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])

@@ -18,7 +18,7 @@ const NewPassword = () => {
 
 
  useEffect(() => {
-    axios.get('http://localhost:5000/customers')
+    axios.get('https://platformaspedytor8-back.vercel.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])
@@ -39,7 +39,7 @@ const handleSubmit = (e) => {
         const password = newPassword
         // tu będzie put które zmienia password
 
-         axios.put(`http://localhost:5000/customers/${editingId}`, {password: newPassword})
+         axios.put(`https://platformaspedytor8-back.vercel.app/customers/${editingId}`, {password: newPassword})
            .then((response) => {
                 setCustomers(customers.map(customer => customer._id === editingId ? response.data : customer));
                 setLogin('')

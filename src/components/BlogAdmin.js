@@ -18,7 +18,7 @@ const BlogAdmin = () => {
 
      
   useEffect(() => {
-    axios.get('http://localhost:5000/articles')
+    axios.get('https://platformaspedytor8-back.vercel.app/articles')
     .then((response) => setArticles(response.data))
     .catch((err) => console.log('error fetching articles, error: ' + err))
    }, [])
@@ -33,7 +33,7 @@ const BlogAdmin = () => {
     
     if (imageUrl !== '') {
      
-      axios.post("http://localhost:5000/articles", {title, description, author, imageurl})
+      axios.post("https://platformaspedytor8-back.vercel.app/articles", {title, description, author, imageurl})
         .then(response => setArticles([...articles, response.data]))
         .catch(err => console.error('Error adding articles', err));
     }
@@ -65,7 +65,7 @@ const BlogAdmin = () => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const response = await axios.post('https://platformaspedytor8-back.vercel.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -84,7 +84,7 @@ const BlogAdmin = () => {
   const handleDeleteArticle = (id) => {
     const confirmDelete = window.confirm("Czy na pewno chcesz usunąć artykuł?");
     if (!confirmDelete) {return;} // użytkownik kliknął 'Nie
-    axios.delete(`http://localhost:5000/articles/${id}`)
+    axios.delete(`https://platformaspedytor8-back.vercel.app/articles/${id}`)
           .then(() => setArticles(articles.filter(article => article._id !== id)))
           .catch((err) => console.error("Error deleting article:", err));
   }
@@ -125,7 +125,7 @@ const BlogAdmin = () => {
                         <div style={{border: '1px dotted black'}} dangerouslySetInnerHTML={{ __html: article.description }} />
                         <h3>autor: {article.author}</h3>
                         <h3>zdjęcie produktu:</h3>
-                        <img src={`http://localhost:5000/${article.imageurl}`} alt={article.title} />
+                        <img src={`https://platformaspedytor8-back.vercel.app/${article.imageurl}`} alt={article.title} />
                         <button onClick={() => handleDeleteArticle(article._id)}>Usuń artykuł</button>
                     </div>).reverse()}
                    </div>

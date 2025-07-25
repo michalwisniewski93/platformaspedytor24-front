@@ -33,7 +33,7 @@ const MyProfile = () => {
       setLogin(loginFromCookie);
       setHasAccess(true);
 
-      axios.get('http://localhost:5000/customers')
+      axios.get('https://platformaspedytor8-back.vercel.app/customers')
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           setUser(foundUser);
@@ -85,14 +85,14 @@ function deleteCookie(name) {
   const handleSubmit = () => {
     setCustomerVisibilityEditForm(false)
     
-axios.put(`http://localhost:5000/customers/${editingId}`, {
+axios.put(`https://platformaspedytor8-back.vercel.app/customers/${editingId}`, {
   name, surname, street, postcode, city, email, login, password, newsletter, phonenumber, regulations
 })
   .then((response) => {
     deleteCookie('user')
     setCookie('user', login + ';' + password, 30)
     // Pobierz zaktualizowanego użytkownika z serwera
-    axios.get('http://localhost:5000/customers')
+    axios.get('https://platformaspedytor8-back.vercel.app/customers')
       .then((res) => {
         const updatedUser = res.data.find(customer => customer._id === editingId);
         setUser(updatedUser); // zaktualizuj stan użytkownika na podstawie nowych danych

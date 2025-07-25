@@ -147,20 +147,20 @@ useEffect(() => {
 
   
      useEffect(() => {
-        axios.get('http://localhost:5000/taxdatas')
+        axios.get('https://platformaspedytor8-back.vercel.app/taxdatas')
         .then((response) => setTaxdatas(response.data))
         .catch((err) => console.log('error fetching taxdatas, error: ' + err))
     }, [])
 
       useEffect(() => {
-        axios.get('http://localhost:5000/correctives')
+        axios.get('https://platformaspedytor8-back.vercel.app/correctives')
         .then((response) => setCorrectives(response.data))
         .catch((err) => console.log('error fetching correctives, error: ' + err))
     }, [])
 
     
      useEffect(() => {
-        axios.get('http://localhost:5000/invoices')
+        axios.get('https://platformaspedytor8-back.vercel.app/invoices')
         .then((response) => setInvoices(response.data))
         .catch((err) => console.log('error fetching invoices, error: ' + err))
     }, [])
@@ -169,7 +169,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  axios.get('http://localhost:5000/orders')
+  axios.get('https://platformaspedytor8-back.vercel.app/orders')
     .then((response) => {
       const currentYear = new Date().getFullYear().toString(); // np. "2025"
       const filteredOrders = response.data.filter(order => {
@@ -212,7 +212,7 @@ useEffect(() => {
 
   setIsFormVisible(false);
 
-  axios.put(`http://localhost:5000/taxdatas/${editingId}`, {
+  axios.put(`https://platformaspedytor8-back.vercel.app/taxdatas/${editingId}`, {
     sellercompanyname,
     sellercompanystreet,
     sellercompanypostcode,
@@ -389,7 +389,7 @@ const handleEditInvoice = (
 const handleSubmit2 = () => {
 
 
- axios.put(`http://localhost:5000/invoices/${correctionid}`, {
+ axios.put(`https://platformaspedytor8-back.vercel.app/invoices/${correctionid}`, {
 invoicenumber: correctioninvoicenumber,
   invoicedateofissue: correctiondateofissue,
   dateofsale: correctiondateofsale,
@@ -520,7 +520,7 @@ function getFormattedDate() {
 
 
 const fetchCorrectives = () => {
-  axios.get('http://localhost:5000/correctives')
+  axios.get('https://platformaspedytor8-back.vercel.app/correctives')
     .then((res) => setCorrectives(res.data))
     .catch((err) => console.error('Error fetching correctives:', err));
 };
@@ -530,7 +530,7 @@ const handleAddCorrectiveInvoice = (e) => {
 e.preventDefault()
 
   // TUTAJ UZUPEŁNIĆ PARAMETRY 
-   axios.post("http://localhost:5000/correctives", {
+   axios.post("https://platformaspedytor8-back.vercel.app/correctives", {
       
       numberofcorrectiveinvoice: 'KOR/' +  cinvoicenumber,
     dateofissuecorrectiveinvoice : getFormattedDate(),

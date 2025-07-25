@@ -43,7 +43,7 @@ const MyCourses = () => {
       setHasAccess(true);
 
       // Pobierz dane użytkownika
-      axios.get('http://localhost:5000/customers')
+      axios.get('https://platformaspedytor8-back.vercel.app/customers')
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           if (foundUser) {
@@ -57,7 +57,7 @@ const MyCourses = () => {
         .catch((err) => console.error('Błąd podczas pobierania klientów:', err));
 
       // Pobierz listę kursów
-      axios.get('http://localhost:5000/salessites')
+      axios.get('https://platformaspedytor8-back.vercel.app/salessites')
         .then((response) => {
           setCourses(response.data);
         })
@@ -99,7 +99,7 @@ const MyCourses = () => {
                   <div className="myCoursesList">
                     {availableCourses.map(course => (
                       <div className="myCoursesListItem">
-                        <img src={`http://localhost:5000/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)} />
+                        <img src={`https://platformaspedytor8-back.vercel.app/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)} />
                          <h1 onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>{course.title}</h1>
                          <button onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>Oglądaj</button>
                         

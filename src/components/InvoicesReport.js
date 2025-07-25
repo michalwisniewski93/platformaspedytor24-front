@@ -9,13 +9,13 @@ const InvoicesReport = () => {
     const [correctives, setCorrectives] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/invoices')
+        axios.get('https://platformaspedytor8-back.vercel.app/invoices')
             .then((response) => setInvoices(response.data))
             .catch((err) => console.log('error fetching invoices, error: ' + err));
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/correctives')
+        axios.get('https://platformaspedytor8-back.vercel.app/correctives')
             .then((response) => setCorrectives(response.data))
             .catch((err) => console.log('error fetching correctives, error: ' + err));
     }, []);

@@ -67,7 +67,7 @@ const handleMessage = (e) => {
   const status = false;
 
   axios
-    .post("http://localhost:5000/tickets", {
+    .post("https://platformaspedytor8-back.vercel.app/tickets", {
       nameandsurname,
       email,
       message,

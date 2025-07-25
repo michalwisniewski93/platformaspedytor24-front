@@ -123,7 +123,7 @@ const SingleCourse = () => {
       <div className="singleProductPresentation">
         <div className="topProductPresentation">
           <div className="productPresentationImage">
-            <img src={`http://localhost:5000/${imageurl}`} alt={title} />
+            <img src={`https://platformaspedytor8-back.vercel.app/${imageurl}`} alt={title} />
           </div>
           <div className="productPresentationPrimaryData">
             <h2>{title}</h2>

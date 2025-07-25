@@ -26,7 +26,7 @@ const SalesSitesAdmin = () => {
   const [accesscode, setAccesscode] = useState('')
 
   useEffect(() => {
-    axios.get('http://localhost:5000/salessites')
+    axios.get('https://platformaspedytor8-back.vercel.app/salessites')
       .then((response) => setSalessites(response.data))
       .catch((err) => console.log('error fetching sales sites, error: ' + err));
   }, []);
@@ -63,13 +63,13 @@ const SalesSitesAdmin = () => {
     formData.append('file', file);
 
     try {
-      const uploadResponse = await axios.post('http://localhost:5000/upload', formData, {
+      const uploadResponse = await axios.post('https://platformaspedytor8-back.vercel.app/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       const imageurl = uploadResponse.data.imageUrl;
 
-      const response = await axios.post("http://localhost:5000/salessites", {
+      const response = await axios.post("https://platformaspedytor8-back.vercel.app/salessites", {
         title, imageurl, numberoflessons, price,
         pricebeforethirtydays, salescontent, linktoyoutube,
         contentlist, author, coursecontent, courselinks, accesscode
@@ -87,7 +87,7 @@ const SalesSitesAdmin = () => {
     const confirmDelete = window.confirm("Czy na pewno chcesz usunąć artykuł?");
     if (!confirmDelete) return;
 
-    axios.delete(`http://localhost:5000/salessites/${id}`)
+    axios.delete(`https://platformaspedytor8-back.vercel.app/salessites/${id}`)
       .then(() => setSalessites(salessites.filter(site => site._id !== id)))
       .catch((err) => console.error("Error deleting sales site:", err));
   };
@@ -119,7 +119,7 @@ const SalesSitesAdmin = () => {
       formData.append('file', file);
 
       try {
-        const response = await axios.post('http://localhost:5000/upload', formData, {
+        const response = await axios.post('https://platformaspedytor8-back.vercel.app/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         finalImageUrl = response.data.imageUrl;
@@ -129,7 +129,7 @@ const SalesSitesAdmin = () => {
       }
     }
 
-    axios.put(`http://localhost:5000/salessites/${editingSite._id}`, {
+    axios.put(`https://platformaspedytor8-back.vercel.app/salessites/${editingSite._id}`, {
       title,
       imageurl: finalImageUrl,
       numberoflessons,
@@ -221,7 +221,7 @@ const SalesSitesAdmin = () => {
                 
                 <div className="salesSitesItem" key={site._id}>
                   <h3>Tytuł kursu: {site.title}</h3>
-                  <img src={`http://localhost:5000/${site.imageurl}`} alt={site.title} />
+                  <img src={`https://platformaspedytor8-back.vercel.app/${site.imageurl}`} alt={site.title} />
                   <h3>Ilość lekcji: {site.numberoflessons}</h3>
                   <h3>Cena brutto: {site.price} zł</h3>
                   <h3>Najniższa cena z 30 dni: {site.pricebeforethirtydays} zł</h3>

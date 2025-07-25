@@ -37,7 +37,7 @@ const CourseView = () => {
  
 
 useEffect(() => {
-    axios.get('http://localhost:5000/taxdatas')
+    axios.get('https://platformaspedytor8-back.vercel.app/taxdatas')
         .then((response) => {
           setTaxDatas(response.data);
         })
@@ -58,7 +58,7 @@ useEffect(() => {
     }
 
 
-   axios.get('http://localhost:5000/customers')
+   axios.get('https://platformaspedytor8-back.vercel.app/customers')
   .then((response) => {
     setCustomers(response.data);
     const loginFromCookie = getCookie('user')?.split(';')[0];
