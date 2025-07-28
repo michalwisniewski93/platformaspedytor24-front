@@ -33,7 +33,7 @@ const NewUser = () => {
 
 
     useEffect(() => {
-    axios.get('https://platformaspedytor8-back.vercel.app/customers')
+    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
 }, [])
@@ -74,7 +74,7 @@ if (loginExists) {
         setCompanyRegon(null)
     }
     
-    axios.post("https://platformaspedytor8-back.vercel.app/customers", {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
+    axios.post("https://platformaspedytor8-back-production.up.railway.app/customers", {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
         .then((response => setCustomers([...customers, response.data])))
         .catch(err => {
             console.error('Error adding customers', err)
