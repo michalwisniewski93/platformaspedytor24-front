@@ -2,12 +2,6 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [
-        {
-          "type": "host",
-          "value": "spedytorszkolenia.pl"
-        }
-      ],
       "destination": "https://www.spedytorszkolenia.pl/$1",
       "permanent": true
     }
