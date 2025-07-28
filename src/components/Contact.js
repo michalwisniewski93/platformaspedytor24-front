@@ -67,7 +67,7 @@ const handleMessage = (e) => {
   const status = false;
 
   axios
-    .post("https://platformaspedytor8-back.vercel.app/tickets", {
+    .post("https://platformaspedytor8-back-production.up.railway.app/tickets", {
       nameandsurname,
       email,
       message,
