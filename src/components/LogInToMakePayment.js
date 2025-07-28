@@ -22,7 +22,7 @@ const LogInToMakePayment = () => {
     const navigate = useNavigate()
 
  useEffect(() => {
-    axios.get('https://platformaspedytor8-back.vercel.app/customers')
+    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])
