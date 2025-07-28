@@ -38,7 +38,7 @@ const Blog = () => {
                     <h1>Blog</h1>
                     <div className="blogExpertContent">
                         {articles.map(article => <div className="blogExpertContentItem" key={article._id}>
-                         <img src={`https://platformaspedytor8-back.vercel.app/${article.imageurl}`} alt={article.title} />
+                         <img src={`https://platformaspedytor8-back.vercel.app${article.imageurl}`} alt={article.title} />
                          <h1>{article.title}</h1>
                          <h4>autor: {article.author}</h4>
                          <button onClick={() => handleShowArticle(article.imageurl, article.title, article.description, article.author)}>Czytaj więcej ...</button>
