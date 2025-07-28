@@ -39,7 +39,7 @@ const Admin = () => {
 
   
 useEffect(() => {
-    axios.get('https://platformaspedytor8-back.vercel.app/login')
+    axios.get('https://platformaspedytor8-back-production.up.railway.app/login')
     .then((response) => setAdmins(response.data))
     .catch((err) => console.log('error fetching admins, error: ' + err))
 }, [])
