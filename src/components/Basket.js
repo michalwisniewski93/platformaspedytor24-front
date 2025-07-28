@@ -43,7 +43,7 @@ const [taxdatas, setTaxDatas] = useState([])
   const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY); // Użyj swojego klucza publicznego Stripe
   
 useEffect(() => {
-  axios.get('https://platformaspedytor8-back.vercel.app/taxdatas')
+  axios.get('https://platformaspedytor8-back-production.up.railway.app/taxdatas')
   .then((response) => {setTaxDatas(response.data)})
    .catch((err) => console.log('error fetching taxdatas, error: ' + err))
 
@@ -54,7 +54,7 @@ useEffect(() => {
 }, [])
 
 useEffect(() => {
-  axios.get('https://platformaspedytor8-back.vercel.app/customers')
+  axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => {
       setCustomers(response.data)
 
@@ -218,7 +218,7 @@ const handleBuyNow = async () => {
     sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
     //  Dodaj zamówienie do bazy (axios POST do /orders)
-    await axios.post('https://platformaspedytor8-back.vercel.app/orders', orderData)
+    await axios.post('https://platformaspedytor8-back-production.up.railway.app/orders', orderData)
       .then(() => {
         
       })
@@ -227,7 +227,7 @@ const handleBuyNow = async () => {
       });
 
     // 👉 Tworzenie sesji Stripe
-    const response = await fetch('https://platformaspedytor8-back.vercel.app/create-checkout-session', {
+    const response = await fetch('https://platformaspedytor8-back-production.up.railway.app/create-checkout-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ items: basket }),
@@ -274,7 +274,7 @@ const handleBuyNow = async () => {
             <tr key={item.id}>
               <td>
                 <img
-                  src={`https://platformaspedytor8-back.vercel.app/${item.imageurl}`}
+                  src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`}
                   alt={item.title}
                   style={{ width: '80px', height: 'auto' }}
                 />
@@ -293,7 +293,7 @@ const handleBuyNow = async () => {
         {basket.map(item => (
           <li key={item.id} className="basket-list-item">
             <img
-              src={`https://platformaspedytor8-back.vercel.app/${item.imageurl}`}
+              src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`}
               alt={item.title}
               style={{ width: '100px', height: 'auto' }}
             />
