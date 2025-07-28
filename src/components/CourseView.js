@@ -37,7 +37,7 @@ const CourseView = () => {
  
 
 useEffect(() => {
-    axios.get('https://platformaspedytor8-back.vercel.app/taxdatas')
+    axios.get('https://platformaspedytor8-back-production.up.railway.app/taxdatas')
         .then((response) => {
           setTaxDatas(response.data);
         })
@@ -58,7 +58,7 @@ useEffect(() => {
     }
 
 
-   axios.get('https://platformaspedytor8-back.vercel.app/customers')
+   axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
   .then((response) => {
     setCustomers(response.data);
     const loginFromCookie = getCookie('user')?.split(';')[0];
