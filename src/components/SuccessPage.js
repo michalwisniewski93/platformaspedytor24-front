@@ -31,7 +31,7 @@ const SuccessPage = () => {
       return;
     }
 
-    fetch(`https://platformaspedytor8-back.vercel.app/check-payment-status?sessionId=${sessionId}`)
+    fetch(`https://platformaspedytor8-back-production.up.railway.app/check-payment-status?sessionId=${sessionId}`)
       .then(res => res.json())
       .then(async data => {
         if (data.paid) {
@@ -46,10 +46,10 @@ const SuccessPage = () => {
 
           try {
             // 1. Dodanie zamówienia
-            await axios.post('https://platformaspedytor8-back.vercel.app/orders', orderData);
+            await axios.post('https://platformaspedytor8-back-production.up.railway.app/orders', orderData);
 
             // 2. Pobranie taxdatas
-            const taxdatasRes = await axios.get('https://platformaspedytor8-back.vercel.app/taxdatas');
+            const taxdatasRes = await axios.get('https://platformaspedytor8-back-production.up.railway.app/taxdatas');
             const taxdatas = taxdatasRes.data[0]; // zakładamy jeden wpis
 
             const currentDate = new Date();
@@ -59,12 +59,12 @@ const SuccessPage = () => {
               currentDate.getFullYear();
 
             // 3. Zwiększenie numeru faktury
-            await axios.put("https://platformaspedytor8-back.vercel.app/taxdatas/6867cecac69b1bd9988c38d8", {
+            await axios.put("https://platformaspedytor8-back-production.up.railway.app/taxdatas/6867cecac69b1bd9988c38d8", {
               invoicesactualnumber: taxdatas.invoicesactualnumber + 1
             });
 
             // 4. Wystawienie faktury
-            await axios.post("https://platformaspedytor8-back.vercel.app/invoices", {
+            await axios.post("https://platformaspedytor8-back-production.up.railway.app/invoices", {
               invoicenumber: invoiceNumber,
               invoicedateofissue: formattedDate,
               dateofsale: formattedDate,
@@ -99,7 +99,7 @@ const SuccessPage = () => {
           }
 
           // 5. Pobranie klientów do aktualizacji dostępów
-          axios.get('https://platformaspedytor8-back.vercel.app/customers')
+          axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
             .then(response => setCustomers(response.data))
             .catch(() => navigate('/', { replace: true }));
 
@@ -138,7 +138,7 @@ const SuccessPage = () => {
     const newAccesses = getCookie('newaccesses') || '';
     const finalAccesses = oldAccesses + (oldAccesses ? ';' : '') + newAccesses;
 
-    axios.put(`https://platformaspedytor8-back.vercel.app/customers/${editingId}`, { accesses: finalAccesses })
+    axios.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, { accesses: finalAccesses })
       .then(() => {
         deleteCookie('newaccesses');
         sessionStorage.removeItem('paymentStarted');
