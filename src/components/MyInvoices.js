@@ -69,7 +69,7 @@ useEffect(() => {
       setHasAccess(true);
 
       axios
-        .get('https://platformaspedytor8-back.vercel.app/invoices')
+        .get('https://platformaspedytor8-back-production.up.railway.app/invoices')
         .then((response) => {
           const foundInvoices = response.data.filter(invoice => invoice.login === loginFromCookie);
           setUserInvoices(foundInvoices);
@@ -154,7 +154,7 @@ if (cookie) {
       const loginFromCookie = cookie.split(';')[0];
       setLogin(loginFromCookie);
       setHasAccess(true);
- axios.get('https://platformaspedytor8-back.vercel.app/correctives')
+ axios.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
     .then((response) => {
       const foundCorrectives = response.data.filter(corrective => corrective.login === loginFromCookie);
       setCorrectives(foundCorrectives);
