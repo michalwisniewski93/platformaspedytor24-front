@@ -10,7 +10,7 @@ const Courses = () => {
     const [courses, setCourses] = useState([])
 
      useEffect(() => {
-        axios.get('https://platformaspedytor8-back.vercel.app/salessites')
+        axios.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
         .then((response) => setCourses(response.data))
         .catch((err) => console.log('error fetching courses, error: ' + err))
     }, [])
@@ -60,7 +60,7 @@ const Courses = () => {
                     <h1>Kursy z certyfikatem</h1>
                     <div className="coursesContent">
                         {courses.map(course => <div className="coursesContentItem" key={course._id}>
-                         <img src={`https://platformaspedytor8-back.vercel.app${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)} />
+                         <img src={`https://platformaspedytor8-back-production.up.railway.app${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)} />
                          <h1 onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.title}</h1>
                          <h4 onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.price} zł</h4>
                          <button onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>Zobacz więcej</button>
