@@ -26,7 +26,7 @@ const MyOrders = () => {
       setHasAccess(true);
 
       axios
-        .get('https://platformaspedytor8-back.vercel.app/orders')
+        .get('https://platformaspedytor8-back-production.up.railway.app/orders')
         .then((response) => {
           const foundOrders = response.data.filter(order => order.login === loginFromCookie);
           setUserOrders(foundOrders);
