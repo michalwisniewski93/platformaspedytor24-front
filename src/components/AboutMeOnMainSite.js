@@ -1,5 +1,5 @@
 import React from 'react'
-import photo from '../images/heroperson.png'
+import photo from '../images/businessman.png'
 
 
 const AboutMeOnMainSite = () => {
@@ -9,7 +9,7 @@ const AboutMeOnMainSite = () => {
             <div className="aboutMeDescription">
                 <p>
                      Witaj!<br/><br/>
-     Nazywam się Michał Wiśniewski. Od 10 lat jestem aktywnym spedytorem krajowym i międzynarodowym.<br/>
+     Nazywam się Radosław Wiśniewski. Od 10 lat jestem aktywnym spedytorem krajowym i międzynarodowym.<br/>
      Studiowałem o zgrozo teleinformatykę {"\u{1F605}"}, ale po studiach mój znajomy zainteresował mnie branżą TSL. <br/>
      I tak się wciągnąłem w branżę że jestem w niej jak już wspomniałem od dekady.<br/>
      Zaczynałem od spedycji krajowej awansując na spedytora międzynarodowego. Zajmowałem się zarówno sprzedażą w spedycji jak 
