@@ -14,7 +14,7 @@ const Regulations = () => {
                 
                 <strong>§1 Postanowienia wstępne</strong> 
                 <br/><br/>
-                1. Sklep internetowy spedytorszkolenia.pl, dostępny pod adresem internetowym spedytorszkolenia.pl prowadzony jest przez Michał Wiśniewski  ul.Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980
+                1. Sklep internetowy spedytorszkolenia.pl, dostępny pod adresem internetowym spedytorszkolenia.pl prowadzony jest przez LOGI DIGITAL Krzysztof Wiśniewski, Radosław Wiśniewski  ul.Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980
 <br/><br/>
 
 2. Niniejszy regulamin skierowany jest do Konsumentów i określa tryb i zasady zawierania z Konsumentem Umowy Sprzedaży na odległość za pośrednictwem Sklepu.
@@ -22,7 +22,7 @@ const Regulations = () => {
             <strong>§2 Definicje</strong> <br /><br />
 
             • Konsument – osoba fizyczna zawierająca ze Sprzedawcą umowę w ramach Sklepu, której przedmiot nie jest związany bezpośrednio z jej działalnością zawodową lub gospodarczą.<br/>
-• Sprzedawca – Michał Wiśniewski Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980<br/>
+• Sprzedawca – Krzysztof Wiśniewski Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980<br/>
 • Klient – każdy podmiot dokonujący zakupów za pośrednictwem Sklepu.<br/>
 • Sklep – sklep internetowy prowadzony przez Sprzedawcę pod adresem internetowym www.spedytorszkolenia.pl <br />
 • Umowa zawarta na odległość – umowa zawarta z Klientem w ramach zorganizowanego systemu zawierania umów na odległość (w ramach Sklepu), bez jednoczesnej fizycznej obecności stron, z wyłącznym wykorzystaniem jednego lub większej liczby środków porozumiewania się na odległość do chwili zawarcia umowy włącznie. <br />
