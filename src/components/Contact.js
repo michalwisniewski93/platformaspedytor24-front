@@ -97,7 +97,7 @@ const handleMessage = (e) => {
                     <h3>Skontaktuj się z nami:</h3>
                      <p>{String.fromCodePoint(0x1F4DE)} tel. +48 667 085 071</p>
                      <p>{String.fromCodePoint(0x1F4E7)} e-mail: spedytorszkolenia@gmail.com</p><br/>
-                     <p>SpedytorSzkolenia.pl Michał Wiśniewski<br/>ul.Derdowskiego 9/17, 85-795 Bydgoszcz (Polska)
+                     <p>SpedytorSzkolenia.pl - LOGI DIGITAL Krzysztof Wiśniewski, Radosław Wiśniewski<br/>ul.Derdowskiego 9/17, 85-795 Bydgoszcz (Polska)
                      <br/> NIP: 5541012980</p>
                 </div>
                 <div className="contactFormContainer">
