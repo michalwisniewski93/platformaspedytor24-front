@@ -5,7 +5,7 @@ import Footer from './Footer'
 const AboutUs = () => {
 
 useEffect(() => {
-    document.title = 'Michał Wiśniewski - spedytorszkolenia.pl'
+    document.title = 'Radosław Wiśniewski - spedytorszkolenia.pl'
 
     return () => {
       document.title = 'Kursy spedytora online z Certyfikatem'; // 👈 oryginalny tytuł
@@ -21,7 +21,7 @@ useEffect(() => {
                     <br/><br/>
 
 
-                    <h3>Cześć, tu Michał z spedytorszkolenia.pl {String.fromCodePoint(0x1F600)}</h3> <br/>
+                    <h3>Cześć, tu Radek z spedytorszkolenia.pl {String.fromCodePoint(0x1F600)}</h3> <br/>
 Jesteś tutaj by nauczyć się zawodu spedytora. Celem platformy jest przedstawienie Tobie praktycznych i teoretycznych
 zagadnień, które przydadzą Ci się w codziennej pracy spedytora.<br/> Po odbytych kursach możesz śmiało aplikować
 do pracy jako spedytor! {String.fromCodePoint(0x1F4BC)}<br/><br/>
