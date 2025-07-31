@@ -25,7 +25,7 @@ Niniejsza polityka prywatności w jasny sposób wyjaśnia i przedstawia zasady i
 <b>DEFINICJE:</b><br/><br/> 
 
 1. Administrator – podmiot, który samodzielnie ustala cele i sposoby przetwarzania danych osobowych. 
-Administratorem danych osobowych osób jest Michał Wiśniewski ul.Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980<br/>
+Administratorem danych osobowych osób jest Krzysztof Wiśniewski ul.Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980<br/>
 <br/>
 2. Dane osobowe – informacje o zidentyfikowanej lub możliwej do zidentyfikowania osobie fizycznej, 
 <br/><br/>
@@ -50,7 +50,7 @@ fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego p
 Administratorem Danych Osobowych wszystkich użytkowników strony internetowej, 
 w rozumieniu rozporządzenia Parlamentu Europejskiego i Rady (UE) z dnia 27 kwietnia 2016 r. 
 w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych oraz  w sprawie swobodnego przepływu
- takich danych oraz uchylenia dyrektywy 95/46/WE (RODO) jest Michał Wiśniewski ul. Derdowskiego 9/17 85-795 Bydgoszcz
+ takich danych oraz uchylenia dyrektywy 95/46/WE (RODO) jest Krzysztof Wiśniewski ul. Derdowskiego 9/17 85-795 Bydgoszcz
   NIP 5541012980.
    W sprawach dotyczących przetwarzania danych osobowych można skontaktować się z administratorem danych osobowych
     za pomocą adresu mailowego: spedytorszkolenia@gmail.com 
