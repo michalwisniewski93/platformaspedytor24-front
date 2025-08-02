@@ -101,14 +101,19 @@ f.) Wybrać jeden z dostępnych sposobów płatności i w zależności od sposob
 4. W razie korzystania z platformy kursowej w sposób sprzeczny z ust. 3 powyżej, Sprzedawca zachowuje prawo do zablokowania Kupującemu dostępu do kursu.  <br />
          <br />
 <strong>§10 Reklamacje</strong> <br /><br />
-1. Klientowi ma prawo do złożenia reklamacji w sprawach związanych z funkcjonowaniem Serwisu oraz realizacją usług świadczonych przez Sprzedawcę.
+1. Klient ma prawo do złożenia reklamacji w sprawach związanych z funkcjonowaniem Serwisu oraz realizacją usług świadczonych przez Sprzedawcę.
 <br/>
 2. Reklamacje dotyczące transakcji płatniczych obsługiwanych przez Operatora Płatności należy zgłaszać bezpośrednio Operatorowi Płatności. Reklamacje dotyczące funkcjonowania Serwisu i zakupionych usług należy zgłaszać w formie wiadomości e-mail na adres poczty elektronicznej: spedytorszkolenia@gmail.com
 <br/>
 3. Reklamacje rozpatrywane będą przez Sprzedawcę niezwłocznie, jednak nie później niż w terminie 14 dni od dnia otrzymania przez Sprzedawcę zgłoszenia reklamacji. Odpowiedź na reklamację zostanie przesłana do Użytkownika w formie zwrotnej wiadomości e-mail .
 <br/>
 4. W przypadku Klientów nie będących jednocześnie Konsumentami rękojmia jest wyłączona. Sprzedawca nie udziela gwarancji na usługi świadczone w Serwisie.
-<br/><br/>
+<br/>
+     5. Zgodnie z art. 38 pkt 13 ustawy z dnia 30 maja 2014 r. o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość nie przysługuje Konsumentowi w przypadku umowy o dostarczanie treści cyfrowych, które nie są zapisane na nośniku materialnym, jeżeli spełnianie świadczenia rozpoczęło się za wyraźną zgodą Konsumenta przed upływem terminu do odstąpienia od umowy oraz po poinformowaniu go o utracie prawa odstąpienia od umowy.
+<br/>
+6. Korzystając z zakupionego kursu online (rozpoczynając jego odtwarzanie lub pobieranie materiałów), Konsument wyraża zgodę na natychmiastowe rozpoczęcie świadczenia i przyjmuje do wiadomości, że traci prawo do odstąpienia od umowy.
+
+     <br/><br/>
 <strong>§11 Dane osobowe i pliki cookies</strong> <br /><br />
 1. Administratorem danych osobowych Kupującego jest Sprzedawca. <br />
 2. Dane osobowe Kupującego przetwarzane są w następujących celach i w oparciu o następujące podstawy prawne: <br />
