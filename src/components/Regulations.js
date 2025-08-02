@@ -44,7 +44,7 @@ const Regulations = () => {
 
 1. Sprzedawca poucza niniejszym Kupującego, że Kurs stanowi utwór w rozumieniu ustawy z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych, do którego prawa autorskie przysługują Sprzedawcy. <br />
 2. Sprzedawca poucza niniejszym Kupującego, że jakiekolwiek dalsze rozpowszechnianie Kursu przez Kupującego bez pisemnej zgody Sprzedawcy stanowi naruszenie praw autorskich przysługujących Sprzedawcy do Kursu i może skutkować odpowiedzialnością karną lub cywilną.
-<br/><br/>3. Klient nie posiada prawa do kopiowania w całości lub części oraz udostępniania w całości lub części Produktów zakupionych w Serwisie
+<br/>3. Klient nie posiada prawa do kopiowania w całości lub części oraz udostępniania w całości lub części Produktów zakupionych w Serwisie
  albo materiałów przekazanych mu w ramach Szkolenia. Sprzedawca udziela Klientowi niewyłącznej, niezbywalnej i ograniczonej licencji
  na zawartość zakupionego Produktu, treści zawartych w Koncie oraz udostępnionych materiałów w ramach Szkolenia. Tym samym
  Klient ma prawo korzystania z zakupionego Produktu oraz materiałów udostępnionych w ramach Szkolenia wyłącznie na własny użytek
