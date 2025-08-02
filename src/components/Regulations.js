@@ -15,12 +15,12 @@ const Regulations = () => {
                 <strong>§1 Postanowienia wstępne</strong> 
                 <br/><br/>
                 1. Sklep internetowy spedytorszkolenia.pl, dostępny pod adresem internetowym spedytorszkolenia.pl prowadzony jest przez LOGI DIGITAL Krzysztof Wiśniewski, Radosław Wiśniewski  ul.Derdowskiego 9/17 85-795 Bydgoszcz NIP 5541012980
-<br/><br/>
+<br/>
 
 2. Niniejszy regulamin skierowany jest do Konsumentów i określa tryb i zasady zawierania z Konsumentem Umowy Sprzedaży na odległość za pośrednictwem Sklepu.
-            <br /><br />
+            <br />
 3. Użytkowanie przedmiotowego serwisu oznacza akceptację niniejszego Regulaminu – w przypadku braku jego akceptacji prosimy o opuszczenie strony www.spedytorszkolenia.pl
-        <br/><br/>
+        <br/>
         4. Przed skorzystaniem z Serwisu należy uważnie przeczytać poniższy Regulamin.
         <br/><br/>
             <strong>§2 Definicje</strong> <br /><br />
@@ -49,9 +49,9 @@ const Regulations = () => {
  na zawartość zakupionego Produktu, treści zawartych w Koncie oraz udostępnionych materiałów w ramach Szkolenia. Tym samym
  Klient ma prawo korzystania z zakupionego Produktu oraz materiałów udostępnionych w ramach Szkolenia wyłącznie na własny użytek
 , bez dalszego jego prezentowania lub rozpowszechniania.
-<br/><br/>
+<br/>
 4. Naruszenie postanowień niniejszego paragrafu może stanowić podstawę odpowiedzialności cywilnej i karnej.  
-<br/><br/>
+
 <br /> <br />
 <strong>§5 Wymagania techniczne</strong> <br /><br />
 1. Do korzystania ze Sklepu, w tym przeglądania asortymentu Sklepu oraz składania zamówień na Produkty, niezbędne są: <br/>
@@ -59,17 +59,17 @@ const Regulations = () => {
 - aktywne konto poczty elektronicznej (e-mail),<br/>
 - włączona obsługa plików cookies,<br/>
 - przeglądarka internetowa najlepiej w jednej z nowszych wersji z obsługą skryptów JavaScript (dostępne w większości najnowszych przeglądarek Internet Explorer, Chrome, Chrominium, Firefox, Safari, Edge i innych najpopularniejszych).
-      <br /><br />
+      <br />
 2. Korzystanie z serwisu nie wymaga specjalistycznego sprzętu ani oprogramowania. 
 Konsument przyjmuje do wiadomości, że do dokonania zakupu Produktu oraz skorzystania z Usług za pośrednictwem Serwisu
  konieczne jest spełnienie podstawowych warunków technicznych przez komputer lub inne urządzenie,
  z którego korzysta. Każdorazowe korzystanie z Serwisu wymaga połączenia z Internetem. 
 Koszty połączenia internetowego z Serwisem są ustalane przez operatorów usług, z których korzysta Gość/Klient.
 Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.
-<br/><br/>
+<br/>
 
 3. Ze względu na niezależne od Sprzedawcy właściwości sieci Internet oraz sprzętu komputerowego, Sprzedawca nie gwarantuje nieprzerwanego i niezakłóconego dostępu do Serwisu. Sprzedawca nie odpowiada za nieprawidłowe działanie Serwisu spowodowane nienależytym działaniem sprzętu, z którego korzysta Gość/Klient lub zakłóceniami w działaniu sieci Internet. 
-<br/><br/>
+<br/>
       <strong>§6 Informacje ogólne</strong> <br /><br />
     1. Sprzedawca w najszerszym dopuszczalnym przez prawo zakresie nie ponosi odpowiedzialności za zakłócenia w tym przerwy w funkcjonowaniu Sklepu spowodowane siłą wyższą, niedozwolonym działaniem osób trzecich lub niekompatybilnością Sklepu internetowego z infrastrukturą techniczną Klienta. <br />
 2. Przeglądanie asortymentu Sklepu nie wymaga zakładania Konta. Składanie zamówień przez Klienta na Produkty znajdujące się w asortymencie Sklepu możliwe przez podanie niezbędnych danych osobowych i adresowych umożliwiających realizację Zamówienia konieczne jest założenie konta na Sklepie poprzez zarejestrowanie się, a następnie zalogowanie się na niniejsze wcześniej założone konto. <br />
@@ -102,13 +102,13 @@ f.) Wybrać jeden z dostępnych sposobów płatności i w zależności od sposob
          <br />
 <strong>§10 Reklamacje</strong> <br /><br />
 1. Klientowi ma prawo do złożenia reklamacji w sprawach związanych z funkcjonowaniem Serwisu oraz realizacją usług świadczonych przez Sprzedawcę.
-<br/><br/>
+<br/>
 2. Reklamacje dotyczące transakcji płatniczych obsługiwanych przez Operatora Płatności należy zgłaszać bezpośrednio Operatorowi Płatności. Reklamacje dotyczące funkcjonowania Serwisu i zakupionych usług należy zgłaszać w formie wiadomości e-mail na adres poczty elektronicznej: spedytorszkolenia@gmail.com
-<br/><br/>
+<br/>
 3. Reklamacje rozpatrywane będą przez Sprzedawcę niezwłocznie, jednak nie później niż w terminie 14 dni od dnia otrzymania przez Sprzedawcę zgłoszenia reklamacji. Odpowiedź na reklamację zostanie przesłana do Użytkownika w formie zwrotnej wiadomości e-mail .
-<br/><br/>
+<br/>
 4. W przypadku Klientów nie będących jednocześnie Konsumentami rękojmia jest wyłączona. Sprzedawca nie udziela gwarancji na usługi świadczone w Serwisie.
-<br/><br/>
+<br/>
 <strong>§11 Dane osobowe i pliki cookies</strong> <br /><br />
 1. Administratorem danych osobowych Kupującego jest Sprzedawca. <br />
 2. Dane osobowe Kupującego przetwarzane są w następujących celach i w oparciu o następujące podstawy prawne: <br />
