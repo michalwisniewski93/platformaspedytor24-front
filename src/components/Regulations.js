@@ -19,6 +19,10 @@ const Regulations = () => {
 
 2. Niniejszy regulamin skierowany jest do Konsumentów i określa tryb i zasady zawierania z Konsumentem Umowy Sprzedaży na odległość za pośrednictwem Sklepu.
             <br /><br />
+3. Użytkowanie przedmiotowego serwisu oznacza akceptację niniejszego Regulaminu – w przypadku braku jego akceptacji prosimy o opuszczenie strony www.spedytorszkolenia.pl
+        <br/><br/>
+        4. Przed skorzystaniem z Serwisu należy uważnie przeczytać poniższy Regulamin.
+        <br/><br/>
             <strong>§2 Definicje</strong> <br /><br />
 
             • Konsument – osoba fizyczna zawierająca ze Sprzedawcą umowę w ramach Sklepu, której przedmiot nie jest związany bezpośrednio z jej działalnością zawodową lub gospodarczą.<br/>
@@ -40,6 +44,14 @@ const Regulations = () => {
 
 1. Sprzedawca poucza niniejszym Kupującego, że Kurs stanowi utwór w rozumieniu ustawy z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych, do którego prawa autorskie przysługują Sprzedawcy. <br />
 2. Sprzedawca poucza niniejszym Kupującego, że jakiekolwiek dalsze rozpowszechnianie Kursu przez Kupującego bez pisemnej zgody Sprzedawcy stanowi naruszenie praw autorskich przysługujących Sprzedawcy do Kursu i może skutkować odpowiedzialnością karną lub cywilną.
+3. Klient nie posiada prawa do kopiowania w całości lub części oraz udostępniania w całości lub części Produktów zakupionych w Serwisie
+ albo materiałów przekazanych mu w ramach Szkolenia. Sprzedawca udziela Klientowi niewyłącznej, niezbywalnej i ograniczonej licencji
+ na zawartość zakupionego Produktu, treści zawartych w Koncie oraz udostępnionych materiałów w ramach Szkolenia. Tym samym
+ Klient ma prawo korzystania z zakupionego Produktu oraz materiałów udostępnionych w ramach Szkolenia wyłącznie na własny użytek
+, bez dalszego jego prezentowania lub rozpowszechniania.
+<br/><br/>
+4. Naruszenie postanowień niniejszego paragrafu może stanowić podstawę odpowiedzialności cywilnej i karnej.  
+<br/><br/>
 <br /> <br />
 <strong>§5 Wymagania techniczne</strong> <br /><br />
 1. Do korzystania ze Sklepu, w tym przeglądania asortymentu Sklepu oraz składania zamówień na Produkty, niezbędne są: <br/>
@@ -48,11 +60,22 @@ const Regulations = () => {
 - włączona obsługa plików cookies,<br/>
 - przeglądarka internetowa najlepiej w jednej z nowszych wersji z obsługą skryptów JavaScript (dostępne w większości najnowszych przeglądarek Internet Explorer, Chrome, Chrominium, Firefox, Safari, Edge i innych najpopularniejszych).
       <br /><br />
+2. Korzystanie z serwisu nie wymaga specjalistycznego sprzętu ani oprogramowania. 
+Konsument przyjmuje do wiadomości, że do dokonania zakupu Produktu oraz skorzystania z Usług za pośrednictwem Serwisu
+ konieczne jest spełnienie podstawowych warunków technicznych przez komputer lub inne urządzenie,
+ z którego korzysta. Każdorazowe korzystanie z Serwisu wymaga połączenia z Internetem. 
+Koszty połączenia internetowego z Serwisem są ustalane przez operatorów usług, z których korzysta Gość/Klient.
+Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.
+<br/><br/>
+
+3. Ze względu na niezależne od Sprzedawcy właściwości sieci Internet oraz sprzętu komputerowego, Sprzedawca nie gwarantuje nieprzerwanego i niezakłóconego dostępu do Serwisu. Sprzedawca nie odpowiada za nieprawidłowe działanie Serwisu spowodowane nienależytym działaniem sprzętu, z którego korzysta Gość/Klient lub zakłóceniami w działaniu sieci Internet. 
+<br/><br/>
       <strong>§6 Informacje ogólne</strong> <br /><br />
     1. Sprzedawca w najszerszym dopuszczalnym przez prawo zakresie nie ponosi odpowiedzialności za zakłócenia w tym przerwy w funkcjonowaniu Sklepu spowodowane siłą wyższą, niedozwolonym działaniem osób trzecich lub niekompatybilnością Sklepu internetowego z infrastrukturą techniczną Klienta. <br />
 2. Przeglądanie asortymentu Sklepu nie wymaga zakładania Konta. Składanie zamówień przez Klienta na Produkty znajdujące się w asortymencie Sklepu możliwe przez podanie niezbędnych danych osobowych i adresowych umożliwiających realizację Zamówienia konieczne jest założenie konta na Sklepie poprzez zarejestrowanie się, a następnie zalogowanie się na niniejsze wcześniej założone konto. <br />
 3. Ceny podane w Sklepie są podane w polskich złotych (PLN) i są cenami brutto (uwzględniają podatek VAT). <br />
 4. Na końcową (ostateczną) kwotę do zapłaty przez Klienta składa się cena za Produkt, a w niej jest wliczony koszt dostawy na terenie Polski.  <br /><br />
+
 <strong>§7 Zasady składania zamówienia</strong> <br /><br />
 
 1. W celu złożenia Zamówienia należy: <br />
@@ -77,13 +100,15 @@ f.) Wybrać jeden z dostępnych sposobów płatności i w zależności od sposob
 3. W przypadku kursów on-line, Kupujący zobowiązany jest korzystać z platformy kursowej w sposób zgodny z prawem, Regulaminem i dobrymi obyczajami, a w szczególności: <br />
 4. W razie korzystania z platformy kursowej w sposób sprzeczny z ust. 3 powyżej, Sprzedawca zachowuje prawo do zablokowania Kupującemu dostępu do kursu.  <br />
          <br />
-<strong>§10 Odstąpienie Konsumenta od umowy</strong> <br /><br />
-
-1. Konsument, który zawarł ze Sprzedawcą umowę na odległość, ma prawo odstąpić od umowy bez podawania przyczyny w terminie 14 dni od dnia zawarcia umowy. <br />
-2. Termin do odstąpienia od umowy sprzedaży towarów wygasa po upływie po upływie 14 dni od aktywacji kursu, która następuje po zaksięgowaniu opłaty lub otrzymaniu przez kupującego faktury końcowej. W przypadku gdy Kupujący nie zalogował się do usługi przystępuje mu prawo do odstąpienia od umowy do 14 dni bez podania przyczyny. Odstąpienie od umowy sprzedaży nie przysługuje Kupującym w przypadku świadczenia usług rozpoczętego po upływie 14 dni. <br />
-3. Aby odstąpić od umowy, Konsument musi poinformować Sprzedawcę o swojej decyzji o odstąpieniu od umowy w drodze jednoznacznego oświadczenia – na przykład pismo wysłane pocztą, lub pocztą elektroniczną, w piśmie należy podać nr konta do zwrotu środków oraz dane Klienta (imię i nazwisko Klienta, adres zamieszkania Klienta, adres e-mail Klienta). <br />
-5.Aby zachować termin do odstąpienia od umowy, wystarczy, aby Konsument wysłał informację dotyczącą wykonania przysługującego Konsumentowi prawa odstąpienia od umowy przed upływem terminu do odstąpienia od umowy. <br />
-6. W przypadku odstąpienia od umowy, Sprzedawca zwraca Konsumentowi wszystkie otrzymane od Konsumenta płatności niezwłocznie, nie później niż 14 dni od dnia, w którym Sprzedawca został poinformowany o wykonaniu prawa odstąpienia od umowy. <br /><br />
+<strong>§10 Reklamacje</strong> <br /><br />
+1. Klientowi ma prawo do złożenia reklamacji w sprawach związanych z funkcjonowaniem Serwisu oraz realizacją usług świadczonych przez Sprzedawcę.
+<br/><br/>
+2. Reklamacje dotyczące transakcji płatniczych obsługiwanych przez Operatora Płatności należy zgłaszać bezpośrednio Operatorowi Płatności. Reklamacje dotyczące funkcjonowania Serwisu i zakupionych usług należy zgłaszać w formie wiadomości e-mail na adres poczty elektronicznej: spedytorszkolenia@gmail.com
+<br/><br/>
+3. Reklamacje rozpatrywane będą przez Sprzedawcę niezwłocznie, jednak nie później niż w terminie 14 dni od dnia otrzymania przez Sprzedawcę zgłoszenia reklamacji. Odpowiedź na reklamację zostanie przesłana do Użytkownika w formie zwrotnej wiadomości e-mail .
+<br/><br/>
+4. W przypadku Klientów nie będących jednocześnie Konsumentami rękojmia jest wyłączona. Sprzedawca nie udziela gwarancji na usługi świadczone w Serwisie.
+<br/><br/>
 <strong>§11 Dane osobowe i pliki cookies</strong> <br /><br />
 1. Administratorem danych osobowych Kupującego jest Sprzedawca. <br />
 2. Dane osobowe Kupującego przetwarzane są w następujących celach i w oparciu o następujące podstawy prawne: <br />
@@ -124,7 +149,7 @@ Odbiorcami danych osobowych Kupującego są: urzędy skarbowe, biuro rachunkowe,
 2. Sprzedawca zastrzega sobie prawo do dokonywania zmian Regulaminu z ważnych przyczyn to jest: zmiany przepisów prawa, zmiany sposobów płatności i dostaw – w zakresie, w jakim te zmiany wpływają na realizację postanowień niniejszego Regulaminu. O każdej zmianie Sprzedawca poinformuje Klienta z co najmniej 7 dniowym wyprzedzeniem. <br />
 3. W sprawach nieuregulowanych w niniejszym Regulaminie mają zastosowanie powszechnie obowiązujące przepisy prawa polskiego, w szczególności: Kodeksu cywilnego; ustawy o świadczeniu usług drogą elektroniczną; ustawy o prawach konsumenta, ustawy o ochronie danych osobowych. <br />
 4. Klient ma prawo skorzystać z pozasądowych sposobów rozpatrywania reklamacji i dochodzenia roszczeń. W tym celu może złożyć skargę za pośrednictwem unijnej platformy internetowej ODR dostępnej pod adresem: http://ec.europa.eu/consumers/odr/. <br /><br />
-
+5. Po ukazaniu się na stronie głównej Serwisu lub w innych miejscach do tego przeznaczonych w Serwisie informacji o zmianach w Regulaminie, Gość/Klient powinien niezwłocznie zapoznać się z nową treścią Regulaminu, albowiem korzystanie z Serwisu oznacza jego akceptację.<br/><br/> 
 Napisz wiadomość do nas: <br />
 spedytorszkolenia@gmail.com <br /><br />
             </p>
