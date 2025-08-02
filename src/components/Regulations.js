@@ -69,7 +69,7 @@ Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.
 <br/>
 
 3. Ze względu na niezależne od Sprzedawcy właściwości sieci Internet oraz sprzętu komputerowego, Sprzedawca nie gwarantuje nieprzerwanego i niezakłóconego dostępu do Serwisu. Sprzedawca nie odpowiada za nieprawidłowe działanie Serwisu spowodowane nienależytym działaniem sprzętu, z którego korzysta Gość/Klient lub zakłóceniami w działaniu sieci Internet. 
-<br/>
+<br/><br/>
       <strong>§6 Informacje ogólne</strong> <br /><br />
     1. Sprzedawca w najszerszym dopuszczalnym przez prawo zakresie nie ponosi odpowiedzialności za zakłócenia w tym przerwy w funkcjonowaniu Sklepu spowodowane siłą wyższą, niedozwolonym działaniem osób trzecich lub niekompatybilnością Sklepu internetowego z infrastrukturą techniczną Klienta. <br />
 2. Przeglądanie asortymentu Sklepu nie wymaga zakładania Konta. Składanie zamówień przez Klienta na Produkty znajdujące się w asortymencie Sklepu możliwe przez podanie niezbędnych danych osobowych i adresowych umożliwiających realizację Zamówienia konieczne jest założenie konta na Sklepie poprzez zarejestrowanie się, a następnie zalogowanie się na niniejsze wcześniej założone konto. <br />
@@ -108,7 +108,7 @@ f.) Wybrać jeden z dostępnych sposobów płatności i w zależności od sposob
 3. Reklamacje rozpatrywane będą przez Sprzedawcę niezwłocznie, jednak nie później niż w terminie 14 dni od dnia otrzymania przez Sprzedawcę zgłoszenia reklamacji. Odpowiedź na reklamację zostanie przesłana do Użytkownika w formie zwrotnej wiadomości e-mail .
 <br/>
 4. W przypadku Klientów nie będących jednocześnie Konsumentami rękojmia jest wyłączona. Sprzedawca nie udziela gwarancji na usługi świadczone w Serwisie.
-<br/>
+<br/><br/>
 <strong>§11 Dane osobowe i pliki cookies</strong> <br /><br />
 1. Administratorem danych osobowych Kupującego jest Sprzedawca. <br />
 2. Dane osobowe Kupującego przetwarzane są w następujących celach i w oparciu o następujące podstawy prawne: <br />
