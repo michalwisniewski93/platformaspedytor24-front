@@ -125,16 +125,8 @@ Odbiorcami danych osobowych Kupującego są: urzędy skarbowe, biuro rachunkowe,
 7. Szczegóły związane z danymi osobowymi oraz plikami cookies opisane zostały w polityce prywatności <br /> <br />
 
 
-<strong>§12 Pozasądowe sposoby rozpatrywania reklamacji i dochodzenia roszczeń</strong> <br /><br />
 
-
-1. Szczegółowe informacje dotyczące możliwości skorzystania przez Konsumenta z pozasądowych sposobów rozpatrywania reklamacji i dochodzenia roszczeń oraz zasady dostępu do tych procedur dostępne są w siedzibach oraz na stronach internetowych powiatowych (miejskich) rzeczników konsumentów, organizacji społecznych, do których zadań statutowych należy ochrona konsumentów, Wojewódzkich Inspektoratów Inspekcji Handlowej oraz pod następującymi adresami internetowymi Urzędu Ochrony Konkurencji i Konsumentów: http://www.uokik.gov.pl/spory_konsumenckie.php; http://www.uokik.gov.pl/sprawy_indywidualne.php oraz http://www.uokik.gov.pl/wazne_adresy.php. <br />
-2. Konsument posiada następujące przykładowe możliwości skorzystania z pozasądowych sposobów rozpatrywania reklamacji i dochodzenia roszczeń: <br />
-3. Konsument uprawniony jest do zwrócenia się do stałego polubownego sądu konsumenckiego, o którym mowa w art. 37 ustawy z dnia 15 grudnia 2000 r. o Inspekcji Handlowej (Dz.U. z 2014 r. poz. 148 z późn. zm.), z wnioskiem o rozstrzygnięcie sporu wynikłego z Umowy zawartej ze Sprzedawcą. <br />
-4. Konsument uprawniony jest do zwrócenia się do wojewódzkiego inspektora Inspekcji Handlowej, zgodnie z art. 36 ustawy z dnia 15 grudnia 2000 r. o Inspekcji Handlowej (Dz.U. z 2014 r. poz. 148 z późn. zm.), z wnioskiem o wszczęcie postępowania mediacyjnego w sprawie polubownego zakończenia sporu między Konsumentem a Sprzedawcą. <br />
-5. Konsument może uzyskać bezpłatną pomoc w sprawie rozstrzygnięcia sporu między nim a Sprzedawcą, korzystając także z bezpłatnej pomocy powiatowego (miejskiego) rzecznika konsumentów lub organizacji społecznej, do której zadań statutowych należy ochrona konsumentów (m.in. Federacja Konsumentów, Stowarzyszenie Konsumentów Polskich). <br /><br />
-     
-   <strong>§13 Dane osobowe w sklepie internetowym</strong> <br /><br />  
+   <strong>§12 Dane osobowe w sklepie internetowym</strong> <br /><br />  
      1. Administratorem danych osobowych Klientów zbieranych za pośrednictwem Sklepu internetowego jest Sprzedawca. <br />
 2. Dane osobowe Klientów zbierane przez administratora za pośrednictwem Sklepu internetowego zbierane są w celu realizacji Umowy Sprzedaży, a jeżeli Klient wyrazi na to zgodę – także w celu marketingowym. <br />
 3. Odbiorcami danych osobowych Klientów Sklepu internetowego mogą być: <br />
@@ -143,7 +135,7 @@ Odbiorcami danych osobowych Kupującego są: urzędy skarbowe, biuro rachunkowe,
 6. Klient ma prawo dostępu do treści swoich danych oraz ich poprawiania. <br />
 7. Podanie danych osobowych jest dobrowolne, aczkolwiek niepodanie wskazanych w Regulaminie danych osobowych niezbędnych do zawarcia Umowy Sprzedaży skutkuje brakiem możliwości zawarcia tejże umowy. <br />
         <br />
-        <strong>§14 Postanowienia końcowe</strong> <br /><br />  
+        <strong>§13 Postanowienia końcowe</strong> <br /><br />  
 
 
         1. Umowy zawierane poprzez Sklep internetowy zawierane są w języku polskim. <br />
