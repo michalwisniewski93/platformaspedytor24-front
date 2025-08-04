@@ -319,7 +319,7 @@ if(!acceptregulations){
       <hr />
       <div className="payment-summary">
           <p><strong>Do zapłaty: {totalPrice.toFixed(2)} zł</strong></p>
-            <label style={{display: 'block'}}>Aby dokonać zakupu zaakceptuj <a href="/regulations">regulamin serwisu</a><input type="checkbox" name="" value={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} /></label>
+            <label style={{display: 'block'}}>Aby dokonać zakupu zaakceptuj <a href="/regulamin">regulamin serwisu</a><input type="checkbox" name="" value={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} /></label>
           <p className="warningToBuyNow" style={{display: 'block'}}>{acceptregulationsinfo ? acceptregulationsinfo : ''}</p>
           <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz</button>
           
