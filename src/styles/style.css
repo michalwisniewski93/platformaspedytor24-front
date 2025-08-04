@@ -1470,3 +1470,9 @@ h1.courseLabel {
   font-family: 'Funnel Display', 'Verdana', sans-serif;
   color: black;
 }
+
+
+p.warningToBuyNow {
+  color: red;
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+}
