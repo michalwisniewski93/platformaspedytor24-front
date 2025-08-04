@@ -33,7 +33,11 @@ const [companyregon, setCompanyRegon] = useState(0)
 
 const [taxdatas, setTaxDatas] = useState([])
 
-   
+
+
+  
+const [acceptregulations, setAcceptRegulations] = useState(false)
+const [acceptregulationsinfo, setAcceptRegulationsInfo] = useState('')
 
 
 
@@ -179,6 +183,13 @@ const handleRemove = (id) => {
  // ... cała reszta kodu bez zmian
 
 const handleBuyNow = async () => {
+
+if(!acceptregulations){
+  setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.')
+  return
+}
+
+  
   setCookie('newaccesses', accesses, 30);
 
   const userCookie = getCookie('user');
@@ -308,6 +319,8 @@ const handleBuyNow = async () => {
       <hr />
       <div className="payment-summary">
           <p><strong>Do zapłaty: {totalPrice.toFixed(2)} zł</strong></p>
+            <label>Aby dokonać zakupu zaakceptuj <a href="/regulations">regulamin serwisu</a><input type="checkbox" name="" value={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} /></label>
+          <p className="warningToBuyNow">{acceptregulationsinfo ? acceptregulationsinfo : ''}</p>
           <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz</button>
           
          
