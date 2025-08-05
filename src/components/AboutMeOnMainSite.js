@@ -16,7 +16,7 @@ const AboutMeOnMainSite = () => {
      i całą organizacją transportów.<br/>
      Odkryłem wielką pasję w branży TSL.  {"\u{1F49C}"}<br/>
      Obecnie jestem managerem w firmie transportowej.<br/><br/>
-     W 2021 moją wielką pasję do spedycji postanowiłem rozszerzyć szkoląc innych - tak narodziła się platforma <strong>SpedytorSzkolenia.pl</strong>
+     Moją wielką pasję do spedycji postanowiłem rozszerzyć szkoląc innych - tak narodziła się platforma <strong>SpedytorSzkolenia.pl</strong>
         {"\u{1F9E0}"}<br/><br/>
      Kursy tworzę z myślą o osobach zarówno początkujących jak i profesjonalistach szukających praktycznej wiedzy w atrakcyjnym wydaniu.
      Na platformie znajdziesz rzetelne materiały, konkretne wskazówki oraz treści oparte na rzeczywistych doświadczeniach z codziennej pracy w spedycji i transporcie.
