@@ -65,7 +65,8 @@ Konsument przyjmuje do wiadomości, że do dokonania zakupu Produktu oraz skorzy
  konieczne jest spełnienie podstawowych warunków technicznych przez komputer lub inne urządzenie,
  z którego korzysta. Każdorazowe korzystanie z Serwisu wymaga połączenia z Internetem. 
 Koszty połączenia internetowego z Serwisem są ustalane przez operatorów usług, z których korzysta Gość/Klient.
-Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.
+Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.<br/>
+     3. W razie awarii serwisu spedytorszkolenia.pl dostęp do kursów zostanie wysłany Klientowi na podany przy rejestracji adres e-mail.
 <br/>
 
 3. Ze względu na niezależne od Sprzedawcy właściwości sieci Internet oraz sprzętu komputerowego, Sprzedawca nie gwarantuje nieprzerwanego i niezakłóconego dostępu do Serwisu. Sprzedawca nie odpowiada za nieprawidłowe działanie Serwisu spowodowane nienależytym działaniem sprzętu, z którego korzysta Gość/Klient lub zakłóceniami w działaniu sieci Internet. 
