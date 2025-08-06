@@ -109,10 +109,14 @@ f.) Wybrać jeden z dostępnych sposobów płatności i w zależności od sposob
 <br/>
 4. W przypadku Klientów nie będących jednocześnie Konsumentami rękojmia jest wyłączona. Sprzedawca nie udziela gwarancji na usługi świadczone w Serwisie.
 <br/>
-     5. Zgodnie z art. 38 pkt 13 ustawy z dnia 30 maja 2014 r. o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość nie przysługuje Konsumentowi w przypadku umowy o dostarczanie treści cyfrowych, które nie są zapisane na nośniku materialnym, jeżeli spełnianie świadczenia rozpoczęło się za wyraźną zgodą Konsumenta przed upływem terminu do odstąpienia od umowy oraz po poinformowaniu go o utracie prawa odstąpienia od umowy.
+5. Zgodnie z art. 38 pkt 13 ustawy z dnia 30 maja 2014 r. o prawach konsumenta, prawo odstąpienia od umowy zawartej na odległość 
+nie przysługuje Konsumentowi w przypadku umowy o dostarczanie treści cyfrowych, które nie są zapisane na nośniku materialnym, 
+jeżeli spełnianie świadczenia rozpoczęło się za wyraźną zgodą Konsumenta przed upływem terminu do odstąpienia od umowy oraz 
+po poinformowaniu go o utracie tego prawa.
 <br/>
-6. Korzystając z zakupionego kursu online (rozpoczynając jego odtwarzanie lub pobieranie materiałów), Konsument wyraża zgodę na natychmiastowe rozpoczęcie świadczenia i przyjmuje do wiadomości, że traci prawo do odstąpienia od umowy.
-
+6. Korzystając z zakupionego kursu online (otwierając go, rozpoczynając jego odtwarzanie lub pobieranie materiałów), Konsument wyraża zgodę
+ na natychmiastowe rozpoczęcie świadczenia i przyjmuje do wiadomości, że traci prawo do odstąpienia od umowy.
+<br/>
      <br/><br/>
 <strong>§11 Dane osobowe i pliki cookies</strong> <br /><br />
 1. Administratorem danych osobowych Kupującego jest Sprzedawca. <br />
