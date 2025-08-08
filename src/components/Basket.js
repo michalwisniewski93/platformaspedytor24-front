@@ -247,8 +247,7 @@ if(!acceptregulations){
     const session = await response.json();
     const stripe = await stripePromise;
 
-    console.log(session);
-console.log(session?.id);
+ 
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
     if (result.error) {
