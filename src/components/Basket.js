@@ -253,6 +253,8 @@ console.log('Response ok:', response.ok);
  console.log(session)
     const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
+    console.log(session.id)
+
     if (result.error) {
       console.error(result.error.message);
       sessionStorage.removeItem('paymentStarted');
