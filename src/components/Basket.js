@@ -244,6 +244,9 @@ if(!acceptregulations){
       body: JSON.stringify({ items: basket }),
     });
 
+    console.log('Response status:', response.status);
+console.log('Response ok:', response.ok);
+
     const session = await response.json();
     const stripe = await stripePromise;
 
