@@ -36,12 +36,13 @@ const [showH3Communicate, setShowH3Communicate] = useState(true);
 
 
 
-    useEffect(() => {
+  useEffect(() => {
   if (hasAccess) {
-    setShowH3Communicate(true); // pokaż komunikat
+    setShowH3Communicate(true); // pokaż komunikat dopiero po uzyskaniu dostępu
     const timer = setTimeout(() => {
-      setShowH3Communicate(false); // ukryj po 2 minutach
+      setShowH3Communicate(false); // schowaj po 2 minutach
     }, 120000);
+
     return () => clearTimeout(timer);
   }
 }, [hasAccess]);
@@ -226,7 +227,9 @@ function getCertificateNumber() {
             <h1>liczba lekcji: {numberoflessons}</h1>
         
         
-            {showH3Communicate && <h3 className="adminInfo1">Ładowanie plików Video ...</h3>}
+            {hasAccess && showH3Communicate && (
+  <h3 className="adminInfo1">Ładowanie plików Video ...</h3>
+)}
                     
             <div className="courseViewPresentationWrapper">
               <div className="courseViewPresentationCourseContent" dangerouslySetInnerHTML={{ __html: coursecontent }} />
