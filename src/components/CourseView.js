@@ -34,13 +34,15 @@ const [showH3Communicate, setShowH3Communicate] = useState(true);
     return null;
   }
 
-    useEffect(() => {
+useEffect(() => {
+  if (hasAccess) {
+    setShowH3Communicate(true);
     const timer = setTimeout(() => {
       setShowH3Communicate(false);
-    }, 120000); // 120000 ms = 2 minuty
-
-    return () => clearTimeout(timer); // czyszczenie timera przy odmontowaniu
-  }, []);
+    }, 120000);
+    return () => clearTimeout(timer);
+  }
+}, [hasAccess]);
  
 
 useEffect(() => {
