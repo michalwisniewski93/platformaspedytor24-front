@@ -13,6 +13,7 @@ const [showH3Communicate, setShowH3Communicate] = useState(true);
     const [customers, setCustomers] = useState([])
     const [customer, setCustomer] = useState([])
     const [taxdatas, setTaxDatas] = useState([])
+    const [dots, setDots] = useState("");
 
 
     const id = useSelector(state => state.temporaryCourseViewId)
@@ -36,16 +37,28 @@ const [showH3Communicate, setShowH3Communicate] = useState(true);
 
 
 
-  useEffect(() => {
-  if (hasAccess) {
-    setShowH3Communicate(true); // pokaż komunikat dopiero po uzyskaniu dostępu
-    const timer = setTimeout(() => {
-      setShowH3Communicate(false); // schowaj po 2 minutach
-    }, 120000);
+ useEffect(() => {
+  if (!hasAccess) return;
 
-    return () => clearTimeout(timer);
-  }
+  setShowH3Communicate(true); // pokaż komunikat od razu
+
+  // timer ukrywania komunikatu po 2 minutach
+  const timer = setTimeout(() => {
+    setShowH3Communicate(false);
+  }, 120000);
+
+  // animacja kropek
+  const interval = setInterval(() => {
+    setDots(prev => (prev.length < 3 ? prev + "." : ""));
+  }, 1000);
+
+  // sprzątanie po odmontowaniu lub zmianie stanu
+  return () => {
+    clearTimeout(timer);
+    clearInterval(interval);
+  };
 }, [hasAccess]);
+
 
  
 
@@ -228,7 +241,7 @@ function getCertificateNumber() {
         
         
             {hasAccess && showH3Communicate && (
-  <h3 className="adminInfo1">Ładowanie plików Video ...<br/> Aby oglądać filmy w najwyższej jakości - odtwórz film a następnie kliknij ikonkę ⚙️ a następnie wybierz quality (jakość) i ustaw na 1020p HD. <br/>Aby wygenerować certyfikat zjedź na dół strony pojawi się opcja wygenerowania certyfikatu.</h3>
+  <h3 className="adminInfo1">Ładowanie plików Video {dots}<br/> Aby oglądać filmy w najwyższej jakości - odtwórz film a następnie kliknij ikonkę ⚙️ a następnie wybierz quality (jakość) i ustaw na 1020p HD. <br/>Aby wygenerować certyfikat zjedź na dół strony pojawi się opcja wygenerowania certyfikatu.</h3>
 )}
    
 
