@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 const CourseView = () => {
-
+const [showH3Communicate, setShowH3Communicate] = useState(true);
     const [hasAccess, setHasAccess] = useState(false)
     const [isViewCert, setIsViewCert] = useState(false)
     const [customers, setCustomers] = useState([])
@@ -34,6 +34,13 @@ const CourseView = () => {
     return null;
   }
 
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowH3Communicate(false);
+    }, 120000); // 120000 ms = 2 minuty
+
+    return () => clearTimeout(timer); // czyszczenie timera przy odmontowaniu
+  }, []);
  
 
 useEffect(() => {
@@ -212,6 +219,9 @@ function getCertificateNumber() {
             <div className="courseViewPresentation">
             <h1>{title} - {author}</h1>
             <h1>liczba lekcji: {numberoflessons}</h1>
+        
+        {showH3Communicate ? <h3 className="adminInfo1">Ładowanie plików Video ...</h3> : null}
+                    
             <div className="courseViewPresentationWrapper">
               <div className="courseViewPresentationCourseContent" dangerouslySetInnerHTML={{ __html: coursecontent }} />
               <div className="courseViewPresentationCourseLinks" dangerouslySetInnerHTML={{ __html: courselinks }} />
