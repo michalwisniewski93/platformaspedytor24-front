@@ -230,10 +230,16 @@ function getCertificateNumber() {
             {hasAccess && showH3Communicate && (
   <h3 className="adminInfo1">Ładowanie plików Video ...</h3>
 )}
+    {hasAccess && showH3Communicate && (
+         <h3 className="adminInfo2">Aby oglądać filmy w najwyższej jakości - odtwórz film a następnie kliknij ikonkę ⚙️ a następnie wybierz quality (jakość) i ustaw na 1020p HD. </h3>
+    
+    )}
 
-    <h3 className="adminInfo2">Aby oglądać filmy w najwyższej jakości - odtwórz film a następnie kliknij ikonkę ⚙️ a następnie wybierz quality (jakość) i ustaw na 1020p HD. </h3>
-    <h3 className="adminInfo2">Aby wygenerować certyfikat zjedź na dół strony pojawi się opcja wygenerowania certyfikatu. </h3>
-                    
+        {hasAccess && showH3Communicate && (
+        <h3 className="adminInfo2">Aby wygenerować certyfikat zjedź na dół strony pojawi się opcja wygenerowania certyfikatu. </h3>
+    )}
+
+             
             <div className="courseViewPresentationWrapper">
               <div className="courseViewPresentationCourseContent" dangerouslySetInnerHTML={{ __html: coursecontent }} />
               <div className="courseViewPresentationCourseLinks" dangerouslySetInnerHTML={{ __html: courselinks }} />
