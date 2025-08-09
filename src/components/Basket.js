@@ -291,7 +291,7 @@ console.log('Response ok:', response.ok);
             <tr key={item.id}>
               <td>
                 <img
-                  src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`}
+                  src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`}
                   alt={item.title}
                   style={{ width: '80px', height: 'auto' }}
                 />
