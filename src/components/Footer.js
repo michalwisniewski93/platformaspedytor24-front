@@ -25,6 +25,14 @@ const Footer = () => {
           </a>
         </div>
       </div>
+      <div className="p24">
+      <h1>Stripe & Przelewy24 integration</h1>
+      <nav>
+      <ul>
+        <li><Link to="/terms-and-conditions">Terms and Conditions</Link></li><li><Link to="/products-and-pricing">Products and Pricing</Link></li><li></li>
+      </ul>
+      </nav>
+      </div>
       <CookieConsent/>
     </footer>
   );
