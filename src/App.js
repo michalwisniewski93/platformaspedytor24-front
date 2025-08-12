@@ -37,6 +37,9 @@ import ShowSingleInvoiceAdmin from './components/ShowSingleInvoiceAdmin';
 import CorrectiveViewAdmin from './components/CorrectiveViewAdmin';
 import CorrectiveUserInvoiceView from './components/CorrectiveUserInvoiceView';
 import InvoicesReport from './components/InvoicesReport';
+import TermsAndConditions from './components/TermsAndConditions'
+import AboutP24 from './components/AboutP24'
+import ProductsAndPricing from './components/ProductsAndPricing'
 import NotFound from './components/NotFound';
 
 
@@ -81,6 +84,9 @@ function App() {
         <Route path="/widokfakturykorygujacejadmin" element={<CorrectiveViewAdmin/>} />
         <Route path="/fakturakorygujaca" element={<CorrectiveUserInvoiceView/>} />
         <Route path="/raport-fakturowy" element={<InvoicesReport/>} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions/>} />
+        <Route path="/about-us" element={<AboutP24/>} />
+        <Route path="/products-and-pricing" element={<ProductsAndPricing/>} />
         <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>
