@@ -10,8 +10,7 @@ const TermsAndConditions = () => {
             <h1>Terms and Conditions</h1>
             <br/><br/>
             <p>
-               Terms and Conditions 
-
+               
 <strong>Refund Policy</strong><br/><br/> 
 
  
@@ -246,7 +245,7 @@ Improve security,<br/>
 
 Reporting (measuring and analyzing service performance).<br/> 
 
-<strong>Types of Cookies we use:</strong><br/><br/> 
+<br/><strong>Types of Cookies we use:</strong><br/><br/> 
 
 Session cookies – stored temporarily until the browser is closed.<br/> 
 
@@ -261,16 +260,16 @@ Performance – collect information on how the website is used.<br/>
 Functional – remember selected settings and personalize your interface (e.g., language, region, font size, website appearance).<br/> 
 
 Security – used to detect authentication abuses.<br/> 
-
+<br/>
 <strong>Recommended security measures:</strong><br/><br/> 
  Your device should have antivirus software with an up-to-date virus definition database, a secure and updated web browser, and a firewall enabled. Enabling anti-phishing filters is also recommended. Avoid opening suspicious attachments or clicking on unknown links. Use only trusted Wi-Fi networks.<br/><br/> 
 
 <strong>Do Cookies contain personal data?</strong><br/><br/> 
  While Cookies do not in themselves constitute personal data, some stored information (e.g., preferences) may be treated as personal data. Personal data obtained via Cookies may be processed only to perform specific functions for the user as described above. Such data is encrypted to prevent unauthorized access.<br/> 
-
+<br/><br/>
 <strong>How do we ensure security?</strong><br/><br/> 
  We use storage and reading mechanisms for Cookies that prevent the retrieval of any confidential information from your device. It is impossible for viruses, trojans, or other malware to be transferred from our servers to your device via Cookies.<br/> 
-
+<br/><br/>
 <strong>Deleting Cookies and changing preferences:</strong><br/><br/> 
  The website’s right to store and access Cookies is based on your consent, expressed when configuring your browser or upon visiting the website. You can adjust your settings at any time. Most browsers allow default storage of Cookies, but you can block them at any time. Links with detailed instructions for various browsers are provided:<br/> 
 
@@ -285,11 +284,11 @@ Edge – https://support.microsoft.com/en-us/help/10607/microsoft-edge-view-dele
 Safari – https://support.apple.com/en/guide/safari/sfri11471/mac <br/> 
 
 Internet Explorer – http://windows.microsoft.com/en-us/internet-explorer/delete-manage-cookies#ie=ie-11 <br/> 
-
+<br/><br/>
 If you disable all Cookies, neither we nor third parties will send Cookies to your browser. However, you may need to manually adjust preferences each time you visit the site, and some functions may not work. To exercise your right to object under the GDPR, you must log out of all devices and delete Cookies from them. The update process may take up to 48 hours.<br/> 
 
  
-
+<br/><br/>
 <strong> 
 
 CHANGES TO THE PRIVACY POLICY</strong><br/><br/> 
