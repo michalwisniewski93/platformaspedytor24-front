@@ -1476,3 +1476,23 @@ p.warningToBuyNow {
   color: red;
   font-family: 'Funnel Display', 'Verdana', sans-serif;
 }
+
+
+.p24{
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  font-size: 12px;
+  display: flex;
+  background-color: gray;
+  
+}
+.p24 a{
+  text-decoration: none;
+  color: white;
+}
+.p24 h1{
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  font-size: 12px;
+}
+.p24{
+  
+}
