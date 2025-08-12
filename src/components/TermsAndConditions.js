@@ -7,7 +7,7 @@ const TermsAndConditions = () => {
         <div className="app">
         <Header/>
         <div className="privacyPolicy">
-            <h1>Regulamin</h1>
+            <h1>Terms and Conditions</h1>
             <br/><br/>
             <p>
                Terms and Conditions
