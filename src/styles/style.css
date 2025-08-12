@@ -1483,12 +1483,18 @@ p.warningToBuyNow {
   font-size: 12px;
   border-radius: 5px;
   background-color: gray;
-  width: 300px;
+  width: 350px;
+  padding: 10px;
   
 }
 .p24 a{
   text-decoration: none;
   color: white;
+  margin-left: 5px;
+  
+}
+.p24 a:hover{
+  text-decoration: underline;
 }
 .p24 h1{
   font-family: 'Funnel Display', 'Verdana', sans-serif;
