@@ -7,10 +7,16 @@ const AboutP24 = () => {
         <div className="app">
         <Header/>
         <div className="privacyPolicy">
-            <h1>Regulamin</h1>
+            <h1>About Us</h1>
             <br/><br/>
             <p>
-               AboutP24
+              <strong> NIP (VAT):</strong> 5541012980 <br/>
+
+<strong>REGON (Registration Number):</strong> 090412534 <br/>
+
+<strong>Company Address:</strong> ul. Derdowskiego 9/17 85-795 Bydgoszcz <br/> 
+
+<strong>Company Name and Owner:</strong> LOGI DIGITAL KRZYSZTOF WIŚNIEWSKI <br/> 
             </p>
         </div>
         <Footer/>
