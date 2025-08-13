@@ -1504,3 +1504,16 @@ p.warningToBuyNow {
   display: flex;
   list-style: none;
 }
+
+@media (max-width: 600px) {
+  .blogExpert .blogExpertContent img {
+    width: 100%;
+    height: auto;
+  }
+
+  .p24 {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
