@@ -32,10 +32,7 @@ const Footer = () => {
         <li><Link to="/terms-and-conditions">Terms and Conditions</Link></li><li><Link to="/products-and-pricing">Products and Pricing</Link></li>
   <li><Link to="/about-us">About us</Link></li>
       </ul>
-      </nav>
-  <div>
-  <a href="https://tpay.com/jak-to-dziala" target="_blank" title="Obsługujemy płatności internetowe przez system płatności online Tpay"><img src="https://tpay.com/img/banners/zaplac-online-485x115.svg" style="border:0" alt="Logo Tpay" title="Logo Tpay"/></a>
-  </div>    
+      </nav>   
   </div>
       <CookieConsent/>
     </footer>
