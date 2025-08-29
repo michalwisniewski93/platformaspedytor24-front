@@ -112,6 +112,7 @@ const handlePrint = () => {
                         <h2>FAKTURA KORYGUJĄCA nr {coradminnumberofcorrectiveinvoice}</h2>
                         <h2>Data wystawienia: {coradmindateofissuecorrectiveinvoice}</h2> 
                         <h2>Numer faktury korygowanej: {coradminnumberofnativeinvoice}</h2> 
+                         <h2>metoda kasowa</h2>
                 </div>
                 <div className="secondDataInvoice">
                     <div className="sellerdata">
