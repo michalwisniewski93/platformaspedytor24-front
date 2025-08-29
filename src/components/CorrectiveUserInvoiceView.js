@@ -99,6 +99,7 @@ const CorrectiveUserInvoiceView = () => {
                 <h2>FAKTURA KORYGUJĄCA nr {corusnumberofcorrectiveinvoice}</h2>
                 <h2>Data wystawienia: {corusdateofissuecorrectiveinvoice}</h2>
                 <h2>Numer faktury korygowanej: {corusnumberofnativeinvoice}</h2>
+                 <h2>metoda kasowa</h2>
               </div>
               <div className="secondDataInvoice">
                 <div className="sellerdata">
