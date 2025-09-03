@@ -117,7 +117,7 @@ const handlePrint = () => {
                         <h2>FAKTURA nr {invoicenumber}</h2>
                         <h2>Data wystawienia: {invoicedateofissue}</h2> 
                         <h2>Data sprzedaży: {dateofsale}</h2> 
-                        <h2>metoda kasowa</h2>
+                        
                 </div>
                 <div className="secondDataInvoice">
                     <div className="sellerdata">
