@@ -1517,3 +1517,8 @@ p.warningToBuyNow {
   }
 }
 
+h1.courseTitleHero{
+  font-family: 'Funnel Display', 'Verdana', sans-serif;
+  font-size: 27px;
+}
+
