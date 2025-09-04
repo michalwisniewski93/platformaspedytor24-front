@@ -202,7 +202,7 @@ if(!acceptregulations){
     sessionStorage.setItem('paymentStarted', 'true');
 
     const orderData = {
-      name,
+      name: `${name} (klient nie opłacił jeszcze tego zamówienia)`,
       surname,
       street,
       postcode,
