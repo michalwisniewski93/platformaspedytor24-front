@@ -268,7 +268,7 @@ function getCertificateNumber() {
                    
                   </div>
                   <div className="footer2">
-                    <h3 className="signature">Michał Wiśniewski - prowadzący kurs, właściciel platformy spedytorszkolenia.pl</h3>
+                    <h3 className="signature">{author} - prowadzący kurs, właściciel platformy spedytorszkolenia.pl</h3>
                   </div>
                 </div>
                 <div className="footerlogo">
