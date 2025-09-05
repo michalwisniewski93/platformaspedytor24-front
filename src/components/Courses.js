@@ -8,11 +8,19 @@ import { useNavigate } from 'react-router-dom'
 
 const Courses = () => {
     const [courses, setCourses] = useState([])
+    const [loading, setLoading] = useState(true)
 
      useEffect(() => {
         axios.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
-        .then((response) => setCourses(response.data))
-        .catch((err) => console.log('error fetching courses, error: ' + err))
+        .then((response) =>{ 
+            setCourses(response.data)
+            setLoading(false)
+        })
+        .catch((err) => {
+            console.log('error fetching courses, error: ' + err)
+            setLoading(false)
+        }
+              )
     }, [])
     
     const dispatch = useDispatch()
@@ -53,23 +61,103 @@ const Courses = () => {
 
 
 
-    return (
-        <div className="app">
-                <Header/>
-                <div className="courses">
-                    <h1>Kursy z certyfikatem</h1>
-                    <div className="coursesContent">
-                        {courses.map(course => <div className="coursesContentItem" key={course._id}>
-                         <img src={`https://platformaspedytor8-back-production.up.railway.app/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)} />
-                         <h1 className="courseTitleHero" onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.title}</h1>
-                         <h4 onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>{course.price} zł</h4>
-                         <button onClick={() => handleDisplayMore(course._id, course.title, course.imageurl, course.numberoflessons, course.price, course.pricebeforethirtydays, course.salescontent, course.linktoyoutube, course.contentlist, course.author, course.accesscode)}>Zobacz więcej</button>
-                        </div>)}
-                    </div>
-                 </div>
-                <Footer/>
+  return (
+    <div className="app">
+      <Header />
+      <div className="courses">
+        <h1>Kursy z certyfikatem</h1>
+        <div className="coursesContent">
+          {loading ? ( // 🔹 komunikat ładowania
+            <p>Ładowanie kursów...</p>
+          ) : (
+            courses.map((course) => (
+              <div className="coursesContentItem" key={course._id}>
+                <img
+                  src={`https://platformaspedytor8-back-production.up.railway.app/${course.imageurl}`}
+                  alt={course.title}
+                  loading="lazy" // 🔹 lazy loading dla obrazków
+                  onClick={() =>
+                    handleDisplayMore(
+                      course._id,
+                      course.title,
+                      course.imageurl,
+                      course.numberoflessons,
+                      course.price,
+                      course.pricebeforethirtydays,
+                      course.salescontent,
+                      course.linktoyoutube,
+                      course.contentlist,
+                      course.author,
+                      course.accesscode
+                    )
+                  }
+                />
+                <h1
+                  className="courseTitleHero"
+                  onClick={() =>
+                    handleDisplayMore(
+                      course._id,
+                      course.title,
+                      course.imageurl,
+                      course.numberoflessons,
+                      course.price,
+                      course.pricebeforethirtydays,
+                      course.salescontent,
+                      course.linktoyoutube,
+                      course.contentlist,
+                      course.author,
+                      course.accesscode
+                    )
+                  }
+                >
+                  {course.title}
+                </h1>
+                <h4
+                  onClick={() =>
+                    handleDisplayMore(
+                      course._id,
+                      course.title,
+                      course.imageurl,
+                      course.numberoflessons,
+                      course.price,
+                      course.pricebeforethirtydays,
+                      course.salescontent,
+                      course.linktoyoutube,
+                      course.contentlist,
+                      course.author,
+                      course.accesscode
+                    )
+                  }
+                >
+                  {course.price} zł
+                </h4>
+                <button
+                  onClick={() =>
+                    handleDisplayMore(
+                      course._id,
+                      course.title,
+                      course.imageurl,
+                      course.numberoflessons,
+                      course.price,
+                      course.pricebeforethirtydays,
+                      course.salescontent,
+                      course.linktoyoutube,
+                      course.contentlist,
+                      course.author,
+                      course.accesscode
+                    )
+                  }
+                >
+                  Zobacz więcej
+                </button>
+              </div>
+            ))
+          )}
         </div>
-    )
+      </div>
+      <Footer />
+    </div>
+  )
 }
 
 export default Courses
