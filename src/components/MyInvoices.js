@@ -253,7 +253,7 @@ navigate('/fakturakorygujaca')
       <div className="myOrdersPresentation myInvoicesPresentation">
         {hasAccess ? (
           <>
-    <p>Obecnie faktury wysyłamy Tobie drogą mailową.</p>
+    <p className="adminInfo1">Obecnie faktury wysyłamy Tobie drogą mailową.</p>
           </>
         ) : (
           <h2>Nie masz dostępu</h2>
