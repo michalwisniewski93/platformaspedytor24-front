@@ -253,7 +253,7 @@ navigate('/fakturakorygujaca')
       <div className="myOrdersPresentation myInvoicesPresentation">
         {hasAccess ? (
           <>
-    <p className="adminInfo1">Wszystkie faktury za zakupione kursy wysyłamy Tobie drogą mailową, na podany adres e-mail podczas rejestracji konta.</p>
+    <h3 className="adminInfo1">Wszystkie faktury za zakupione kursy wysyłamy Tobie drogą mailową, na podany adres e-mail podczas rejestracji konta.</h3>
           </>
         ) : (
           <h2>Nie masz dostępu</h2>
