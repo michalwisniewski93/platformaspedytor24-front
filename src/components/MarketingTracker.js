@@ -71,7 +71,8 @@ useEffect(() => {
           <td
             style={{
               border: "1px solid #d1d5db",
-              padding: "8px"
+              padding: "8px",
+              color: "white",
             }}
           >
             {item.source}
