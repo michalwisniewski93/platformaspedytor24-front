@@ -30,25 +30,69 @@ useEffect(() => {
                     <h1>Marketing Tracker</h1>
 
 
- <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Statystyki wejść</h2>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="border border-gray-300 p-2">Źródło</th>
-            <th className="border border-gray-300 p-2">Wejścia</th>
-          </tr>
-        </thead>
-        <tbody>
-          {stats.map((item) => (
-            <tr key={item._id}>
-              <td className="border border-gray-300 p-2">{item.source}</td>
-              <td className="border border-gray-300 p-2">{item.count}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+
+
+         <div style={{ padding: "16px" }}>
+  <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "16px" }}>
+    Statystyki wejść
+  </h2>
+  <table
+    style={{
+      width: "100%",
+      borderCollapse: "collapse",
+      border: "1px solid #d1d5db" // szary border (gray-300)
+    }}
+  >
+    <thead>
+      <tr style={{ backgroundColor: "#f3f4f6" /* gray-100 */ }}>
+        <th
+          style={{
+            border: "1px solid #d1d5db",
+            padding: "8px",
+            textAlign: "left"
+          }}
+        >
+          Źródło
+        </th>
+        <th
+          style={{
+            border: "1px solid #d1d5db",
+            padding: "8px",
+            textAlign: "left"
+          }}
+        >
+          Wejścia
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {stats.map((item) => (
+        <tr key={item._id}>
+          <td
+            style={{
+              border: "1px solid #d1d5db",
+              padding: "8px"
+            }}
+          >
+            {item.source}
+          </td>
+          <td
+            style={{
+              border: "1px solid #d1d5db",
+              padding: "8px"
+            }}
+          >
+            {item.count}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+
+
 
 
 
