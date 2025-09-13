@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Header from './Header'
 import HeroSlider from "./HeroSlider";
 import AboutMeOnMainSite from './AboutMeOnMainSite';
@@ -23,6 +23,7 @@ useEffect(() => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ source }),
+        keepalive: true
       });
     }
   }, []);
