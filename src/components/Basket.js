@@ -195,12 +195,13 @@ const Basket = () => {
 
     const tpayData = await tpayResp.json();
 
-    // Sprawdzenie i przekierowanie do płatności
+    // Sprawdzenie odpowiedzi Tpay
     if (!tpayResp.ok || !tpayData.transactionPaymentUrl) {
       console.error('DEBUG: Tpay response', tpayData);
       throw new Error('Nie udało się utworzyć transakcji Tpay');
     }
 
+    // Przekierowanie do płatności
     window.location.href = tpayData.transactionPaymentUrl;
 
   } catch (error) {
