@@ -108,88 +108,69 @@ const Basket = () => {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
   }
 
-  // Pobranie aktualnego czasu w formacie DD-MM-RRRR HH:MM:SS
-  function getFormattedDate() {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec','lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  }
-
   // Obsługa zakupu
-  
   const handleBuyNow = async () => {
-  try {
-    // 1. Tworzymy zamówienie
-    const orderResp = await axios.post(
-      "https://platformaspedytor8-back-production.up.railway.app/orders",
-      {
-        name,
-        surname,
-        street,
-        postcode,
-        city,
-        companyname,
-        companystreet,
-        companypostcode,
-        companycity,
-        email,
-        invoice,
-        login,
-        newsletter,
-        phonenumber,
-        ordercontent: JSON.stringify(items),
-        orderamount: totalPrice,
-        ordertime: new Date().toLocaleString("pl-PL", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
+    try {
+      // 1. Tworzymy zamówienie
+      const orderResp = await axios.post(
+        `${BACKEND_URL}/orders`,
+        {
+          name,
+          surname,
+          street,
+          postcode,
+          city,
+          companyname,
+          companystreet,
+          companypostcode,
+          companycity,
+          email,
+          invoice,
+          login,
+          newsletter,
+          phonenumber,
+          ordercontent: JSON.stringify(basket), // zamiast items
+          orderamount: totalPrice,
+          ordertime: new Date().toLocaleString("pl-PL", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
+        }
+      );
+
+      console.log("✅ Zamówienie zapisane:", orderResp.data);
+
+      // 2. Tworzymy transakcję w Tpay
+      const tpayResp = await axios.post(
+        `${BACKEND_URL}/tpay/create-transaction`,
+        {
+          items: basket, // zamiast items
+          totalPrice,
+          email,
+        }
+      );
+
+      const tpayData = tpayResp.data;
+      console.log("✅ Tpay response:", tpayData);
+
+      // 3. Sprawdzamy czy jest transactionPaymentUrl
+      if (!tpayData.transactionPaymentUrl) {
+        console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
+        throw new Error("Nie udało się utworzyć transakcji Tpay");
       }
-    );
 
-    console.log("✅ Zamówienie zapisane:", orderResp.data);
+      // 4. Przekierowanie użytkownika do płatności
+      window.location.href = tpayData.transactionPaymentUrl;
 
-    // 2. Tworzymy transakcję w Tpay
-    const tpayResp = await axios.post(
-      "https://platformaspedytor8-back-production.up.railway.app/tpay/create-transaction",
-      {
-        items,
-        totalPrice,
-        email,
-      }
-    );
-
-    const tpayData = tpayResp.data;
-    console.log("✅ Tpay response:", tpayData);
-
-    // 3. Sprawdzamy czy jest transactionPaymentUrl
-    if (!tpayData.transactionPaymentUrl) {
-      console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
-      throw new Error("Nie udało się utworzyć transakcji Tpay");
+    } catch (error) {
+      console.error("❌ Błąd w handleBuyNow:", error);
+      alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
     }
-
-    // 4. Przekierowanie użytkownika do płatności
-    window.location.href = tpayData.transactionPaymentUrl;
-
-  } catch (error) {
-    console.error("❌ Błąd w handleBuyNow:", error);
-    alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
-  }
-};
-
-   if (basket.length === 0) {
-    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
-  }
-
+  };
 
   return (
     <div className="app">
@@ -211,7 +192,7 @@ const Basket = () => {
           <tbody>
             {basket.map(item => (
               <tr key={item.id}>
-                <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
+                <td><img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
                 <td>{item.title}</td>
                 <td>{item.author}</td>
                 <td>{item.price} zł</td>
@@ -225,7 +206,7 @@ const Basket = () => {
         <ul className="basket-list">
           {basket.map(item => (
             <li key={item.id} className="basket-list-item">
-              <img src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
+              <img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
               <div><strong>{item.title}</strong></div>
               <div>{item.author}</div>
               <div>{item.price} zł</div>
@@ -251,5 +232,3 @@ const Basket = () => {
 };
 
 export default Basket;
-
-
