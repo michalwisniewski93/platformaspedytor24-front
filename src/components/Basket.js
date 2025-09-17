@@ -104,11 +104,22 @@ const Basket = () => {
   // Obliczanie ceny całkowitej
   const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
-  if (basket.length === 0) {
-    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
+  // Pobranie aktualnego czasu w formacie DD-MM-RRRR HH:MM:SS
+  function getFormattedDate() {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec','lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   }
 
+  // ============================================================
   // Obsługa zakupu
+  // ============================================================
   const handleBuyNow = async () => {
     try {
       // 1. Tworzymy zamówienie
@@ -129,16 +140,9 @@ const Basket = () => {
           login,
           newsletter,
           phonenumber,
-          ordercontent: JSON.stringify(basket), // zamiast items
+          ordercontent: JSON.stringify(basket),
           orderamount: totalPrice,
-          ordertime: new Date().toLocaleString("pl-PL", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }),
+          ordertime: getFormattedDate(),
         }
       );
 
@@ -148,7 +152,7 @@ const Basket = () => {
       const tpayResp = await axios.post(
         `${BACKEND_URL}/tpay/create-transaction`,
         {
-          items: basket, // zamiast items
+          items: basket,
           totalPrice,
           email,
         }
@@ -172,6 +176,10 @@ const Basket = () => {
     }
   };
 
+  if (basket.length === 0) {
+    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
+  }
+
   return (
     <div className="app">
       <Header />
@@ -192,7 +200,7 @@ const Basket = () => {
           <tbody>
             {basket.map(item => (
               <tr key={item.id}>
-                <td><img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
+                <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
                 <td>{item.title}</td>
                 <td>{item.author}</td>
                 <td>{item.price} zł</td>
@@ -206,7 +214,7 @@ const Basket = () => {
         <ul className="basket-list">
           {basket.map(item => (
             <li key={item.id} className="basket-list-item">
-              <img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
+              <img src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
               <div><strong>{item.title}</strong></div>
               <div>{item.author}</div>
               <div>{item.price} zł</div>
@@ -232,3 +240,4 @@ const Basket = () => {
 };
 
 export default Basket;
+
