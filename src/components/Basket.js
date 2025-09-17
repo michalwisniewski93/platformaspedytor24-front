@@ -176,27 +176,37 @@ const Basket = () => {
       ordertime: getFormattedDate(),
     };
 
+    console.log('DEBUG: orderData wysyłane do /orders', orderData);
+
     sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
-    await axios.post(`${BACKEND_URL}/orders`, orderData)
+    // Wysyłamy zamówienie do backendu
+    const orderResp = await axios.post(`${BACKEND_URL}/orders`, orderData)
       .catch(err => console.error('Błąd przy dodawaniu zamówienia', err));
 
+    console.log('DEBUG: response z /orders', orderResp?.data);
+
     // Tworzenie transakcji Tpay
+    const tpayPayload = {
+      items: basket,
+      totalPrice,
+      email: email || 'test@example.com',
+    };
+
+    console.log('DEBUG: payload wysyłany do /tpay/create-transaction', tpayPayload);
+
     const tpayResp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: basket,
-        totalPrice: totalPrice,
-        email: email || 'test@example.com',
-      })
+      body: JSON.stringify(tpayPayload)
     });
 
     const tpayData = await tpayResp.json();
 
+    console.log('DEBUG: odpowiedź z Tpay', tpayData);
+
     if (!tpayResp.ok || !tpayData.transactionPaymentUrl) {
-      console.error('DEBUG: Tpay response', tpayData);
-      throw new Error('Brak transactionPaymentUrl z Tpay');
+      throw new Error('Brak redirectUrl z Tpay');
     }
 
     // Przekierowanie do płatności
@@ -209,6 +219,7 @@ const Basket = () => {
     alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
   }
 };
+
 
 
   if (basket.length === 0) {
