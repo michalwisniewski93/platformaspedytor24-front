@@ -131,31 +131,34 @@ const Basket = () => {
       return;
     }
 
-    // Obliczanie całkowitej ceny
-    const totalPrice = Number(
-      basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0)
-    );
+    if (!acceptregulations) {
+      alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
+      return;
+    }
 
-    // Stworzenie obiektu customer z danych z formy / stanów
+    // Obliczanie całkowitej ceny
+    const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+
+    // Przygotowanie obiektu customer z wartościami domyślnymi
     const customer = {
-      name,
-      surname,
-      street,
-      postcode,
-      city,
-      companyname,
-      companystreet,
-      companypostcode,
-      companycity,
-      email,
-      invoice,
-      login,
-      newsletter,
-      password,
-      phonenumber,
-      regulations,
-      companynip,
-      companyregon,
+      name: name || "",
+      surname: surname || "",
+      street: street || "",
+      postcode: postcode || "",
+      city: city || "",
+      companyname: companyname || "",
+      companystreet: companystreet || "",
+      companypostcode: companypostcode || "",
+      companycity: companycity || "",
+      email: email || "",
+      invoice: invoice || false,
+      login: login || "",
+      newsletter: newsletter || false,
+      password: password || "",
+      phonenumber: phonenumber || "",
+      regulations: regulations || false,
+      companynip: companynip?.toString() || "",
+      companyregon: companyregon?.toString() || "",
     };
 
     // 1️⃣ Tworzenie zamówienia w backendzie
@@ -163,7 +166,7 @@ const Basket = () => {
       `${BACKEND_URL}/orders`,
       {
         ...customer,
-        ordercontent: basket, // tablica produktów
+        ordercontent: JSON.stringify(basket), // zamiana tablicy na string JSON
         orderamount: totalPrice,
         ordertime: new Date().toISOString(),
       }
@@ -176,7 +179,7 @@ const Basket = () => {
       `${BACKEND_URL}/tpay/create-transaction`,
       {
         items: basket,
-        totalPrice, // liczba, nie string
+        totalPrice, // liczba
         email: customer.email,
       }
     );
@@ -197,6 +200,7 @@ const Basket = () => {
     alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
   }
 };
+
 
 
   return (
