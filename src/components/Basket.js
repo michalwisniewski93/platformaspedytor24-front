@@ -122,7 +122,7 @@ const Basket = () => {
   }
 
   // Obsługa zakupu
- const handleBuyNow = async () => {
+const handleBuyNow = async () => {
   if (!acceptregulations) {
     setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
     return;
@@ -198,6 +198,7 @@ const Basket = () => {
     alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
   }
 };
+
 
 
   return (
