@@ -9,9 +9,9 @@ const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
 
 const Basket = () => {
   const [basket, setBasket] = useState([]);
-  const [accesses, setAccesses] = useState('');
   const [customers, setCustomers] = useState([]);
 
+  // Dane użytkownika
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [street, setStreet] = useState('');
@@ -31,28 +31,34 @@ const Basket = () => {
   const [companynip, setCompanyNip] = useState(0);
   const [companyregon, setCompanyRegon] = useState(0);
 
-  const [taxdatas, setTaxDatas] = useState([]);
   const [acceptregulations, setAcceptRegulations] = useState(false);
   const [acceptregulationsinfo, setAcceptRegulationsInfo] = useState('');
 
   const navigate = useNavigate();
 
-  // Pobranie taxdatas
+  // Pobranie koszyka z localStorage
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/taxdatas`)
-      .then(res => setTaxDatas(res.data))
-      .catch(err => console.error('Błąd pobierania taxdatas:', err));
+    const storedBasket = localStorage.getItem('basket');
+    if (storedBasket) {
+      try {
+        const parsedBasket = JSON.parse(storedBasket);
+        setBasket(parsedBasket);
+      } catch (error) {
+        console.error('Błąd parsowania basket z localStorage:', error);
+        setBasket([]);
+      }
+    }
   }, []);
 
-  // Pobranie klientów i wypełnienie formularza jeśli zalogowany
+  // Pobranie klientów i uzupełnienie danych zalogowanego użytkownika
   useEffect(() => {
     axios.get(`${BACKEND_URL}/customers`)
-      .then(res => {
-        setCustomers(res.data);
+      .then((response) => {
+        setCustomers(response.data);
         const userCookie = getCookie('user');
         if (userCookie) {
-          const loginFromCookie = userCookie.split(';')[0];
-          const myUser = res.data.find(c => c.login === loginFromCookie);
+          const login = userCookie.split(';')[0];
+          const myUser = response.data.find(customer => customer.login === login);
           if (myUser) {
             setName(myUser.name);
             setSurname(myUser.surname);
@@ -75,145 +81,107 @@ const Basket = () => {
           }
         }
       })
-      .catch(err => console.error('Błąd pobierania klientów:', err));
+      .catch((err) => console.log('error fetching customers, error: ' + err))
   }, []);
 
-  // Wczytanie koszyka z localStorage
-  useEffect(() => {
-    const storedBasket = localStorage.getItem('basket');
-    if (storedBasket) {
-      try {
-        const parsed = JSON.parse(storedBasket);
-        setBasket(parsed);
-        setAccesses(generateAccesses(parsed));
-      } catch {
-        setBasket([]);
-        setAccesses('');
-      }
-    }
-  }, []);
-
-  const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price), 0);
-
-  const generateAccesses = (basketItems) => basketItems.map(item => item.accesscode).join(';');
-
-  const setCookie = (name, value, days) => {
-    const now = new Date();
-    now.setTime(now.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${now.toUTCString()}; path=/`;
-  };
-
-  const getCookie = (name) => {
+  // Pobranie cookie
+  function getCookie(name) {
     const cookies = document.cookie.split('; ');
     for (const cookie of cookies) {
       const [key, value] = cookie.split('=');
       if (key === name) return decodeURIComponent(value);
     }
     return null;
-  };
+  }
 
+  // Usuwanie elementu z koszyka
   const handleRemove = (id) => {
-    const updated = basket.filter(item => item.id !== id);
-    setBasket(updated);
-    localStorage.setItem('basket', JSON.stringify(updated));
-    setAccesses(generateAccesses(updated));
+    const updatedBasket = basket.filter(item => item.id !== id);
+    setBasket(updatedBasket);
+    localStorage.setItem('basket', JSON.stringify(updatedBasket));
   };
 
-  function getFormattedDate() {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const months = ['styczeń','luty','marzec','kwiecień','maj','czerwiec','lipiec','sierpień','wrzesień','październik','listopad','grudzień'];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2,'0');
-    const minutes = String(date.getMinutes()).padStart(2,'0');
-    const seconds = String(date.getSeconds()).padStart(2,'0');
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  }
-
-const handleBuyNow = async () => {
-  if (!acceptregulations) {
-    setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
-    return;
-  }
-
-  try {
-    // Obliczenie sumy koszyka
-    const totalPrice = basket.reduce(
-      (sum, item) => sum + parseFloat(item.price || 0),
-      0
-    );
-
-    // Zapis do sessionStorage
-    sessionStorage.setItem('paymentStarted', 'true');
-
-    const orderData = {
-      name,
-      surname,
-      street,
-      postcode,
-      city,
-      companyname,
-      companystreet,
-      companypostcode,
-      companycity,
-      email,
-      invoice,
-      login,
-      newsletter,
-      phonenumber,
-      ordercontent: JSON.stringify(basket),
-      orderamount: totalPrice,
-      ordertime: getFormattedDate(),
-    };
-
-    sessionStorage.setItem('orderData', JSON.stringify(orderData));
-
-    // Dodanie zamówienia do bazy
-    await axios.post(`${BACKEND_URL}/orders`, orderData).catch((err) => {
-      console.error('Błąd przy dodawaniu zamówienia', err);
-    });
-
-    // Tworzenie transakcji Tpay
-    const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        items: basket,
-        totalPrice: totalPrice, // <- poprawnie liczba
-        email: email || 'test@example.com',
-      }),
-    });
-
-    if (!resp.ok) {
-      throw new Error('Nie udało się utworzyć transakcji Tpay');
-    }
-
-    const data = await resp.json();
-
-    if (data.transactionId) {
-      sessionStorage.setItem('tpayTransactionId', data.transactionId);
-    }
-
-    if (data.redirectUrl) {
-      window.location.href = data.redirectUrl;
-    } else {
-      throw new Error('Brak redirectUrl z Tpay');
-    }
-  } catch (error) {
-    sessionStorage.removeItem('paymentStarted');
-    sessionStorage.removeItem('orderData');
-    console.error('Błąd w handleBuyNow:', error);
-    alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
-  }
-};
-
-
-
+  // Obliczanie ceny całkowitej
+  const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
   }
+
+  // Pobranie aktualnego czasu w formacie DD-MM-RRRR HH:MM:SS
+  function getFormattedDate() {
+    const date = new Date();
+    const day = String(date.getDate()).padStart(2, '0');
+    const months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec','lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+  }
+
+  // Obsługa zakupu
+  const handleBuyNow = async () => {
+    if (!acceptregulations) {
+      setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
+      return;
+    }
+
+    try {
+      const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+      sessionStorage.setItem('paymentStarted', 'true');
+
+      const orderData = {
+        name,
+        surname,
+        street,
+        postcode,
+        city,
+        companyname,
+        companystreet,
+        companypostcode,
+        companycity,
+        email,
+        invoice,
+        login,
+        newsletter,
+        phonenumber,
+        ordercontent: JSON.stringify(basket),
+        orderamount: totalPrice,
+        ordertime: getFormattedDate(),
+      };
+
+      sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+      await axios.post(`${BACKEND_URL}/orders`, orderData).catch(err => {
+        console.error('Błąd przy dodawaniu zamówienia', err);
+      });
+
+      const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: basket,
+          totalPrice: totalPrice,
+          email: email || 'test@example.com',
+        }),
+      });
+
+      if (!resp.ok) throw new Error('Nie udało się utworzyć transakcji Tpay');
+
+      const data = await resp.json();
+      if (data.transactionId) sessionStorage.setItem('tpayTransactionId', data.transactionId);
+      if (data.redirectUrl) window.location.href = data.redirectUrl;
+      else throw new Error('Brak redirectUrl z Tpay');
+
+    } catch (error) {
+      sessionStorage.removeItem('paymentStarted');
+      sessionStorage.removeItem('orderData');
+      console.error('Błąd w handleBuyNow:', error);
+      alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+    }
+  };
 
   return (
     <div className="app">
@@ -221,6 +189,7 @@ const handleBuyNow = async () => {
       <div className="basketPresentationField">
         <h1>Twój koszyk</h1>
 
+        {/* Tabela desktop */}
         <table className="basket-table">
           <thead>
             <tr>
@@ -234,7 +203,7 @@ const handleBuyNow = async () => {
           <tbody>
             {basket.map(item => (
               <tr key={item.id}>
-                <td><img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '80px' }} /></td>
+                <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
                 <td>{item.title}</td>
                 <td>{item.author}</td>
                 <td>{item.price} zł</td>
@@ -244,10 +213,11 @@ const handleBuyNow = async () => {
           </tbody>
         </table>
 
+        {/* Lista mobile */}
         <ul className="basket-list">
           {basket.map(item => (
             <li key={item.id} className="basket-list-item">
-              <img src={`${BACKEND_URL}${item.imageurl}`} alt={item.title} style={{ width: '100px' }} />
+              <img src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
               <div><strong>{item.title}</strong></div>
               <div>{item.author}</div>
               <div>{item.price} zł</div>
@@ -257,17 +227,15 @@ const handleBuyNow = async () => {
         </ul>
 
         <hr />
-
         <div className="payment-summary">
           <p><strong>Do zapłaty: {totalPrice.toFixed(2)} zł</strong></p>
-          <label style={{ display: 'block' }}>
+          <label>
             Aby dokonać zakupu zaakceptuj <a href="/regulamin" target="_blank" rel="noopener noreferrer">regulamin serwisu</a>
-            <input type="checkbox" checked={acceptregulations} onChange={e => setAcceptRegulations(e.target.checked)} style={{ marginLeft: 8 }} />
+            <input type="checkbox" checked={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} />
           </label>
-          <p className="warningToBuyNow" style={{ display: 'block' }}>{acceptregulationsinfo}</p>
+          <p className="warningToBuyNow">{acceptregulationsinfo}</p>
           <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz</button>
         </div>
-
       </div>
       <Footer />
     </div>
@@ -275,3 +243,4 @@ const handleBuyNow = async () => {
 };
 
 export default Basket;
+
