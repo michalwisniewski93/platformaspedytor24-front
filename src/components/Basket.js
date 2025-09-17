@@ -7,7 +7,6 @@ import Footer from './Footer';
 const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
 
 const Basket = () => {
-  const dupskopsie = 1
   const [basket, setBasket] = useState([]);
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
