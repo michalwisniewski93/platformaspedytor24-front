@@ -131,83 +131,89 @@ const Basket = () => {
     return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   }
 
-  const handleBuyNow = async () => {
-    if (!acceptregulations) {
-      setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
-      return;
-    }
-
-    setCookie('newaccesses', accesses, 30);
-
-    const userCookie = getCookie('user');
-    if (!userCookie) {
-      navigate('/sign-up-or-sign-in');
-      return;
-    }
-
-    try {
-      sessionStorage.setItem('paymentStarted', 'true');
-
-      const orderData = {
-        name,
-        surname,
-        street,
-        postcode,
-        city,
-        companyname,
-        companystreet,
-        companypostcode,
-        companycity,
-        email,
-        invoice,
-        login,
-        newsletter,
-        password,
-        phonenumber,
-        regulations,
-        companynip,
-        companyregon,
-        ordercontent: JSON.stringify(basket),
-        orderamount: totalPrice,
-        ordertime: getFormattedDate(),
-      };
-
-      sessionStorage.setItem('orderData', JSON.stringify(orderData));
-
-      await axios.post(`${BACKEND_URL}/orders`, orderData).catch(err => console.error(err));
-
-if (isNaN(totalPrice) || totalPrice <= 0) {
-    alert('Błąd: niepoprawna kwota do zapłaty');
+ const handleBuyNow = async () => {
+  if (!acceptregulations) {
+    setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
     return;
-}
+  }
 
-      
-      const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: basket,
-          amount: totalPrice,
-          payer: { email, name: `${name} ${surname}`.trim(), phone: phonenumber || '' }
-        })
+  try {
+    // Zabezpieczenie totalPrice
+    const safeTotalPrice = Number(
+      basket.reduce((sum, item) => {
+        const price = parseFloat(item.price);
+        return sum + (isNaN(price) ? 0 : price);
+      }, 0)
+    );
+
+    sessionStorage.setItem('paymentStarted', 'true');
+
+    const orderData = {
+      name,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      phonenumber,
+      ordercontent: JSON.stringify(basket),
+      orderamount: safeTotalPrice,
+      ordertime: getFormattedDate(),
+    };
+
+    // Zapis danych zamówienia w sessionStorage
+    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+    // Dodanie zamówienia do bazy
+    await axios.post(`${BACKEND_URL}/orders`, orderData)
+      .catch(err => {
+        console.error('Błąd przy dodawaniu zamówienia', err);
       });
 
-      if (!resp.ok) throw new Error('Nie udało się utworzyć transakcji Tpay');
-      const data = await resp.json();
+    // Utworzenie transakcji Tpay
+    const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: basket,
+        totalPrice: Number(safeTotalPrice.toFixed(2)), // Zabezpieczone
+        email: email || 'test@example.com',
+      }),
+    });
 
-      if (data.transactionId) sessionStorage.setItem('tpayTransactionId', data.transactionId);
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      } else {
-        throw new Error('Brak redirectUrl z Tpay');
-      }
-    } catch (err) {
-      sessionStorage.removeItem('paymentStarted');
-      sessionStorage.removeItem('orderData');
-      console.error('Błąd w handleBuyNow:', err);
-      alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+    if (!resp.ok) {
+      throw new Error('Nie udało się utworzyć transakcji Tpay');
     }
-  };
+
+    const data = await resp.json();
+
+    // Zapis transactionId w sessionStorage jeśli jest
+    if (data.transactionId) {
+      sessionStorage.setItem('tpayTransactionId', data.transactionId);
+    }
+
+    // Przekierowanie użytkownika
+    if (data.redirectUrl) {
+      window.location.href = data.redirectUrl;
+    } else {
+      throw new Error('Brak redirectUrl z Tpay');
+    }
+  } catch (error) {
+    sessionStorage.removeItem('paymentStarted');
+    sessionStorage.removeItem('orderData');
+    console.error('Błąd w handleBuyNow:', error);
+    alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+  }
+};
+
+
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
@@ -273,4 +279,3 @@ if (isNaN(totalPrice) || totalPrice <= 0) {
 };
 
 export default Basket;
-
