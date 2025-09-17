@@ -61,69 +61,95 @@ const Basket = () => {
     return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
   }
 
-  const handleBuyNow = async () => {
-    if (!acceptregulations) {
-      setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
-      return;
-    }
+ const handleBuyNow = async () => {
+  if (!acceptregulations) {
+    setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
+    return;
+  }
 
-    const userCookie = document.cookie.split('; ').find(c => c.startsWith('user='));
-    if (!userCookie) {
-      navigate('/sign-up-or-sign-in');
-      return;
-    }
+  setCookie('newaccesses', accesses, 30);
 
-    try {
-      sessionStorage.setItem('paymentStarted', 'true');
+  const userCookie = getCookie('user');
+  if (!userCookie) {
+    navigate('/sign-up-or-sign-in');
+    return;
+  }
 
-      const orderData = {
-        name,
-        surname,
-        street,
-        postcode,
-        city,
-        companyname,
-        companystreet,
-        companypostcode,
-        companycity,
-        email,
-        invoice,
-        login,
-        newsletter,
-        phonenumber,
-        ordercontent: JSON.stringify(basket),
-        orderamount: totalPrice,
-        ordertime: getFormattedDate(),
-      };
+  try {
+    sessionStorage.setItem('paymentStarted', 'true');
 
-      sessionStorage.setItem('orderData', JSON.stringify(orderData));
+    const orderData = {
+      name,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      password,
+      phonenumber,
+      regulations,
+      companynip,
+      companyregon,
+      ordercontent: JSON.stringify(basket),
+      orderamount: totalPrice,
+      ordertime: getFormattedDate(),
+    };
 
-      const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
+    // zapisujemy zamówienie w sessionStorage
+    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+    // wysyłamy zamówienie do backendu (Twoja dotychczasowa logika)
+    await axios.post(
+      'https://platformaspedytor8-back-production.up.railway.app/orders',
+      orderData
+    ).catch(err => {
+      console.error('Błąd przy dodawaniu zamówienia', err);
+    });
+
+    // 👉 tworzymy transakcję Tpay przez backend
+    const resp = await fetch(
+      'https://platformaspedytor8-back-production.up.railway.app/tpay/create-transaction',
+      {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           items: basket,
-          totalPrice,
-          email
+          totalPrice: totalPrice,   // 👈 zgodnie z backendem
+          email: email || 'test@example.com'
         })
-      });
-
-      if (!resp.ok) throw new Error('Nie udało się utworzyć transakcji Tpay');
-
-      const data = await resp.json();
-      if (data.transactionId) sessionStorage.setItem('tpayTransactionId', data.transactionId);
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      } else {
-        throw new Error('Brak redirectUrl z Tpay');
       }
-    } catch (error) {
-      sessionStorage.removeItem('paymentStarted');
-      sessionStorage.removeItem('orderData');
-      console.error('Błąd w handleBuyNow:', error);
-      alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+    );
+
+    if (!resp.ok) {
+      throw new Error('Nie udało się utworzyć transakcji Tpay');
     }
-  };
+
+    const data = await resp.json(); // { transactionId, redirectUrl, ... }
+
+    if (data.transactionId) {
+      sessionStorage.setItem('tpayTransactionId', data.transactionId);
+    }
+
+    if (data.redirectUrl) {
+      window.location.href = data.redirectUrl; // przekierowanie do Tpay
+    } else {
+      throw new Error('Brak redirectUrl z Tpay');
+    }
+  } catch (error) {
+    sessionStorage.removeItem('paymentStarted');
+    sessionStorage.removeItem('orderData');
+    console.error('Błąd w handleBuyNow:', error);
+    alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+  }
+};
+
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
