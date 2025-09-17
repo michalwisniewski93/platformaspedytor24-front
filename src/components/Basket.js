@@ -131,31 +131,39 @@ const Basket = () => {
       return;
     }
 
-    const totalPrice = basket.reduce((sum, item) => sum + Number(item.price), 0);
+    // Obliczanie całkowitej ceny
+    const totalPrice = Number(
+      basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0)
+    );
+
+    // Stworzenie obiektu customer z danych z formy / stanów
+    const customer = {
+      name,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      password,
+      phonenumber,
+      regulations,
+      companynip,
+      companyregon,
+    };
 
     // 1️⃣ Tworzenie zamówienia w backendzie
     const orderResponse = await axios.post(
-      "https://platformaspedytor8-back-production.up.railway.app/orders",
+      `${BACKEND_URL}/orders`,
       {
-        name: customer.name,
-        surname: customer.surname,
-        street: customer.street,
-        postcode: customer.postcode,
-        city: customer.city,
-        companyname: customer.companyname,
-        companystreet: customer.companystreet,
-        companypostcode: customer.companypostcode,
-        companycity: customer.companycity,
-        email: customer.email,
-        invoice: customer.invoice,
-        login: customer.login,
-        newsletter: customer.newsletter,
-        password: customer.password,
-        phonenumber: customer.phonenumber,
-        regulations: customer.regulations,
-        companynip: customer.companynip,
-        companyregon: customer.companyregon,
-        ordercontent: basket, // <- tablica, nie JSON.stringify
+        ...customer,
+        ordercontent: basket, // tablica produktów
         orderamount: totalPrice,
         ordertime: new Date().toISOString(),
       }
@@ -165,10 +173,10 @@ const Basket = () => {
 
     // 2️⃣ Tworzenie transakcji Tpay
     const tpayResponse = await axios.post(
-      "https://platformaspedytor8-back-production.up.railway.app/tpay/create-transaction",
+      `${BACKEND_URL}/tpay/create-transaction`,
       {
         items: basket,
-        totalPrice,
+        totalPrice, // liczba, nie string
         email: customer.email,
       }
     );
