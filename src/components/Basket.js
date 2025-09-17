@@ -124,70 +124,72 @@ const Basket = () => {
   // ============================================================
   // Obsługa zakupu
   // ============================================================
-  const handleBuyNow = async () => {
-    try {
-      if (!acceptregulations) {
-        setAcceptRegulationsInfo("Musisz zaakceptować regulamin serwisu, aby dokonać zakupu.");
-        return;
-      }
-
-      // 1. Tworzymy zamówienie
-      const orderResp = await axios.post(`${BACKEND_URL}/orders`, {
-        name,
-        surname,
-        street,
-        postcode,
-        city,
-        companyname,
-        companystreet,
-        companypostcode,
-        companycity,
-        email,
-        invoice: Boolean(invoice),
-        login,
-        newsletter: Boolean(newsletter),
-        phonenumber,
-        ordercontent: JSON.stringify(
-          basket.map(item => ({
-            id: item.id,
-            title: item.title,
-            author: item.author,
-            price: item.price,
-            imageurl: item.imageurl,
-            accesscode: item.accesscode
-          }))
-        ),
-        orderamount: parseFloat(totalPrice),
-        ordertime: getFormattedDate(),
-      });
-
-      console.log("✅ Zamówienie zapisane:", orderResp.data);
-
-      // 2. Tworzymy transakcję w Tpay
-      const tpayResp = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
-        items: basket,
-        totalPrice: parseFloat(totalPrice),
-        email,
-      });
-
-      const tpayData = tpayResp.data;
-      console.log("✅ Tpay response:", tpayData);
-
-      // 3. Sprawdzamy czy jest transactionPaymentUrl
-      if (!tpayData.transactionPaymentUrl) {
-        console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
-        alert("Nie udało się utworzyć transakcji Tpay. Spróbuj ponownie.");
-        return;
-      }
-
-      // 4. Przekierowanie użytkownika do płatności
-      window.location.href = tpayData.transactionPaymentUrl;
-
-    } catch (err) {
-      console.error("❌ Błąd w handleBuyNow:", err.response?.data || err.message);
-      alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
+ const handleBuyNow = async () => {
+  try {
+    if (!basket || basket.length === 0) {
+      alert("Koszyk jest pusty");
+      return;
     }
-  };
+
+    const totalPrice = basket.reduce((sum, item) => sum + Number(item.price), 0);
+
+    // 1️⃣ Tworzenie zamówienia w backendzie
+    const orderResponse = await axios.post(
+      "https://platformaspedytor8-back-production.up.railway.app/orders",
+      {
+        name: customer.name,
+        surname: customer.surname,
+        street: customer.street,
+        postcode: customer.postcode,
+        city: customer.city,
+        companyname: customer.companyname,
+        companystreet: customer.companystreet,
+        companypostcode: customer.companypostcode,
+        companycity: customer.companycity,
+        email: customer.email,
+        invoice: customer.invoice,
+        login: customer.login,
+        newsletter: customer.newsletter,
+        password: customer.password,
+        phonenumber: customer.phonenumber,
+        regulations: customer.regulations,
+        companynip: customer.companynip,
+        companyregon: customer.companyregon,
+        ordercontent: basket, // <- tablica, nie JSON.stringify
+        orderamount: totalPrice,
+        ordertime: new Date().toISOString(),
+      }
+    );
+
+    console.log("✅ Zamówienie zapisane:", orderResponse.data);
+
+    // 2️⃣ Tworzenie transakcji Tpay
+    const tpayResponse = await axios.post(
+      "https://platformaspedytor8-back-production.up.railway.app/tpay/create-transaction",
+      {
+        items: basket,
+        totalPrice,
+        email: customer.email,
+      }
+    );
+
+    console.log("✅ Tpay response:", tpayResponse.data);
+
+    const { transactionPaymentUrl } = tpayResponse.data;
+
+    if (!transactionPaymentUrl) {
+      throw new Error("Brak transactionPaymentUrl z Tpay");
+    }
+
+    // 3️⃣ Przekierowanie użytkownika na stronę płatności
+    window.location.href = transactionPaymentUrl;
+
+  } catch (err) {
+    console.error("Błąd w handleBuyNow:", err);
+    alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
+  }
+};
+
 
   return (
     <div className="app">
