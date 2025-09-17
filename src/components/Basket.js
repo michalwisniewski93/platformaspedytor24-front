@@ -104,6 +104,10 @@ const Basket = () => {
   // Obliczanie ceny całkowitej
   const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
+  if (basket.length === 0) {
+    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
+  }
+
   // Pobranie aktualnego czasu w formacie DD-MM-RRRR HH:MM:SS
   function getFormattedDate() {
     const date = new Date();
@@ -121,82 +125,69 @@ const Basket = () => {
   // Obsługa zakupu
   // ============================================================
   const handleBuyNow = async () => {
-  // Sprawdzenie akceptacji regulaminu
-  if (!acceptregulations) {
-    setAcceptRegulationsInfo(
-      "Musisz zaakceptować regulamin, aby dokonać zakupu."
-    );
-    return;
-  } else {
-    setAcceptRegulationsInfo("");
-  }
-
-  try {
-    // 1. Tworzymy zamówienie
-    const orderResp = await axios.post(`${BACKEND_URL}/orders`, {
-      name,
-      surname,
-      street,
-      postcode,
-      city,
-      companyname,
-      companystreet,
-      companypostcode,
-      companycity,
-      email,
-      invoice,
-      login,
-      newsletter,
-      phonenumber,
-      ordercontent: JSON.stringify(basket), // używamy basket zamiast items
-      orderamount: totalPrice,
-      ordertime: new Date().toLocaleString("pl-PL", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      }),
-    });
-
-    console.log("✅ Zamówienie zapisane:", orderResp.data);
-
-    // 2. Tworzymy transakcję w Tpay
-    const tpayResp = await axios.post(
-      `${BACKEND_URL}/tpay/create-transaction`,
-      {
-        items: basket, // wysyłamy basket do Tpay
-        totalPrice,
-        email,
+    try {
+      if (!acceptregulations) {
+        setAcceptRegulationsInfo("Musisz zaakceptować regulamin serwisu, aby dokonać zakupu.");
+        return;
       }
-    );
 
-    const tpayData = tpayResp.data;
-    console.log("✅ Tpay response:", tpayData);
+      // 1. Tworzymy zamówienie
+      const orderResp = await axios.post(`${BACKEND_URL}/orders`, {
+        name,
+        surname,
+        street,
+        postcode,
+        city,
+        companyname,
+        companystreet,
+        companypostcode,
+        companycity,
+        email,
+        invoice: Boolean(invoice),
+        login,
+        newsletter: Boolean(newsletter),
+        phonenumber,
+        ordercontent: JSON.stringify(
+          basket.map(item => ({
+            id: item.id,
+            title: item.title,
+            author: item.author,
+            price: item.price,
+            imageurl: item.imageurl,
+            accesscode: item.accesscode
+          }))
+        ),
+        orderamount: parseFloat(totalPrice),
+        ordertime: getFormattedDate(),
+      });
 
-    // 3. Sprawdzenie, czy jest transactionPaymentUrl
-    if (!tpayData.transactionPaymentUrl) {
-      console.error(
-        "❌ Brak transactionPaymentUrl w odpowiedzi Tpay",
-        tpayData
-      );
-      throw new Error("Nie udało się utworzyć transakcji Tpay");
+      console.log("✅ Zamówienie zapisane:", orderResp.data);
+
+      // 2. Tworzymy transakcję w Tpay
+      const tpayResp = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
+        items: basket,
+        totalPrice: parseFloat(totalPrice),
+        email,
+      });
+
+      const tpayData = tpayResp.data;
+      console.log("✅ Tpay response:", tpayData);
+
+      // 3. Sprawdzamy czy jest transactionPaymentUrl
+      if (!tpayData.transactionPaymentUrl) {
+        console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
+        alert("Nie udało się utworzyć transakcji Tpay. Spróbuj ponownie.");
+        return;
+      }
+
+      // 4. Przekierowanie użytkownika do płatności
+      window.location.href = tpayData.transactionPaymentUrl;
+
+    } catch (err) {
+      console.error("❌ Błąd w handleBuyNow:", err.response?.data || err.message);
+      alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
     }
-
-    // 4. Przekierowanie użytkownika do płatności
-    window.location.href = tpayData.transactionPaymentUrl;
-
-  } catch (error) {
-    console.error("❌ Błąd w handleBuyNow:", error);
-    alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
-  }
-};
-
-
-  if (basket.length === 0) {
-    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
-  }
+  };
 
   return (
     <div className="app">
@@ -258,4 +249,3 @@ const Basket = () => {
 };
 
 export default Basket;
-
