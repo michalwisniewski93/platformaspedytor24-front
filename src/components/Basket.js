@@ -122,66 +122,83 @@ const Basket = () => {
   }
 
   // Obsługa zakupu
-  const handleBuyNow = async () => {
-    if (!acceptregulations) {
-      setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
-      return;
+ const handleBuyNow = async () => {
+  if (!acceptregulations) {
+    setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
+    return;
+  }
+
+  // Zachowujemy setCookie i accesses, jeśli są potrzebne
+  setCookie('newaccesses', accesses, 30);
+
+  const userCookie = getCookie('user');
+  if (!userCookie) {
+    navigate('/sign-up-or-sign-in');
+    return;
+  }
+
+  try {
+    sessionStorage.setItem('paymentStarted', 'true');
+
+    // Dane zamówienia
+    const orderData = {
+      name: `${name} (klient nie opłacił jeszcze tego zamówienia)`,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      password,
+      phonenumber,
+      regulations,
+      companynip,
+      companyregon,
+      ordercontent: JSON.stringify(basket),
+      orderamount: totalPrice,
+      ordertime: getFormattedDate(),
+    };
+
+    sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+    await axios.post(`${BACKEND_URL}/orders`, orderData)
+      .catch(err => console.error('Błąd przy dodawaniu zamówienia', err));
+
+    // Tworzenie transakcji Tpay
+    const tpayResp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: basket,
+        totalPrice: totalPrice,
+        email: email || 'test@example.com',
+      })
+    });
+
+    const tpayData = await tpayResp.json();
+
+    if (!tpayResp.ok || !tpayData.redirectUrl) {
+      console.error('DEBUG: Tpay response', tpayData);
+      throw new Error('Brak redirectUrl z Tpay');
     }
 
-    try {
-      const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-      sessionStorage.setItem('paymentStarted', 'true');
+    // Przekierowanie do płatności
+    window.location.href = tpayData.redirectUrl;
 
-      const orderData = {
-        name,
-        surname,
-        street,
-        postcode,
-        city,
-        companyname,
-        companystreet,
-        companypostcode,
-        companycity,
-        email,
-        invoice,
-        login,
-        newsletter,
-        phonenumber,
-        ordercontent: JSON.stringify(basket),
-        orderamount: totalPrice,
-        ordertime: getFormattedDate(),
-      };
+  } catch (error) {
+    sessionStorage.removeItem('paymentStarted');
+    sessionStorage.removeItem('orderData');
+    console.error('Błąd w handleBuyNow:', error);
+    alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+  }
+};
 
-      sessionStorage.setItem('orderData', JSON.stringify(orderData));
-
-      await axios.post(`${BACKEND_URL}/orders`, orderData).catch(err => {
-        console.error('Błąd przy dodawaniu zamówienia', err);
-      });
-
-      const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: basket,
-          totalPrice: totalPrice,
-          email: email || 'test@example.com',
-        }),
-      });
-
-      if (!resp.ok) throw new Error('Nie udało się utworzyć transakcji Tpay');
-
-      const data = await resp.json();
-      if (data.transactionId) sessionStorage.setItem('tpayTransactionId', data.transactionId);
-      if (data.redirectUrl) window.location.href = data.redirectUrl;
-      else throw new Error('Brak redirectUrl z Tpay');
-
-    } catch (error) {
-      sessionStorage.removeItem('paymentStarted');
-      sessionStorage.removeItem('orderData');
-      console.error('Błąd w handleBuyNow:', error);
-      alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
-    }
-  };
 
   return (
     <div className="app">
