@@ -186,6 +186,10 @@ const Basket = () => {
   }
 };
 
+   if (basket.length === 0) {
+    return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
+  }
+
 
   return (
     <div className="app">
