@@ -122,24 +122,14 @@ const Basket = () => {
   }
 
   // Obsługa zakupu
+  
   const handleBuyNow = async () => {
-    if (!acceptregulations) {
-      setAcceptRegulationsInfo('Aby dokonać zakupu zaakceptuj regulamin serwisu.');
-      return;
-    }
-
-    const userCookie = getCookie('user');
-    if (!userCookie) {
-      navigate('/sign-up-or-sign-in');
-      return;
-    }
-
-    try {
-      sessionStorage.setItem('paymentStarted', 'true');
-
-      // Dane zamówienia
-      const orderData = {
-        name: `${name} (klient nie opłacił jeszcze tego zamówienia)`,
+  try {
+    // 1. Tworzymy zamówienie
+    const orderResp = await axios.post(
+      "https://platformaspedytor8-back-production.up.railway.app/orders",
+      {
+        name,
         surname,
         street,
         postcode,
@@ -152,50 +142,50 @@ const Basket = () => {
         invoice,
         login,
         newsletter,
-        password,
         phonenumber,
-        regulations,
-        companynip,
-        companyregon,
-        ordercontent: JSON.stringify(basket),
+        ordercontent: JSON.stringify(items),
         orderamount: totalPrice,
-        ordertime: getFormattedDate(),
-      };
-
-      sessionStorage.setItem('orderData', JSON.stringify(orderData));
-
-      await axios.post(`${BACKEND_URL}/orders`, orderData)
-        .catch(err => console.error('Błąd przy dodawaniu zamówienia', err));
-
-      // Tworzenie transakcji Tpay
-      const tpayResp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: basket,
-          totalPrice: totalPrice,
-          email: email || 'test@example.com',
-        })
-      });
-
-      const tpayData = await tpayResp.json();
-
-      // Sprawdzenie odpowiedzi Tpay
-      if (!tpayResp.ok || !tpayData.transactionPaymentUrl) {
-        console.error('DEBUG: Tpay response', tpayData);
-        throw new Error('Nie udało się utworzyć transakcji Tpay');
+        ordertime: new Date().toLocaleString("pl-PL", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
       }
+    );
 
-      // Przekierowanie do płatności
-      window.location.href = tpayData.transactionPaymentUrl;
+    console.log("✅ Zamówienie zapisane:", orderResp.data);
 
-    } catch (error) {
-      sessionStorage.removeItem('paymentStarted');
-      sessionStorage.removeItem('orderData');
-      console.error('Błąd w handleBuyNow:', error);
-      alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
+    // 2. Tworzymy transakcję w Tpay
+    const tpayResp = await axios.post(
+      "https://platformaspedytor8-back-production.up.railway.app/tpay/create-transaction",
+      {
+        items,
+        totalPrice,
+        email,
+      }
+    );
+
+    const tpayData = tpayResp.data;
+    console.log("✅ Tpay response:", tpayData);
+
+    // 3. Sprawdzamy czy jest transactionPaymentUrl
+    if (!tpayData.transactionPaymentUrl) {
+      console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
+      throw new Error("Nie udało się utworzyć transakcji Tpay");
     }
-  };
+
+    // 4. Przekierowanie użytkownika do płatności
+    window.location.href = tpayData.transactionPaymentUrl;
+
+  } catch (error) {
+    console.error("❌ Błąd w handleBuyNow:", error);
+    alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
+  }
+};
+
 
   return (
     <div className="app">
