@@ -184,19 +184,18 @@ const Basket = () => {
       }
     );
 
-    console.log("✅ Pełna odpowiedź z backendu Tpay:", tpayResponse);
+    // 🔹 log całej odpowiedzi z backendu
+    console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
 
-    // Bezpieczne wyłapanie transactionPaymentUrl
-    const transactionPaymentUrl = tpayResponse.data.transactionPaymentUrl
-      || tpayResponse.data?.data?.transactionPaymentUrl;
+    // próbujemy odczytać transactionPaymentUrl z odpowiedzi
+    const transactionPaymentUrl =
+      tpayResponse.data.transactionPaymentUrl || tpayResponse.data.tpayData?.transactionPaymentUrl;
 
     if (!transactionPaymentUrl) {
-      console.error("❌ transactionPaymentUrl nie znaleziony:", tpayResponse.data);
-      alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę backendu.");
+      console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
+      alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę.");
       return;
     }
-
-    console.log("➡ Przekierowanie na:", transactionPaymentUrl);
 
     // 3️⃣ Przekierowanie użytkownika na stronę płatności
     window.location.href = transactionPaymentUrl;
