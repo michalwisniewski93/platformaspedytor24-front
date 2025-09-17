@@ -121,60 +121,78 @@ const Basket = () => {
   // Obsługa zakupu
   // ============================================================
   const handleBuyNow = async () => {
-    try {
-      // 1. Tworzymy zamówienie
-      const orderResp = await axios.post(
-        `${BACKEND_URL}/orders`,
-        {
-          name,
-          surname,
-          street,
-          postcode,
-          city,
-          companyname,
-          companystreet,
-          companypostcode,
-          companycity,
-          email,
-          invoice,
-          login,
-          newsletter,
-          phonenumber,
-          ordercontent: JSON.stringify(basket),
-          orderamount: totalPrice,
-          ordertime: getFormattedDate(),
-        }
-      );
+  // Sprawdzenie akceptacji regulaminu
+  if (!acceptregulations) {
+    setAcceptRegulationsInfo(
+      "Musisz zaakceptować regulamin, aby dokonać zakupu."
+    );
+    return;
+  } else {
+    setAcceptRegulationsInfo("");
+  }
 
-      console.log("✅ Zamówienie zapisane:", orderResp.data);
+  try {
+    // 1. Tworzymy zamówienie
+    const orderResp = await axios.post(`${BACKEND_URL}/orders`, {
+      name,
+      surname,
+      street,
+      postcode,
+      city,
+      companyname,
+      companystreet,
+      companypostcode,
+      companycity,
+      email,
+      invoice,
+      login,
+      newsletter,
+      phonenumber,
+      ordercontent: JSON.stringify(basket), // używamy basket zamiast items
+      orderamount: totalPrice,
+      ordertime: new Date().toLocaleString("pl-PL", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+    });
 
-      // 2. Tworzymy transakcję w Tpay
-      const tpayResp = await axios.post(
-        `${BACKEND_URL}/tpay/create-transaction`,
-        {
-          items: basket,
-          totalPrice,
-          email,
-        }
-      );
+    console.log("✅ Zamówienie zapisane:", orderResp.data);
 
-      const tpayData = tpayResp.data;
-      console.log("✅ Tpay response:", tpayData);
-
-      // 3. Sprawdzamy czy jest transactionPaymentUrl
-      if (!tpayData.transactionPaymentUrl) {
-        console.error("❌ Brak transactionPaymentUrl w odpowiedzi Tpay", tpayData);
-        throw new Error("Nie udało się utworzyć transakcji Tpay");
+    // 2. Tworzymy transakcję w Tpay
+    const tpayResp = await axios.post(
+      `${BACKEND_URL}/tpay/create-transaction`,
+      {
+        items: basket, // wysyłamy basket do Tpay
+        totalPrice,
+        email,
       }
+    );
 
-      // 4. Przekierowanie użytkownika do płatności
-      window.location.href = tpayData.transactionPaymentUrl;
+    const tpayData = tpayResp.data;
+    console.log("✅ Tpay response:", tpayData);
 
-    } catch (error) {
-      console.error("❌ Błąd w handleBuyNow:", error);
-      alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
+    // 3. Sprawdzenie, czy jest transactionPaymentUrl
+    if (!tpayData.transactionPaymentUrl) {
+      console.error(
+        "❌ Brak transactionPaymentUrl w odpowiedzi Tpay",
+        tpayData
+      );
+      throw new Error("Nie udało się utworzyć transakcji Tpay");
     }
-  };
+
+    // 4. Przekierowanie użytkownika do płatności
+    window.location.href = tpayData.transactionPaymentUrl;
+
+  } catch (error) {
+    console.error("❌ Błąd w handleBuyNow:", error);
+    alert("Wystąpił problem przy składaniu zamówienia lub płatności.");
+  }
+};
+
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
