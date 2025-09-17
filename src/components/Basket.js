@@ -178,6 +178,7 @@ const Basket = () => {
 
     sessionStorage.setItem('orderData', JSON.stringify(orderData));
 
+    // Dodanie zamówienia do bazy
     await axios.post(`${BACKEND_URL}/orders`, orderData)
       .catch(err => console.error('Błąd przy dodawaniu zamówienia', err));
 
@@ -194,13 +195,12 @@ const Basket = () => {
 
     const tpayData = await tpayResp.json();
 
-    // Sprawdzamy poprawność odpowiedzi Tpay
+    // Sprawdzenie i przekierowanie do płatności
     if (!tpayResp.ok || !tpayData.transactionPaymentUrl) {
       console.error('DEBUG: Tpay response', tpayData);
       throw new Error('Nie udało się utworzyć transakcji Tpay');
     }
 
-    // Przekierowanie do płatności
     window.location.href = tpayData.transactionPaymentUrl;
 
   } catch (error) {
@@ -210,6 +210,7 @@ const Basket = () => {
     alert('Wystąpił problem z płatnością. Spróbuj ponownie.');
   }
 };
+
 
 
 
