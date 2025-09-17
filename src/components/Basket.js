@@ -176,6 +176,12 @@ const Basket = () => {
 
       await axios.post(`${BACKEND_URL}/orders`, orderData).catch(err => console.error(err));
 
+if (isNaN(totalPrice) || totalPrice <= 0) {
+    alert('Błąd: niepoprawna kwota do zapłaty');
+    return;
+}
+
+      
       const resp = await fetch(`${BACKEND_URL}/tpay/create-transaction`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
