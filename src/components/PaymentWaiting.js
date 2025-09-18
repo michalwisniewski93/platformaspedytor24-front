@@ -60,9 +60,10 @@ const PaymentWaiting = () => {
   const seconds = secondsLeft % 60;
 
   return (
-    <h1>
-      Oczekiwanie na potwierdzenie płatności... ({minutes}:{seconds.toString().padStart(2, "0")})
-    </h1>
+    <h1 style={{ color: 'red', fontFamily: 'Verdana, sans-serif' }}>
+  Oczekiwanie na potwierdzenie płatności... NIE ZAMYKAJ I NIE ODŚWIEŻAJ TEJ ZAKŁADKI ({minutes}:{seconds.toString().padStart(2, "0")})
+</h1>
+
   );
 };
 
