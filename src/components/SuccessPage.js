@@ -22,21 +22,6 @@ const SuccessPage = () => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
 
-  function getFormattedDate() {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const months = [
-      'styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
-      'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'
-    ];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  }
-
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const transactionId = queryParams.get('transactionId') || sessionStorage.getItem('tpayTransactionId');
@@ -68,50 +53,7 @@ const SuccessPage = () => {
           // 3️⃣ Dodanie zamówienia w backendzie
           await axios.post(`${BACKEND_URL}/orders`, orderData);
 
-          // 4️⃣ Pobranie taxdatas i numeru faktury
-          const taxdatasRes = await axios.get(`${BACKEND_URL}/taxdatas`);
-          const taxdatas = taxdatasRes.data[0];
-          const currentDate = new Date();
-          const formattedDate = getFormattedDate();
-          const invoiceNumber = `FV ${taxdatas.invoicesactualnumber}/${String(currentDate.getMonth()+1).padStart(2,'0')}/${currentDate.getFullYear()}`;
-
-          // 5️⃣ Zwiększenie numeru faktury
-          await axios.put(`${BACKEND_URL}/taxdatas/${taxdatas._id}`, {
-            invoicesactualnumber: taxdatas.invoicesactualnumber + 1
-          });
-
-          // 6️⃣ Wystawienie faktury
-          await axios.post(`${BACKEND_URL}/invoices`, {
-            invoicenumber: invoiceNumber,
-            invoicedateofissue: formattedDate,
-            dateofsale: formattedDate,
-            sellercompanyname: taxdatas.sellercompanyname,
-            sellercompanystreet: taxdatas.sellercompanystreet,
-            sellercompanypostcode: taxdatas.sellercompanypostcode,
-            sellercompanycity: taxdatas.sellercompanycity,
-            sellercompanynip: taxdatas.sellercompanynip,
-            sellercompanyregon: taxdatas.sellercompanyregon,
-            customername: orderData.name,
-            customersurname: orderData.surname,
-            customerstreet: orderData.street,
-            customerpostcode: orderData.postcode,
-            customercity: orderData.city,
-            customercompanyname: orderData.companyname,
-            customercompanystreet: orderData.companystreet,
-            customercompanypostcode: orderData.companypostcode,
-            customercompanycity: orderData.companycity,
-            customerinvoice: orderData.invoice,
-            customercompanynip: orderData.companynip,
-            customercompanyregon: orderData.companyregon,
-            ordercontent: orderData.ordercontent,
-            orderamount: orderData.orderamount,
-            basisforvatexemption: taxdatas.basisforvatexemption,
-            paymentterm: formattedDate,
-            ordertime: formattedDate,
-            login: orderData.login
-          });
-
-          // 7️⃣ Aktualizacja dostępów użytkownika
+          // 4️⃣ Aktualizacja dostępów użytkownika
           const customersRes = await axios.get(`${BACKEND_URL}/customers`);
           const foundUser = getCookie('user')?.split(';')[0];
           if (!foundUser) {
@@ -130,7 +72,7 @@ const SuccessPage = () => {
 
           await axios.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
 
-          // 8️⃣ Sprzątanie danych tymczasowych
+          // 5️⃣ Sprzątanie danych tymczasowych
           deleteCookie('newaccesses');
           sessionStorage.removeItem('paymentStarted');
           sessionStorage.removeItem('orderData');
