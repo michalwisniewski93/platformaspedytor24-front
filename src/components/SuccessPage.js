@@ -84,7 +84,7 @@ const SuccessPage = () => {
   if (loading) return <h1 style={{ fontFamily: 'Verdana, sans-serif' }}>Przetwarzanie płatności...</h1>;
 
   return (
-    <div style={{ fontFamily: 'Verdana, sans-serif' }}>
+    <div className="greatSuccess">
       <h1>🎉 Płatność zakończona sukcesem! Dostęp do kursów został przyznany.</h1>
       <p>
         <Link to="/moje-kursy">Przejdź do Moje kursy</Link>
