@@ -43,23 +43,23 @@ const OrdersAdmin = () => {
                <p>treść zamówienia: </p>
 
                <table>
-  <thead>
-    <tr>
-      <th>Tytuł</th>
-      <th>Autor</th>
-      <th>Cena</th>
-    </tr>
-  </thead>
-  <tbody>
-    {JSON.parse(order.ordercontent).map((item, index) => (
-      <tr key={index}>
-        <td>{item.title}</td>
-        <td>{item.author}</td>
-        <td>{item.price} zł</td>
-      </tr>
-    ))}
-  </tbody>
-</table>
+                <thead>
+                  <tr>
+                    <th>Tytuł</th>
+                    <th>Autor</th>
+                    <th>Cena</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {order.ordercontent.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.title}</td>
+                      <td>{item.author}</td>
+                      <td>{item.price} zł</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
                 
               </div>
             )).reverse()}
