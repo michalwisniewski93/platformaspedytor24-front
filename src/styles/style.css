@@ -1530,5 +1530,8 @@ display: block;
 background-color: #FFFACD;
 font-family: 'Funnel Display';
 font-size: 20px;
+padding: 10px;
+border: 1px solid yellow;
+border-radius: 5px;
 }
 
