@@ -43,6 +43,20 @@ const NewUser = () => {
             return;
         }
 
+        // Walidacja numeru telefonu (9 cyfr)
+        const phoneRegex = /^\d{9}$/;
+        if (!phoneRegex.test(phonenumber)) {
+            alert('Numer telefonu musi mieć 9 cyfr');
+            return;
+        }
+
+        // Walidacja kodu pocztowego klienta (5 cyfr lub 2 cyfry - 3 cyfry)
+        const postcodeRegex = /^\d{2}-?\d{3}$/;
+        if (!postcodeRegex.test(postcode)) {
+            alert('Kod pocztowy musi mieć format 85795 lub 85-795');
+            return;
+        }
+
         // Sprawdzenie, czy login już istnieje
         const loginExists = customers.some(customer => customer.login === login);
         if (loginExists) {
@@ -51,7 +65,7 @@ const NewUser = () => {
         }
 
         // Walidacja wymaganych pól
-        if (name === '' || surname === '' || street === '' || postcode === '' || city === '' || email === '' || login === '' || password === '' || phonenumber === '') {
+        if (name === '' || surname === '' || street === '' || postcode === '' || city === '' || email === '' || login === '' || password === '') {
             alert('Wszystkie pola formularza muszą być wypełnione');
             return;
         }
@@ -62,13 +76,30 @@ const NewUser = () => {
         }
 
         // Walidacja pól firmowych (opcjonalnie)
-        if (companyname !== '' || companystreet !== '' || companypostcode !== '' || companycity !== '' || isNaN(companyNip) || isNaN(companyRegon)) {
-            setCompanyName(null);
-            setCompanyStreet(null);
-            setCompanyPostCode(null);
-            setCompanyCity(null);
-            setCompanyNip(null);
-            setCompanyRegon(null);
+        if (companyname !== '' || companystreet !== '' || companypostcode !== '' || companycity !== '' || companyNip !== '' || companyRegon !== '') {
+            // Walidacja NIP (10 cyfr)
+            const nipRegex = /^\d{10}$/;
+            if (!nipRegex.test(companyNip)) {
+                alert('NIP musi mieć 10 cyfr');
+                return;
+            }
+
+            // Walidacja kodu pocztowego firmy
+            if (!postcodeRegex.test(companypostcode)) {
+                alert('Kod pocztowy firmy musi mieć format 85795 lub 85-795');
+                return;
+            }
+
+            // REGON (opcjonalnie 9 cyfr)
+            if (companyRegon === '') {
+                setCompanyRegon('000000000');
+            } else {
+                const regonRegex = /^\d{9}$/;
+                if (!regonRegex.test(companyRegon)) {
+                    alert('REGON musi mieć 9 cyfr');
+                    return;
+                }
+            }
         }
 
         const companynip = companyNip;
@@ -155,8 +186,8 @@ const NewUser = () => {
                             <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} />
                         </label>
                         <label>
-                            Kod pocztowy:<span className="additionalInfo">(5 cyfr, format: 85790)</span>
-                            <input type="text" maxLength="5" minLength="5" value={postcode} onChange={(e) => setPostCode(e.target.value)} />
+                            Kod pocztowy:<span className="additionalInfo">(5 cyfr lub 85-795)</span>
+                            <input type="text" value={postcode} onChange={(e) => setPostCode(e.target.value)} />
                         </label>
                         <label>
                             Miejscowość:
@@ -182,8 +213,8 @@ const NewUser = () => {
                                 <input type="text" value={companystreet} onChange={(e) => setCompanyStreet(e.target.value)} />
                             </label>
                             <label>
-                                Kod pocztowy firmy: (5 cyfr, format: 85790)
-                                <input type="text" minLength="5" maxLength="5" value={companypostcode} onChange={(e) => setCompanyPostCode(e.target.value)} />
+                                Kod pocztowy firmy: (5 cyfr lub 85-795)
+                                <input type="text" value={companypostcode} onChange={(e) => setCompanyPostCode(e.target.value)} />
                             </label>
                             <label>
                                 Miejscowość firmy:
@@ -194,7 +225,7 @@ const NewUser = () => {
                                 <input type="text" maxLength="10" minLength="10" value={companyNip} onChange={(e) => setCompanyNip(e.target.value)} />
                             </label>
                             <label>
-                                REGON (9 cyfr):
+                                REGON (opcjonalnie, 9 cyfr):
                                 <input type="text" maxLength="9" minLength="9" value={companyRegon} onChange={(e) => setCompanyRegon(e.target.value)} />
                             </label>
                         </div>
