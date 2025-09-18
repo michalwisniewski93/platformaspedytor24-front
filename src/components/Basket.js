@@ -135,77 +135,92 @@ const Basket = () => {
   // ===============================
   // Obsługa zakupu
   // ===============================
+  
   const handleBuyNow = async () => {
-    try {
-      if (!basket || basket.length === 0) {
-        alert("Koszyk jest pusty");
-        return;
-      }
-
-      if (!acceptregulations) {
-        alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
-        return;
-      }
-
-      const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-
-      const customer = {
-        name: name || "",
-        surname: surname || "",
-        street: street || "",
-        postcode: postcode || "",
-        city: city || "",
-        companyname: companyname || "",
-        companystreet: companystreet || "",
-        companypostcode: companypostcode || "",
-        companycity: companycity || "",
-        email: email || "",
-        invoice: invoice || false,
-        login: login || "",
-        newsletter: newsletter || false,
-        password: password || "",
-        phonenumber: phonenumber || "",
-        regulations: regulations || false,
-        companynip: companynip?.toString() || "",
-        companyregon: companyregon?.toString() || "",
-      };
-
-      // 1️⃣ Zapis danych zamówienia do sessionStorage
-      sessionStorage.setItem("orderData", JSON.stringify({
-        ...customer,
-        ordercontent: basket,
-        orderamount: totalPrice,
-        ordertime: new Date().toISOString(),
-        login: login
-      }));
-
-      // 2️⃣ Tworzenie transakcji Tpay
-      const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
-        items: basket,
-        totalPrice,
-        email: customer.email,
-      });
-
-      console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
-
-      const { transactionPaymentUrl, transactionId } = tpayResponse.data;
-
-      if (!transactionPaymentUrl) {
-        console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
-        alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę.");
-        return;
-      }
-
-      // 3️⃣ Zapis transactionId i przekierowanie do pollingu
-      sessionStorage.setItem("tpayTransactionId", transactionId);
-      window.open(transactionPaymentUrl, "_blank"); // otwiera Tpay w nowej karcie
-      navigate("/payment-waiting"); // komponent pollingowy oczekujący na status
-
-    } catch (err) {
-      console.error("Błąd w handleBuyNow:", err);
-      alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
+  try {
+    if (!basket || basket.length === 0) {
+      alert("Koszyk jest pusty");
+      return;
     }
-  };
+
+    if (!acceptregulations) {
+      alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
+      return;
+    }
+
+    const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+
+    const customer = {
+      name: name || "",
+      surname: surname || "",
+      street: street || "",
+      postcode: postcode || "",
+      city: city || "",
+      companyname: companyname || "",
+      companystreet: companystreet || "",
+      companypostcode: companypostcode || "",
+      companycity: companycity || "",
+      email: email || "",
+      invoice: invoice || false,
+      login: login || "",
+      newsletter: newsletter || false,
+      password: password || "",
+      phonenumber: phonenumber || "",
+      regulations: regulations || false,
+      companynip: companynip?.toString() || "",
+      companyregon: companyregon?.toString() || "",
+    };
+
+    // 1️⃣ Zapis danych zamówienia do sessionStorage
+    sessionStorage.setItem("orderData", JSON.stringify({
+      ...customer,
+      ordercontent: basket,
+      orderamount: totalPrice,
+      ordertime: new Date().toISOString(),
+      login: login
+    }));
+
+    // 2️⃣ Tworzenie transakcji Tpay
+    const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
+      items: basket,
+      totalPrice,
+      email: customer.email,
+    });
+
+    console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
+
+    const { transactionPaymentUrl, transactionId } = tpayResponse.data;
+
+    if (!transactionPaymentUrl) {
+      console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
+      alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę.");
+      return;
+    }
+
+    // 🔹 Zapis zamówienia do backendu z transactionId
+    const orderData = {
+      ...customer,
+      ordercontent: basket,
+      orderamount: totalPrice,
+      ordertime: new Date().toISOString(),
+      login: login,
+      transactionId, // 🔹 dodane
+      paid: false     // 🔹 domyślnie false
+    };
+
+    await axios.post(`${BACKEND_URL}/orders`, orderData);
+
+    // 3️⃣ Zapis transactionId i przekierowanie do pollingu
+    sessionStorage.setItem("tpayTransactionId", transactionId);
+    window.open(transactionPaymentUrl, "_blank"); // otwiera Tpay w nowej karcie
+    navigate("/payment-waiting"); // komponent pollingowy oczekujący na status
+
+  } catch (err) {
+    console.error("Błąd w handleBuyNow:", err);
+    alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
+  }
+};
+
 
   return (
     <div className="app">
