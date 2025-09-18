@@ -1,15 +1,20 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const BACKEND_URL = "https://platformaspedytor8-back-production.up.railway.app";
 
 const PaymentWaiting = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const transactionId = sessionStorage.getItem("tpayTransactionId");
+    // 1️⃣ Pobranie transactionId z sessionStorage lub z query param
+    const queryParams = new URLSearchParams(location.search);
+    const transactionId = sessionStorage.getItem("tpayTransactionId") || queryParams.get("transactionId");
+
     if (!transactionId) {
+      console.error("❌ Brak transactionId");
       navigate("/", { replace: true });
       return;
     }
@@ -23,12 +28,12 @@ const PaymentWaiting = () => {
           navigate("/success", { replace: true });
         }
       } catch (err) {
-        console.error(err);
+        console.error("Błąd przy sprawdzaniu statusu płatności:", err);
       }
     }, 3000); // co 3 sekundy
 
     return () => clearInterval(interval);
-  }, [navigate]);
+  }, [navigate, location]);
 
   return <h1>Oczekiwanie na potwierdzenie płatności...</h1>;
 };
