@@ -1524,3 +1524,10 @@ h1.courseTitleHero{
   font-size: 27px;
 }
 
+h1.paymentWaiting{
+color: black;
+display: block;
+background-color: #FFFACD;
+font-family: 'Funnel Display';
+}
+
