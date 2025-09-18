@@ -36,21 +36,50 @@ const Basket = () => {
 
   const navigate = useNavigate();
 
+  // ===============================
+  // Funkcje do obsługi cookies
+  // ===============================
+  function setCookie(name, value, days = 7) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split('; ');
+    for (const cookie of cookies) {
+      const [key, value] = cookie.split('=');
+      if (key === name) return decodeURIComponent(value);
+    }
+    return null;
+  }
+
+  function updateAccessCookie(newBasket) {
+    const codes = newBasket.map(item => item.accesscode);
+    const cookieValue = codes.join(';');
+    setCookie('newaccesses', cookieValue);
+  }
+
+  // ===============================
   // Pobranie koszyka z localStorage
+  // ===============================
   useEffect(() => {
     const storedBasket = localStorage.getItem('basket');
     if (storedBasket) {
       try {
         const parsedBasket = JSON.parse(storedBasket);
         setBasket(parsedBasket);
+        updateAccessCookie(parsedBasket); // synchronizacja cookies
       } catch (error) {
         console.error('Błąd parsowania basket z localStorage:', error);
         setBasket([]);
+        setCookie('newaccesses', ''); // czyścimy cookie
       }
     }
   }, []);
 
+  // ===============================
   // Pobranie klientów i uzupełnienie danych zalogowanego użytkownika
+  // ===============================
   useEffect(() => {
     axios.get(`${BACKEND_URL}/customers`)
       .then((response) => {
@@ -84,46 +113,28 @@ const Basket = () => {
       .catch((err) => console.log('error fetching customers, error: ' + err))
   }, []);
 
-  // Pobranie cookie
-  function getCookie(name) {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-      const [key, value] = cookie.split('=');
-      if (key === name) return decodeURIComponent(value);
-    }
-    return null;
-  }
-
+  // ===============================
   // Usuwanie elementu z koszyka
+  // ===============================
   const handleRemove = (id) => {
     const updatedBasket = basket.filter(item => item.id !== id);
     setBasket(updatedBasket);
     localStorage.setItem('basket', JSON.stringify(updatedBasket));
+    updateAccessCookie(updatedBasket); // aktualizacja cookies
   };
 
+  // ===============================
   // Obliczanie ceny całkowitej
+  // ===============================
   const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
   }
 
-  // Pobranie aktualnego czasu w formacie DD-MM-RRRR HH:MM:SS
-  function getFormattedDate() {
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec','lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-  }
-
-  // ============================================================
+  // ===============================
   // Obsługa zakupu
-  // ============================================================
+  // ===============================
  const handleBuyNow = async () => {
   try {
     if (!basket || basket.length === 0) {
@@ -136,10 +147,10 @@ const Basket = () => {
       return;
     }
 
-    // Obliczanie całkowitej ceny
+    // Obliczenie całkowitej ceny
     const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
-    // Przygotowanie obiektu customer z wartościami domyślnymi
+    // Przygotowanie obiektu customer
     const customer = {
       name: name || "",
       surname: surname || "",
@@ -161,33 +172,40 @@ const Basket = () => {
       companyregon: companyregon?.toString() || "",
     };
 
-    // 1️⃣ Tworzenie zamówienia w backendzie
-    const orderResponse = await axios.post(
-      `${BACKEND_URL}/orders`,
-      {
-        ...customer,
-        ordercontent: JSON.stringify(basket), // zamiana tablicy na string JSON
-        orderamount: totalPrice,
-        ordertime: new Date().toISOString(),
-      }
-    );
+    // ===============================
+    // 1️⃣ Zapis danych zamówienia do sessionStorage
+    // ordercontent = tablica obiektów, nie string
+    // ===============================
+    sessionStorage.setItem("orderData", JSON.stringify({
+      ...customer,
+      ordercontent: basket, // tablica obiektów
+      orderamount: totalPrice,
+      ordertime: new Date().toISOString(),
+      login: login
+    }));
 
-    console.log("✅ Zamówienie zapisane:", orderResponse.data);
+    // ===============================
+    // 2️⃣ Tworzenie zamówienia w backendzie (opcjonalne, jeśli chcesz od razu)
+    // Możesz też odpuścić, bo SuccessPage zapisuje zamówienie po płatności
+    // ===============================
+    // const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
+    //   ...customer,
+    //   ordercontent: basket,
+    //   orderamount: totalPrice,
+    //   ordertime: new Date().toISOString(),
+    // });
 
-    // 2️⃣ Tworzenie transakcji Tpay
-    const tpayResponse = await axios.post(
-      `${BACKEND_URL}/tpay/create-transaction`,
-      {
-        items: basket,
-        totalPrice, // liczba
-        email: customer.email,
-      }
-    );
+    // ===============================
+    // 3️⃣ Tworzenie transakcji Tpay
+    // ===============================
+    const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
+      items: basket,
+      totalPrice,
+      email: customer.email,
+    });
 
-    // 🔹 log całej odpowiedzi z backendu
     console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
 
-    // próbujemy odczytać transactionPaymentUrl z odpowiedzi
     const transactionPaymentUrl =
       tpayResponse.data.transactionPaymentUrl || tpayResponse.data.tpayData?.transactionPaymentUrl;
 
@@ -197,7 +215,9 @@ const Basket = () => {
       return;
     }
 
-    // 3️⃣ Przekierowanie użytkownika na stronę płatności
+    // ===============================
+    // 4️⃣ Przekierowanie użytkownika na stronę płatności
+    // ===============================
     window.location.href = transactionPaymentUrl;
 
   } catch (err) {
@@ -205,8 +225,6 @@ const Basket = () => {
     alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
   }
 };
-
-
 
 
   return (
