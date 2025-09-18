@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // <- dodany Link
 import axios from 'axios';
 
 const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
@@ -31,17 +31,14 @@ const SuccessPage = () => {
       return;
     }
 
-    // 1️⃣ Sprawdzenie statusu transakcji w backendzie
     axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`)
       .then(async (res) => {
         const data = res.data;
         if (data.status !== 'paid' && data.status !== 'correct') {
-          // Płatność nieudana → redirect
           navigate('/', { replace: true });
           return;
         }
 
-        // 2️⃣ Pobranie danych zamówienia z sessionStorage
         const orderData = JSON.parse(sessionStorage.getItem('orderData'));
         if (!orderData) {
           console.error('Brak danych zamówienia w sessionStorage');
@@ -50,10 +47,8 @@ const SuccessPage = () => {
         }
 
         try {
-          // 3️⃣ Dodanie zamówienia w backendzie
           await axios.post(`${BACKEND_URL}/orders`, orderData);
 
-          // 4️⃣ Aktualizacja dostępów użytkownika
           const customersRes = await axios.get(`${BACKEND_URL}/customers`);
           const foundUser = getCookie('user')?.split(';')[0];
           if (!foundUser) {
@@ -72,7 +67,6 @@ const SuccessPage = () => {
 
           await axios.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
 
-          // 5️⃣ Sprzątanie danych tymczasowych
           deleteCookie('newaccesses');
           sessionStorage.removeItem('paymentStarted');
           sessionStorage.removeItem('orderData');
@@ -87,9 +81,9 @@ const SuccessPage = () => {
       .catch(() => navigate('/', { replace: true }));
   }, [location, navigate]);
 
-  if (loading) return <h1>Przetwarzanie płatności...</h1>;
+  if (loading) return <h1 style={{ fontFamily: 'Verdana, sans-serif' }}>Przetwarzanie płatności...</h1>;
 
-return (
+  return (
     <div style={{ fontFamily: 'Verdana, sans-serif' }}>
       <h1>🎉 Płatność zakończona sukcesem! Dostęp do kursów został przyznany.</h1>
       <p>
