@@ -89,7 +89,14 @@ const SuccessPage = () => {
 
   if (loading) return <h1>Przetwarzanie płatności...</h1>;
 
-  return <h1>🎉 Płatność zakończona sukcesem! Dostęp do kursów został przyznany.</h1>;
+return (
+    <div style={{ fontFamily: 'Verdana, sans-serif' }}>
+      <h1>🎉 Płatność zakończona sukcesem! Dostęp do kursów został przyznany.</h1>
+      <p>
+        <Link to="/moje-kursy">Przejdź do Moje kursy</Link>
+      </p>
+    </div>
+  ); 
 };
 
 export default SuccessPage;
