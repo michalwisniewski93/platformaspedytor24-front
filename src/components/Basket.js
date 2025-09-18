@@ -135,97 +135,83 @@ const Basket = () => {
   // ===============================
   // Obsługa zakupu
   // ===============================
- const handleBuyNow = async () => {
-  try {
-    if (!basket || basket.length === 0) {
-      alert("Koszyk jest pusty");
-      return;
+  const handleBuyNow = async () => {
+    try {
+      if (!basket || basket.length === 0) {
+        alert("Koszyk jest pusty");
+        return;
+      }
+
+      if (!acceptregulations) {
+        alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
+        return;
+      }
+
+      const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+
+      const customer = {
+        name: name || "",
+        surname: surname || "",
+        street: street || "",
+        postcode: postcode || "",
+        city: city || "",
+        companyname: companyname || "",
+        companystreet: companystreet || "",
+        companypostcode: companypostcode || "",
+        companycity: companycity || "",
+        email: email || "",
+        invoice: invoice || false,
+        login: login || "",
+        newsletter: newsletter || false,
+        password: password || "",
+        phonenumber: phonenumber || "",
+        regulations: regulations || false,
+        companynip: companynip?.toString() || "",
+        companyregon: companyregon?.toString() || "",
+      };
+
+      // ===============================
+      // 1️⃣ Zapis danych zamówienia do sessionStorage
+      // ===============================
+      sessionStorage.setItem("orderData", JSON.stringify({
+        ...customer,
+        ordercontent: basket,
+        orderamount: totalPrice,
+        ordertime: new Date().toISOString(),
+        login: login
+      }));
+
+      // ===============================
+      // 2️⃣ Tworzenie transakcji Tpay
+      // ===============================
+      const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
+        items: basket,
+        totalPrice,
+        email: customer.email,
+      });
+
+      console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
+
+      const { transactionPaymentUrl, transactionId } = tpayResponse.data;
+
+      if (!transactionPaymentUrl) {
+        console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
+        alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę.");
+        return;
+      }
+
+      // ===============================
+      // 3️⃣ Zapis transactionId i przekierowanie do pollingu
+      // ===============================
+      sessionStorage.setItem("tpayTransactionId", transactionId);
+      window.open(transactionPaymentUrl, "_blank");
+      navigate("/payment-waiting");
+
+    } catch (err) {
+      console.error("Błąd w handleBuyNow:", err);
+      alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
     }
-
-    if (!acceptregulations) {
-      alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
-      return;
-    }
-
-    // Obliczenie całkowitej ceny
-    const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-
-    // Przygotowanie obiektu customer
-    const customer = {
-      name: name || "",
-      surname: surname || "",
-      street: street || "",
-      postcode: postcode || "",
-      city: city || "",
-      companyname: companyname || "",
-      companystreet: companystreet || "",
-      companypostcode: companypostcode || "",
-      companycity: companycity || "",
-      email: email || "",
-      invoice: invoice || false,
-      login: login || "",
-      newsletter: newsletter || false,
-      password: password || "",
-      phonenumber: phonenumber || "",
-      regulations: regulations || false,
-      companynip: companynip?.toString() || "",
-      companyregon: companyregon?.toString() || "",
-    };
-
-    // ===============================
-    // 1️⃣ Zapis danych zamówienia do sessionStorage
-    // ordercontent = tablica obiektów, nie string
-    // ===============================
-    sessionStorage.setItem("orderData", JSON.stringify({
-      ...customer,
-      ordercontent: basket, // tablica obiektów
-      orderamount: totalPrice,
-      ordertime: new Date().toISOString(),
-      login: login
-    }));
-
-    // ===============================
-    // 2️⃣ Tworzenie zamówienia w backendzie (opcjonalne, jeśli chcesz od razu)
-    // Możesz też odpuścić, bo SuccessPage zapisuje zamówienie po płatności
-    // ===============================
-    // const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
-    //   ...customer,
-    //   ordercontent: basket,
-    //   orderamount: totalPrice,
-    //   ordertime: new Date().toISOString(),
-    // });
-
-    // ===============================
-    // 3️⃣ Tworzenie transakcji Tpay
-    // ===============================
-    const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
-      items: basket,
-      totalPrice,
-      email: customer.email,
-    });
-
-    console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse);
-
-    const transactionPaymentUrl =
-      tpayResponse.data.transactionPaymentUrl || tpayResponse.data.tpayData?.transactionPaymentUrl;
-
-    if (!transactionPaymentUrl) {
-      console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
-      alert("Nie udało się pobrać linku do płatności. Sprawdź konsolę.");
-      return;
-    }
-
-    // ===============================
-    // 4️⃣ Przekierowanie użytkownika na stronę płatności
-    // ===============================
-    window.location.href = transactionPaymentUrl;
-
-  } catch (err) {
-    console.error("Błąd w handleBuyNow:", err);
-    alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
-  }
-};
-
+  };
 
   return (
     <div className="app">
@@ -233,7 +219,6 @@ const Basket = () => {
       <div className="basketPresentationField">
         <h1>Twój koszyk</h1>
 
-        {/* Tabela desktop */}
         <table className="basket-table">
           <thead>
             <tr>
@@ -257,7 +242,6 @@ const Basket = () => {
           </tbody>
         </table>
 
-        {/* Lista mobile */}
         <ul className="basket-list">
           {basket.map(item => (
             <li key={item.id} className="basket-list-item">
