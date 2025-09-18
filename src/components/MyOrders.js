@@ -50,7 +50,7 @@ const MyOrders = () => {
                 .reverse()
                 .map((order) => (
                   <div className="myOrdersPresentationItem" key={order._id}>
-                    <h4>czas zamówienia: {order.ordertime}</h4>
+                    <h4>czas zamówienia: {new Date(order.ordertime).toLocaleString('pl-PL')}</h4>
                     <h4>kwota zamówienia: {order.orderamount} zł</h4>
                     <p>
                       imię i nazwisko: {order.name} {order.surname}
