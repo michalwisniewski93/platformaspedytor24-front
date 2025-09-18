@@ -68,11 +68,11 @@ const Basket = () => {
       try {
         const parsedBasket = JSON.parse(storedBasket);
         setBasket(parsedBasket);
-        updateAccessCookie(parsedBasket); // synchronizacja cookies
+        updateAccessCookie(parsedBasket);
       } catch (error) {
         console.error('Błąd parsowania basket z localStorage:', error);
         setBasket([]);
-        setCookie('newaccesses', ''); // czyścimy cookie
+        setCookie('newaccesses', '');
       }
     }
   }, []);
@@ -120,7 +120,7 @@ const Basket = () => {
     const updatedBasket = basket.filter(item => item.id !== id);
     setBasket(updatedBasket);
     localStorage.setItem('basket', JSON.stringify(updatedBasket));
-    updateAccessCookie(updatedBasket); // aktualizacja cookies
+    updateAccessCookie(updatedBasket);
   };
 
   // ===============================
@@ -170,9 +170,7 @@ const Basket = () => {
         companyregon: companyregon?.toString() || "",
       };
 
-      // ===============================
       // 1️⃣ Zapis danych zamówienia do sessionStorage
-      // ===============================
       sessionStorage.setItem("orderData", JSON.stringify({
         ...customer,
         ordercontent: basket,
@@ -181,9 +179,7 @@ const Basket = () => {
         login: login
       }));
 
-      // ===============================
       // 2️⃣ Tworzenie transakcji Tpay
-      // ===============================
       const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
         items: basket,
         totalPrice,
@@ -200,12 +196,10 @@ const Basket = () => {
         return;
       }
 
-      // ===============================
       // 3️⃣ Zapis transactionId i przekierowanie do pollingu
-      // ===============================
       sessionStorage.setItem("tpayTransactionId", transactionId);
-      window.open(transactionPaymentUrl, "_blank");
-      navigate("/payment-waiting");
+      window.open(transactionPaymentUrl, "_blank"); // otwiera Tpay w nowej karcie
+      navigate("/payment-waiting"); // komponent pollingowy oczekujący na status
 
     } catch (err) {
       console.error("Błąd w handleBuyNow:", err);
