@@ -88,7 +88,7 @@ const MyOrders = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {JSON.parse(order.ordercontent).map((item, index) => (
+                        {order.ordercontent.map((item, index) => (
                           <tr key={index}>
                             <td>{item.title}</td>
                             <td>{item.author}</td>
