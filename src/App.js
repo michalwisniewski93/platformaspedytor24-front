@@ -41,6 +41,7 @@ import TermsAndConditions from './components/TermsAndConditions'
 import AboutP24 from './components/AboutP24'
 import ProductsAndPricing from './components/ProductsAndPricing'
 import MarketingTracker from './components/MarketingTracker'
+import PaymentWaiting from './components/PaymentWaiting'
 import NotFound from './components/NotFound';
 
 
@@ -89,6 +90,7 @@ function App() {
         <Route path="/about-us" element={<AboutP24/>} />
         <Route path="/products-and-pricing" element={<ProductsAndPricing/>} />
         <Route path="/marketing-tracker" element={<MarketingTracker/>} />
+        <Route path="/payment-waiting" element={<PaymentWaiting />} />
         <Route path="*" element={<NotFound />} />
        </Routes>
     </Router>
