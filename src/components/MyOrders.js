@@ -43,7 +43,7 @@ const MyOrders = () => {
       <div className="myOrdersPresentation">
         {hasAccess ? (
           <>
-            <h1>Moje zamówienia (opłacone)</h1>
+            <h1>Moje zamówienia</h1>
             {login && userorders.length > 0 ? (
               userorders
                 .slice()
