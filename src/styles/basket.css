@@ -1,39 +1,32 @@
-/* Tabela widoczna tylko na dużych ekranach */
-.basket-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.basket-table th,
-.basket-table td {
-    border-bottom: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
 .basket-list {
-    display: none;
-    list-style: none;
-    padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* Widok mobilny - przy szerokości max 600px */
-@media (max-width: 600px) {
-    .basket-table {
-        display: none;
-    }
+.basket-list-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+}
 
-    .basket-list {
-        display: block;
-    }
+.basket-list-item img {
+  width: 80px;
+  height: auto;
+  margin-right: 12px;
+}
 
-    .basket-list-item {
-        margin-bottom: 1.5rem;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 1rem;
-    }
+.basket-list-info {
+  flex: 1;
+}
 
-    .basket-list-item div {
-        margin: 4px 0;
-    }
+.basket-list-item button {
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
 }
