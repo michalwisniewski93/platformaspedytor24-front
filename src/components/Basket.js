@@ -168,14 +168,12 @@ const Basket = () => {
         companyregon: companyregon?.toString() || "",
       };
 
-      // 1️⃣ Tworzenie transakcji Tpay
+      // 1️⃣ Tworzymy transakcję Tpay PRZED zapisaniem zamówienia
       const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
         items: basket,
         totalPrice,
         email: customer.email,
       });
-
-      console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse.data);
 
       const { transactionPaymentUrl, transactionId, title } = tpayResponse.data;
 
@@ -185,17 +183,18 @@ const Basket = () => {
         return;
       }
 
-      // 2️⃣ Zapis zamówienia do bazy z transactionId i title
+      // 2️⃣ Zapisujemy zamówienie na backendzie z pełnym transactionId i title
       const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
         ...customer,
         ordercontent: basket,
         orderamount: totalPrice,
         ordertime: new Date().toISOString(),
         transactionId,
-        title
+        title,
       });
 
-      console.log("✅ Zamówienie zapisane:", orderResponse.data);
+      const savedOrder = orderResponse.data;
+      console.log("✅ Zamówienie zapisane:", savedOrder);
 
       // 3️⃣ Zapis danych do sessionStorage i przekierowanie
       sessionStorage.setItem("orderData", JSON.stringify({
@@ -205,11 +204,9 @@ const Basket = () => {
         ordertime: new Date().toISOString(),
         login: login,
         transactionId,
-        title
       }));
 
       sessionStorage.setItem("tpayTransactionId", transactionId);
-
       window.open(transactionPaymentUrl, "_blank"); // otwiera Tpay w nowej karcie
       navigate("/payment-waiting"); // komponent pollingowy oczekujący na status
 
@@ -247,18 +244,6 @@ const Basket = () => {
             ))}
           </tbody>
         </table>
-
-        <ul className="basket-list">
-          {basket.map(item => (
-            <li key={item.id} className="basket-list-item">
-              <img src={`https://platformaspedytor8-back-production.up.railway.app/${item.imageurl}`} alt={item.title} style={{ width: '100px', height: 'auto' }} />
-              <div><strong>{item.title}</strong></div>
-              <div>{item.author}</div>
-              <div>{item.price} zł</div>
-              <button onClick={() => handleRemove(item.id)}>X</button>
-            </li>
-          ))}
-        </ul>
 
         <hr />
         <div className="payment-summary">
