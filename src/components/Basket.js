@@ -34,6 +34,8 @@ const Basket = () => {
   const [acceptregulations, setAcceptRegulations] = useState(false);
   const [acceptregulationsinfo, setAcceptRegulationsInfo] = useState('');
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+
   const navigate = useNavigate();
 
   // ===============================
@@ -58,6 +60,15 @@ const Basket = () => {
     const cookieValue = codes.join(';');
     setCookie('newaccesses', cookieValue);
   }
+
+  // ===============================
+  // Obsługa responsywności
+  // ===============================
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // ===============================
   // Pobranie koszyka z localStorage
@@ -222,28 +233,44 @@ const Basket = () => {
       <div className="basketPresentationField">
         <h1>Twój koszyk</h1>
 
-        <table className="basket-table">
-          <thead>
-            <tr>
-              <th>Okładka kursu</th>
-              <th>Tytuł</th>
-              <th>Autor</th>
-              <th>Cena</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+        {isMobile ? (
+          <div className="basket-list">
             {basket.map(item => (
-              <tr key={item.id}>
-                <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
-                <td>{item.title}</td>
-                <td>{item.author}</td>
-                <td>{item.price} zł</td>
-                <td><button onClick={() => handleRemove(item.id)}>X</button></td>
-              </tr>
+              <div key={item.id} className="basket-list-item">
+                <img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} />
+                <div className="basket-list-info">
+                  <p><strong>{item.title}</strong></p>
+                  <p>Autor: {item.author}</p>
+                  <p>Cena: {item.price} zł</p>
+                </div>
+                <button onClick={() => handleRemove(item.id)}>X</button>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        ) : (
+          <table className="basket-table">
+            <thead>
+              <tr>
+                <th>Okładka kursu</th>
+                <th>Tytuł</th>
+                <th>Autor</th>
+                <th>Cena</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {basket.map(item => (
+                <tr key={item.id}>
+                  <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
+                  <td>{item.title}</td>
+                  <td>{item.author}</td>
+                  <td>{item.price} zł</td>
+                  <td><button onClick={() => handleRemove(item.id)}>X</button></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
         <hr />
         <div className="payment-summary">
