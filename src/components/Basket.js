@@ -147,8 +147,6 @@ const Basket = () => {
         return;
       }
 
-      const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
-
       const customer = {
         name: name || "",
         surname: surname || "",
@@ -170,18 +168,7 @@ const Basket = () => {
         companyregon: companyregon?.toString() || "",
       };
 
-      // 1️⃣ Utworzenie zamówienia na backendzie przed płatnością
-      const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
-        ...customer,
-        ordercontent: basket,
-        orderamount: totalPrice,
-        ordertime: new Date().toISOString(),
-      });
-
-      const savedOrder = orderResponse.data;
-      console.log("✅ Zamówienie zapisane:", savedOrder);
-
-      // 2️⃣ Tworzenie transakcji Tpay
+      // 1️⃣ Tworzenie transakcji Tpay
       const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
         items: basket,
         totalPrice,
@@ -190,7 +177,7 @@ const Basket = () => {
 
       console.log("DEBUG: pełna odpowiedź z /tpay/create-transaction:", tpayResponse.data);
 
-      const { transactionPaymentUrl, transactionId } = tpayResponse.data;
+      const { transactionPaymentUrl, transactionId, title } = tpayResponse.data;
 
       if (!transactionPaymentUrl) {
         console.error("❌ Nie znaleziono transactionPaymentUrl w odpowiedzi:", tpayResponse.data);
@@ -198,12 +185,19 @@ const Basket = () => {
         return;
       }
 
-      // 3️⃣ Zapis transactionId do zamówienia backendowego
-      await axios.put(`${BACKEND_URL}/orders/${savedOrder._id}`, {
+      // 2️⃣ Zapis zamówienia do bazy z transactionId i title
+      const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
+        ...customer,
+        ordercontent: basket,
+        orderamount: totalPrice,
+        ordertime: new Date().toISOString(),
         transactionId,
+        title
       });
 
-      // 4️⃣ Zapis danych do sessionStorage i przekierowanie
+      console.log("✅ Zamówienie zapisane:", orderResponse.data);
+
+      // 3️⃣ Zapis danych do sessionStorage i przekierowanie
       sessionStorage.setItem("orderData", JSON.stringify({
         ...customer,
         ordercontent: basket,
@@ -211,9 +205,11 @@ const Basket = () => {
         ordertime: new Date().toISOString(),
         login: login,
         transactionId,
+        title
       }));
 
       sessionStorage.setItem("tpayTransactionId", transactionId);
+
       window.open(transactionPaymentUrl, "_blank"); // otwiera Tpay w nowej karcie
       navigate("/payment-waiting"); // komponent pollingowy oczekujący na status
 
