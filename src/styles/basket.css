@@ -23,10 +23,10 @@
 }
 
 .basket-list-item button {
-  background: red;
+  background: black;
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 4px 8px;
+  padding: 5px
   cursor: pointer;
 }
