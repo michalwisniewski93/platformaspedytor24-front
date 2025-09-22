@@ -33,7 +33,7 @@ const interval = setInterval(async () => {
     const status = res.data.status?.toString().toLowerCase();
     console.log("DEBUG PaymentWaiting - status transakcji:", status);
     
-    if (status === "pending" || status === "correct") {
+    if (status === "paid" || status === "correct") {
       clearInterval(interval);
       clearInterval(timer);
       navigate("/success", { replace: true });
