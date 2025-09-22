@@ -137,7 +137,7 @@ const Basket = () => {
   // ===============================
   // Obliczanie ceny całkowitej
   // ===============================
-const totalPrice = 0.01;
+const totalPrice = 0.10;
 
 
   if (basket.length === 0) {
