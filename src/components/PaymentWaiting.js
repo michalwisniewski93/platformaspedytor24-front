@@ -27,21 +27,19 @@ const PaymentWaiting = () => {
     }, 1000);
 
     // Polling statusu co 3 sekundy
-    const poll = async () => {
-      try {
-        const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
-        const status = res.data.status?.toString().toLowerCase();
-        if (status === "true" || status === "correct") {
-          clearInterval(interval);
-          clearInterval(timer);
-          navigate("/success", { replace: true });
-        }
-      } catch (err) {
-        console.error("Błąd przy sprawdzaniu statusu płatności:", err);
-      }
-    };
-    
-  const interval = setInterval(poll, 3000);
+const interval = setInterval(async () => {
+  try {
+    const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
+    const status = res.data.status?.toString().toLowerCase();
+    if (status === "true" || status === "correct") {
+      clearInterval(interval);
+      clearInterval(timer);
+      navigate("/success", { replace: true });
+    }
+  } catch (err) {
+    console.error("Błąd przy sprawdzaniu statusu płatności:", err);
+  }
+}, 3000);
 
     // Jeśli czas minie, zatrzymaj wszystko i pokaż komunikat
     const timeout = setTimeout(() => {
