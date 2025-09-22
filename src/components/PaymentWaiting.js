@@ -31,7 +31,6 @@ const interval = setInterval(async () => {
   try {
     const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
     const status = res.data.status?.toString().toLowerCase();
-    console.log("DEBUG PaymentWaiting - status transakcji:", status);
     
     if (status === "paid" || status === "correct") {
       clearInterval(interval);
@@ -41,7 +40,7 @@ const interval = setInterval(async () => {
   } catch (err) {
     console.error("Błąd przy sprawdzaniu statusu płatności:", err);
   }
-}, 13000);
+}, 3000);
 
     // Jeśli czas minie, zatrzymaj wszystko i pokaż komunikat
     const timeout = setTimeout(() => {
