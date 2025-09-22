@@ -31,7 +31,7 @@ const interval = setInterval(async () => {
   try {
     const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
     const status = res.data.status?.toString().toLowerCase();
-    if (status === "true" || status === "correct") {
+    if (status === "pending" || status === "correct") {
       clearInterval(interval);
       clearInterval(timer);
       navigate("/success", { replace: true });
