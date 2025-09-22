@@ -137,9 +137,7 @@ const Basket = () => {
   // ===============================
   // Obliczanie ceny całkowitej
   // ===============================
-const totalPrice = 0.10;
-  
-
+const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
 
   if (basket.length === 0) {
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
