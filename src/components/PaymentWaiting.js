@@ -37,9 +37,12 @@ const interval = setInterval(async () => {
       clearInterval(timer);
       navigate("/success", { replace: true });
     }
-  } catch (err) {
-    console.error("Błąd przy sprawdzaniu statusu płatności:", err);
-  }
+      if (status === "failed" || status === "canceled") {
+    clearInterval(interval);
+    clearInterval(timer);
+    navigate("/cancel", { replace: true });
+}
+  } catch (err) { console.error("Błąd przy sprawdzaniu statusu płatności:", err); }
 }, 3000);
 
     // Jeśli czas minie, zatrzymaj wszystko i pokaż komunikat
