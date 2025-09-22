@@ -35,6 +35,7 @@ const SuccessPage = () => {
       .then(async (res) => {
         const data = res.data;
         if (data.status !== 'pending' && data.status !== 'correct') {
+          console.error('Nie znaleziono zamówienia w bazie');
           navigate('/', { replace: true });
           return;
         }
@@ -47,14 +48,12 @@ const SuccessPage = () => {
         }
 
         try {
-          await axios.post(`${BACKEND_URL}/orders`, orderData);
-
-          const customersRes = await axios.get(`${BACKEND_URL}/customers`);
-          const foundUser = getCookie('user')?.split(';')[0];
-          if (!foundUser) {
-            navigate('/', { replace: true });
-            return;
-          }
+  const customersRes = await axios.get(`${BACKEND_URL}/customers`);
+  const foundUser = getCookie('user')?.split(';')[0];
+  if (!foundUser) {
+    navigate('/', { replace: true });
+    return;
+  }
 
           const myUser = customersRes.data.find(c => c.login === foundUser);
           if (!myUser) {
