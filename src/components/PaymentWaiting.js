@@ -30,6 +30,9 @@ const PaymentWaiting = () => {
     const interval = setInterval(async () => {
       try {
         const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
+console.log("DEBUG check-status response:", res.data);
+const status = res.data.status?.toString().toLowerCase();
+console.log("DEBUG normalized status:", status);
         const status = res.data.status;
         if (status === "true" || status === "correct") {
           clearInterval(interval);
