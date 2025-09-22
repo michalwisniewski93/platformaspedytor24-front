@@ -34,7 +34,7 @@ const SuccessPage = () => {
     axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`)
       .then(async (res) => {
         const data = res.data;
-        if (data.status !== 'pending' && data.status !== 'correct') {
+        if (data.status !== 'paid' && data.status !== 'correct') {
           console.error('Nie znaleziono zamówienia w bazie');
           navigate('/', { replace: true });
           return;
