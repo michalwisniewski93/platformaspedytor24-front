@@ -34,7 +34,7 @@ const SuccessPage = () => {
     axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`)
       .then(async (res) => {
         const data = res.data;
-        if (data.status !== 'paid' && data.status !== 'correct') {
+        if (data.status !== 'pending' && data.status !== 'correct') {
           navigate('/', { replace: true });
           return;
         }
