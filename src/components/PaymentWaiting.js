@@ -27,10 +27,10 @@ const PaymentWaiting = () => {
     }, 1000);
 
     // Polling statusu co 3 sekundy
-    const interval = setInterval(async () => {
+    const poll = async () => {
       try {
         const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
-        const status = res.data.status;
+        const status = res.data.status?.toString().toLowerCase();
         if (status === "true" || status === "correct") {
           clearInterval(interval);
           clearInterval(timer);
@@ -39,21 +39,24 @@ const PaymentWaiting = () => {
       } catch (err) {
         console.error("Błąd przy sprawdzaniu statusu płatności:", err);
       }
-    }, 3000);
+    };
+    
+  const interval = setInterval(poll, 3000);
 
     // Jeśli czas minie, zatrzymaj wszystko i pokaż komunikat
-    if (secondsLeft <= 0) {
+    const timeout = setTimeout(() => {
       clearInterval(interval);
       clearInterval(timer);
       alert("Nie otrzymaliśmy potwierdzenia płatności w ciągu 5 minut. Sprawdź status płatności w panelu.");
       navigate("/", { replace: true });
-    }
+  }, MAX_WAIT_TIME * 1000);
 
     return () => {
-      clearInterval(interval);
-      clearInterval(timer);
+    clearInterval(timer);
+    clearInterval(interval);
+    clearTimeout(timeout);
     };
-  }, [navigate, location, secondsLeft]);
+  }, [navigate, location]);
 
   // Formatowanie sekund na MM:SS
   const minutes = Math.floor(secondsLeft / 60);
