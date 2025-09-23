@@ -148,6 +148,14 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
   // ===============================
   const handleBuyNow = async () => {
     try {
+
+      const userCookie = getCookie('user');
+      if (!userCookie) {
+        alert("Nie jesteś zalogowany. Zaloguj się lub załóż konto!");
+        navigate('/sign-up-or-sign-in');
+        return;
+      }
+      
       if (!basket || basket.length === 0) {
         alert("Koszyk jest pusty");
         return;
