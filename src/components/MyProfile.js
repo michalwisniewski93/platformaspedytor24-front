@@ -230,6 +230,7 @@ axios.put(`https://platformaspedytor8-back-production.up.railway.app/customers/$
                     <p><b>REGON:</b> {user.companyregon}</p>
                   </div>
                 )}
+<p className="infoAboutChangeData">Uwaga! masz prawo do edycji swoich danych osobowych. Jeżeli chcesz to zrobić napisz do nas maila: spedytorszkolenia@gmail.com</p>
               </div>
             ) : (
               <p>Ładowanie danych...</p>
