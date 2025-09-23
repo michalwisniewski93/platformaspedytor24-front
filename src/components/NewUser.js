@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
 
 const NewUser = () => {
+    const navigate = useNavigate()
     const [error, setError] = useState('');
     const [name, setName] = useState('');
     const [surname, setSurname] = useState('');
@@ -39,7 +41,7 @@ const NewUser = () => {
         // Walidacja e-mail
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Podaj poprawny adres e-mail w formacie np. januszek@wp.pl');
+            alert('Podaj poprawny adres e-mail w formacie np. janek@spedytorszkolenia.pl');
             return;
         }
 
@@ -138,6 +140,7 @@ const NewUser = () => {
         setCompanyNip('');
         setCompanyRegon('');
         setAccesses('xyz, ');
+        navigate("/");
     };
 
     const handleLoginChange = (e) => {
