@@ -230,8 +230,6 @@ axios.put(`https://platformaspedytor8-back-production.up.railway.app/customers/$
                     <p><b>REGON:</b> {user.companyregon}</p>
                   </div>
                 )}
-                <p className="infoAboutChangeData">Uwaga! masz prawo do edycji swoich danych. Wszystkie dane możesz zmienić, z wyjątkiem danych do faktury, jeżeli chcesz zmienić dane do faktury skontaktuj się z nami, abyśmy mogli wystawić fakturę korygującą.</p>
-                <button className="buttonToEdit" onClick={() => handleEdit(user._id, user.name, user.surname, user.street, user.postcode, user.city, user.email, user.login, user.password, user.newsletter, user.phonenumber, user.regulations)}>Edytuj swoje dane</button>
               </div>
             ) : (
               <p>Ładowanie danych...</p>
