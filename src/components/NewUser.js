@@ -112,13 +112,17 @@ const NewUser = () => {
             name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity,
             email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses
         })
-            .then((response) => setCustomers([...customers, response.data]))
+            .then((response) => {
+                setCustomers([...customers, response.data])
+                alert('założyłeś konto pomyślnie')
+                navigate('/')
+                                })
             .catch(err => {
                 console.error('Error adding customers', err);
                 alert('Uuups... coś poszło nie tak!');
             });
 
-        alert('Założyłeś konto pomyślnie');
+       
 
         // Reset formularza
         setName('');
@@ -140,7 +144,7 @@ const NewUser = () => {
         setCompanyNip('');
         setCompanyRegon('');
         setAccesses('xyz, ');
-        navigate("/");
+       
     };
 
     const handleLoginChange = (e) => {
