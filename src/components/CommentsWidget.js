@@ -55,28 +55,28 @@ const CommentsWidget = () => {
 
   <div className="singleComment">
     <p className="content">
-      Pracowałam w gastronomii. Po 6 tygodniach po ukończeniu wszystkich 3 szkoleń dostałam pierwszą pracę w TSL. Zarabiam więcej niż w poprzeniej pracy i mam możliwości rozwoju.
+      Pracowałam w gastronomii. Po 6 tygodniach po ukończeniu wszystkich 3 szkoleń dostałam pierwszą pracę w TSL. Zarabiam więcej niż w poprzedniej pracy i mam możliwości rozwoju.
     </p>
     <p className="signature">Anna 27 lat ⭐⭐⭐⭐⭐</p>
   </div>
 
   <div className="singleComment">
     <p className="content">
-      Mam 57 lat i po 30 latach w handlu myślałem, że na zmianę pracy jest za późno. Te kursy dały mi konkretny plan: wartościowe materiały w modułach, prawdziwe ćwiczenia, realne sytuacje pokazane w kursach. Dostałem robotę w spedycji. Wiek nie przeszkadza, gdy potrafisz dowieść wyniki.
+      Mam 57 lat i po 30 latach w handlu myślałem, że na zmianę pracy jest za późno. Te kursy dały mi konkretny plan: wartościowe materiały w modułach, prawdziwe ćwiczenia, realne sytuacje pokazane w kursach. Dostałem robotę w spedycji. Wiek nie przeszkadza, gdy potrafisz dowieźć wyniki.
     </p>
     <p className="signature">Marek 57 lat ⭐⭐⭐⭐⭐</p>
   </div>
 
   <div className="singleComment">
     <p className="content">
-      Chcę polecić szkolenia spedytorskie w spedytorskoszkolenia.pl
+      Chcę polecić szkolenia spedytorskie w spedytorszkolenia.pl
     </p>
     <p className="signature">Marianna 25 lat ⭐⭐⭐⭐⭐</p>
   </div>
 
   <div className="singleComment">
     <p className="content">
-      Dużo ćwiczeń i quizów praktycznych robią robotę
+      Dużo ćwiczeń i quizów praktycznych - to mi się podoba.
     </p>
     <p className="signature">Roma 28 lat ⭐⭐⭐⭐⭐</p>
   </div>
@@ -97,7 +97,7 @@ const CommentsWidget = () => {
 
   <div className="singleComment">
     <p className="content">
-      Szukałem jakiejś wiedzy o stawkach w transporcie - kurs przystępnie to przedstawia
+      Szukałem jakiejś wiedzy o stawkach w transporcie - kurs przystępnie to przedstawia.
     </p>
     <p className="signature">Grzegorz 35 lat ⭐⭐⭐⭐⭐</p>
   </div>
@@ -139,7 +139,7 @@ const CommentsWidget = () => {
 
   <div className="singleComment">
     <p className="content">
-      Próbowałem zarabiać na handlu mianowicie dropshipping a wszyscy dookoła mieli konkretne zawody - też chciałem robić coś konkretnego zamiast ciągle się frustrować. Spedycja okazała się strzałem w dziesiątkę. Dziś zarabiam bardzo fajne pieniądze w małym mieście 50km od Wrocławia. Myślę że wkrótce spełnię moje marzenie o przeprowadzce do Wrocławia bo zawsze chciałem wyrwać się z prowincji. A co do kursów u Pana - są bardzo konkretne, wiedza którą dostałem rzeczywiście procentuje. Wreszcie zarabiam tyle że stać mnie na to żeby coś odłożyć i to 90% tego to Pana zasługa. Dziękuję i życzę wszystkiego dobrego.
+      Próbowałem zarabiać na handlu mianowicie dropshipping a wszyscy dookoła mieli konkretne zawody - też chciałem robić coś konkretnego zamiast ciągle się frustrować. Spedycja okazała się strzałem w dziesiątkę. Dziś zarabiam bardzo fajne pieniądze w małym mieście 50km od Wrocławia. Myślę że wkrótce spełnię moje marzenie o przeprowadzce do Wrocławia bo zawsze chciałem wyrwać się z prowincji. A co do kursów u Pana - są bardzo konkretne, wiedza którą dostałem rzeczywiście procentuje. Wreszcie zarabiam tyle że stać mnie na to żeby coś odłożyć na mieszkanie i to 90% tego to Pana zasługa. Dziękuję i życzę wszystkiego dobrego.
     </p>
     <p className="signature">Wiktor 25 lat ⭐⭐⭐⭐⭐</p>
   </div>
