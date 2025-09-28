@@ -202,7 +202,7 @@ const CommentsWidget = () => {
 
   <div className="singleComment">
     <p className="content">
-      Byłam krawcową interes nie szedł kompletnie. Gdy usłyszałam o zawodzie spedytora nie wiedziałam kompletnie co to jest. Ale przekonał mnie znajomy który mi o tej pracy powiedział że warto. Porzuciłam krawiectwo i dzięki szkoleniom z tej strony wystartowałam w pracy jako spedytor. Nie żałuję tej decyzji. Żałuję tylko że tak późno się przekwalifikowałam.
+      Jestem  krawcową z zawodu , interes nie szedł kompletnie. Gdy usłyszałam o zawodzie spedytora nie wiedziałam kompletnie co to jest. Ale przekonał mnie znajomy który mi o tej pracy powiedział że warto. Porzuciłam krawiectwo i dzięki szkoleniom z tej strony wystartowałam w pracy jako spedytor. Nie żałuję tej decyzji. Żałuję tylko że tak późno się przekwalifikowałam.
     </p>
     <p className="signature">Maria 30 lat ⭐⭐⭐⭐⭐</p>
   </div>
