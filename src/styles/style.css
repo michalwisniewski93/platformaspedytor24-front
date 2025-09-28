@@ -1550,3 +1550,30 @@ border-radius: 5px;
   text-decoration: underline;
 }
 
+
+.comments {
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comments h1 {
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    display: block;
+    margin-bottom: 18px;
+}
+
+.singleComment {
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    background-color: #f0f48f;
+    border: 1px solid rgb(137, 122, 28);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.singleComment .signature {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
