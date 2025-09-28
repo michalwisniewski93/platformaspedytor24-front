@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import CommentsWidget from './CommentsWidget';
 
 const SingleCourse = () => {
   const title = useSelector(state => state.temporaryCourseTitle);
@@ -147,6 +148,7 @@ const SingleCourse = () => {
           </div>
         </div>
       </div>
+      <CommentsWidget />
       <Footer />
     </div>
   );
