@@ -225,7 +225,7 @@ const CommentsWidget = () => {
 
       <h1>Dodaj opinię</h1>
       {getCookie('user') ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="opinionForm">
           <label>
             Twoje imię:
             <input 
@@ -270,7 +270,7 @@ const CommentsWidget = () => {
           <button type="submit">Dodaj opinię</button>
         </form>
       ) : (
-        <p>Aby dodać opinię musisz być zalogowany.</p>
+        <p>Aby dodać opinię musisz być zalogowany. Jeśli jesteś zalogowany i nie widzisz formularza dodawania opinii - odśwież stronę.</p>
       )}
     </div>
   );
