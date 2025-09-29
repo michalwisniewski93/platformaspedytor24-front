@@ -1,5 +1,40 @@
 import React, { useState } from 'react';
 
+const ScrollToTopButton = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        width: '30px',
+        height: '30px',
+        backgroundColor: 'black',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '18px',
+        zIndex: 9999
+      }}
+    >
+      ↑
+    </button>
+  );
+};
+
+
 const CommentsWidget = () => {
 
   function getCookie(name) {
@@ -278,39 +313,7 @@ const CommentsWidget = () => {
 }
 
 
-const ScrollToTopButton = () => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
 
-  return (
-    <button
-      onClick={scrollToTop}
-      style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        width: '30px',
-        height: '30px',
-        backgroundColor: 'black',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '18px',
-        zIndex: 9999
-      }}
-    >
-      ↑
-    </button>
-  );
-};
 
 
 export default CommentsWidget;
