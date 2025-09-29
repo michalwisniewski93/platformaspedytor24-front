@@ -30,6 +30,7 @@ const CommentsWidget = () => {
 
   return (
     <div className="comments">
+    <ScrollToTopButton />
       <h1>Opinie (27) -  średnia ⭐⭐⭐⭐⭐ -  5/5</h1>
 
       <div className="singleComment">
@@ -275,6 +276,42 @@ const CommentsWidget = () => {
     </div>
   );
 }
+
+
+const ScrollToTopButton = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        width: '30px',
+        height: '30px',
+        backgroundColor: 'black',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: '18px',
+        zIndex: 9999
+      }}
+    >
+      ↑
+    </button>
+  );
+};
+
 
 export default CommentsWidget;
 
