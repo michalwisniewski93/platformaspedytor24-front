@@ -1577,3 +1577,40 @@ border-radius: 5px;
     font-weight: bold;
 }
 
+
+form.opinionForm, form.opinionForm Label{
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    display: block;
+}
+
+form.opinionForm input{
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    width: 80%;
+    height: 25px;
+    font-size: 25px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+form.opinionForm textarea{
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    width: 80%;
+    height: 250px;
+    font-size: 25px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+form.opinionForm button{
+    display: block;
+    margin-top: 5px;
+    background-color: black;
+    color: white;
+    font-family: 'Funnel Display', 'Verdana', sans-serif;
+    padding: 15px;
+    font-size: 25px;
+    border: 1px solid transparent;
+}
+
