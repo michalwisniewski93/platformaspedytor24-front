@@ -75,7 +75,10 @@ Sprzedawca nie pobiera z tego tytułu dodatkowych opłat.<br/>
     1. Sprzedawca w najszerszym dopuszczalnym przez prawo zakresie nie ponosi odpowiedzialności za zakłócenia w tym przerwy w funkcjonowaniu Sklepu spowodowane siłą wyższą, niedozwolonym działaniem osób trzecich lub niekompatybilnością Sklepu internetowego z infrastrukturą techniczną Klienta. <br />
 2. Przeglądanie asortymentu Sklepu nie wymaga zakładania Konta. Składanie zamówień przez Klienta na Produkty znajdujące się w asortymencie Sklepu możliwe przez podanie niezbędnych danych osobowych i adresowych umożliwiających realizację Zamówienia konieczne jest założenie konta na Sklepie poprzez zarejestrowanie się, a następnie zalogowanie się na niniejsze wcześniej założone konto. <br />
 3. Ceny podane w Sklepie są podane w polskich złotych (PLN) i są cenami brutto (uwzględniają podatek VAT). <br />
-4. Na końcową (ostateczną) kwotę do zapłaty przez Klienta składa się cena za Produkt, a w niej jest wliczony koszt dostawy na terenie Polski.  <br /><br />
+4. Na końcową (ostateczną) kwotę do zapłaty przez Klienta składa się cena za Produkt, a w niej jest wliczony koszt dostawy na terenie Polski.<br/>
+5. Udział w szkoleniu ma na celu podniesienie kompetencji zawodowych uczestnika i może zwiększyć jego szanse na zatrudnienie,
+ jednak organizator szkolenia nie zapewnia ani nie gwarantuje uzyskania pracy ani konkretnych rezultatów finansowych.
+ Rezultaty uczestnictwa zależą wyłącznie od indywidualnych predyspozycji, zaangażowania oraz sytuacji rynkowej.     <br /><br />
 
 <strong>§7 Zasady składania zamówienia</strong> <br /><br />
 
