@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL,
+    baseURL: 'https://platformaspedytor8-back-j13epas8y-michals-projects-90f1b870.vercel.app',
     withCredentials: true, // for /refresh via httpOnly cookie
 });
 
