@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import axios from 'axios';
+import http from '../api/http';
 
 const MyOrders = () => {
   const [userorders, setUserOrders] = useState([]);
@@ -25,7 +25,7 @@ const MyOrders = () => {
       setLogin(loginFromCookie);
       setHasAccess(true);
 
-      axios
+      http
         .get('https://platformaspedytor8-back-production.up.railway.app/orders')
         .then((response) => {
           const foundOrders = response.data.filter(order => order.login === loginFromCookie);

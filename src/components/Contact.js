@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import axios from 'axios'
-
+import http from '../api/http';
 
 const Contact = () => {
 
@@ -66,7 +65,7 @@ const handleMessage = (e) => {
   const time = formatted;
   const status = false;
 
-  axios
+  http
     .post("https://platformaspedytor8-back-production.up.railway.app/tickets", {
       nameandsurname,
       email,

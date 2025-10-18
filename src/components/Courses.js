@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import axios from 'axios'
+import http from '../api/http';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -54,7 +54,7 @@ const Courses = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios
+    http
       .get('https://platformaspedytor8-back-production.up.railway.app/salessites')
       .then(response => {
         setCourses(response.data)

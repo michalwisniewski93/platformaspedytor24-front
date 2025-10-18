@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import http from '../api/http';
 import Header from './Header';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux'
@@ -43,7 +43,7 @@ const MyCourses = () => {
       setHasAccess(true);
 
       // Pobierz dane użytkownika
-      axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+      http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           if (foundUser) {
@@ -57,7 +57,7 @@ const MyCourses = () => {
         .catch((err) => console.error('Błąd podczas pobierania klientów:', err));
 
       // Pobierz listę kursów
-      axios.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
+      http.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
         .then((response) => {
           setCourses(response.data);
         })

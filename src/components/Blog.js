@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import axios from 'axios'
+import http from '../api/http';
 import {useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ const Blog = () => {
     const [articles, setArticles] = useState([])
 
      useEffect(() => {
-        axios.get('https://platformaspedytor8-back-production.up.railway.app/articles')
+        http.get('https://platformaspedytor8-back-production.up.railway.app/articles')
         .then((response) => setArticles(response.data))
         .catch((err) => console.log('error fetching articles, error: ' + err))
     }, [])

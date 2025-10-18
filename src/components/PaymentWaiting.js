@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
+import http from '../api/http';
 
 const BACKEND_URL = "https://platformaspedytor8-back-production.up.railway.app";
 const MAX_WAIT_TIME = 5 * 60; // 5 minut w sekundach
@@ -29,7 +29,7 @@ const PaymentWaiting = () => {
     // Polling statusu co 3 sekundy
 const interval = setInterval(async () => {
   try {
-    const res = await axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
+    const res = await http.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`);
     const status = res.data.status?.toString().toLowerCase();
     
     if (status === "paid" || status === "correct") {

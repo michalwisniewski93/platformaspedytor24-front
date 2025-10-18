@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom'; // <- dodany Link
-import axios from 'axios';
+import http from '../api/http';
 
 const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
 
@@ -31,7 +31,7 @@ const SuccessPage = () => {
       return;
     }
 
-    axios.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`)
+    http.get(`${BACKEND_URL}/tpay/check-status/${transactionId}`)
       .then(async (res) => {
         const data = res.data;
         if (data.status !== 'paid' && data.status !== 'correct') {
@@ -48,7 +48,7 @@ const SuccessPage = () => {
         }
 
         try {
-  const customersRes = await axios.get(`${BACKEND_URL}/customers`);
+  const customersRes = await http.get(`${BACKEND_URL}/customers`);
   const foundUser = getCookie('user')?.split(';')[0];
   if (!foundUser) {
     navigate('/', { replace: true });
@@ -64,7 +64,7 @@ const SuccessPage = () => {
           const newAccesses = getCookie('newaccesses') || '';
           const finalAccesses = myUser.accesses ? `${myUser.accesses};${newAccesses}` : newAccesses;
 
-          await axios.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
+          await http.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
 
           deleteCookie('newaccesses');
           sessionStorage.removeItem('paymentStarted');

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
-import axios from 'axios'
+import http from '../api/http';
 
 const Messages = () => {
 
@@ -10,7 +10,7 @@ const Messages = () => {
      const [tickets, setTickets] = useState([])
 
       useEffect(() => {
-        axios.get('https://platformaspedytor8-back-production.up.railway.app/tickets')
+        http.get('https://platformaspedytor8-back-production.up.railway.app/tickets')
         .then((response) => setTickets(response.data))
         .catch((err) => console.log('error fetching tickets, error: ' + err))
     }, [])
@@ -19,7 +19,7 @@ const Messages = () => {
     const changeStatus = (id, statusCode) => {
         const status = !statusCode
 
-            axios.put(`https://platformaspedytor8-back-production.up.railway.app/tickets/${id}`, {status})
+            http.put(`https://platformaspedytor8-back-production.up.railway.app/tickets/${id}`, {status})
     .then((response) => {
             setTickets(tickets.map(ticket => ticket._id === id ? response.data : ticket));
            })

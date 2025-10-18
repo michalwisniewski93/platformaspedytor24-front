@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import axios from 'axios';
+import http from '../api/http';
 
 const MyProfile = () => {
   const [user, setUser] = useState(null);
@@ -33,7 +33,7 @@ const MyProfile = () => {
       setLogin(loginFromCookie);
       setHasAccess(true);
 
-      axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+      http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           setUser(foundUser);
@@ -85,14 +85,14 @@ function deleteCookie(name) {
   const handleSubmit = () => {
     setCustomerVisibilityEditForm(false)
     
-axios.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {
+http.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {
   name, surname, street, postcode, city, email, login, password, newsletter, phonenumber, regulations
 })
   .then((response) => {
     deleteCookie('user')
     setCookie('user', login + ';' + password, 30)
     // Pobierz zaktualizowanego użytkownika z serwera
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
       .then((res) => {
         const updatedUser = res.data.find(customer => customer._id === editingId);
         setUser(updatedUser); // zaktualizuj stan użytkownika na podstawie nowych danych

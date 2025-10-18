@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
-import axios from 'axios'
-
+import http from '../api/http';
 
 
 const ClientsAdmin = () => {
@@ -37,7 +36,7 @@ const ClientsAdmin = () => {
 
      
   useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])
@@ -93,7 +92,7 @@ if (invoice) {
    }
 
    const handleDelete = (id) => {
-     axios.delete(`https://platformaspedytor8-back-production.up.railway.app/customers/${id}`)
+     http.delete(`https://platformaspedytor8-back-production.up.railway.app/customers/${id}`)
       .then(() => setCustomers(customers.filter(customer => customer._id !== id)))
       .catch((err) => console.error("Error deleting customer:", err));
    }
@@ -105,7 +104,7 @@ if (invoice) {
     const companynip = companyNip
     const companyregon = companyRegon
 
-    axios.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
+    http.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
    .then((response) => {
         setCustomers(customers.map(customer => customer._id === editingId ? response.data : customer));
         setName('')
