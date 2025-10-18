@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import axios from 'axios'
+import http from '../api/http';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 
@@ -39,7 +39,7 @@ const Admin = () => {
 
   
 useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/login')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/login')
     .then((response) => setAdmins(response.data))
     .catch((err) => console.log('error fetching admins, error: ' + err))
 }, [])

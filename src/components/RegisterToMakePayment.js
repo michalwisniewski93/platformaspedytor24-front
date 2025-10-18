@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import axios from 'axios'
+import http from '../api/http';
 import { useNavigate } from 'react-router-dom'
 
 
@@ -36,7 +36,7 @@ const RegisterToMakePayment = () => {
 
 
     useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
 }, [])
@@ -77,7 +77,7 @@ if (loginExists) {
         setCompanyRegon(null)
     }
     
-    axios.post("https://platformaspedytor8-back-production.up.railway.app/customers", {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
+    http.post("https://platformaspedytor8-back-production.up.railway.app/customers", {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
         .then((response => setCustomers([...customers, response.data])))
         .catch(err => {
             console.error('Error adding customers', err)

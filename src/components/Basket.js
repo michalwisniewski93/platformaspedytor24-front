@@ -3,7 +3,7 @@ import '../styles/basket.css';
 import Header from './Header';
 import Footer from './Footer';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import http from '../api/http';
 
 const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
 
@@ -92,7 +92,7 @@ const Basket = () => {
   // Pobranie klientów i uzupełnienie danych zalogowanego użytkownika
   // ===============================
   useEffect(() => {
-    axios.get(`${BACKEND_URL}/customers`)
+    http.get(`${BACKEND_URL}/customers`)
       .then((response) => {
         setCustomers(response.data);
         const userCookie = getCookie('user');
@@ -188,7 +188,7 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
       };
 
       // 1️⃣ Tworzymy transakcję Tpay PRZED zapisaniem zamówienia
-      const tpayResponse = await axios.post(`${BACKEND_URL}/tpay/create-transaction`, {
+      const tpayResponse = await http.post(`${BACKEND_URL}/tpay/create-transaction`, {
         items: basket,
         totalPrice,
         email: customer.email,
@@ -203,7 +203,7 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
       }
 
       // 2️⃣ Zapisujemy zamówienie na backendzie z pełnym transactionId i title
-      const orderResponse = await axios.post(`${BACKEND_URL}/orders`, {
+      const orderResponse = await http.post(`${BACKEND_URL}/orders`, {
         ...customer,
         ordercontent: basket,
         orderamount: totalPrice,

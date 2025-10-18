@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import { useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
+import http from '../api/http';
 
 
 const LogInToMakePayment = () => {
@@ -22,7 +22,7 @@ const LogInToMakePayment = () => {
     const navigate = useNavigate()
 
  useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])

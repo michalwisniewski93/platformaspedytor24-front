@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
-import axios from 'axios'
+import http from '../api/http';
 
 
 const BlogAdmin = () => {
@@ -18,7 +18,7 @@ const BlogAdmin = () => {
 
      
   useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/articles')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/articles')
     .then((response) => setArticles(response.data))
     .catch((err) => console.log('error fetching articles, error: ' + err))
    }, [])
@@ -33,7 +33,7 @@ const BlogAdmin = () => {
     
     if (imageUrl !== '') {
      
-      axios.post("https://platformaspedytor8-back-production.up.railway.app/articles", {title, description, author, imageurl})
+      http.post("https://platformaspedytor8-back-production.up.railway.app/articles", {title, description, author, imageurl})
         .then(response => setArticles([...articles, response.data]))
         .catch(err => console.error('Error adding articles', err));
     }
@@ -65,7 +65,7 @@ const BlogAdmin = () => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
+      const response = await http.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -84,7 +84,7 @@ const BlogAdmin = () => {
   const handleDeleteArticle = (id) => {
     const confirmDelete = window.confirm("Czy na pewno chcesz usunąć artykuł?");
     if (!confirmDelete) {return;} // użytkownik kliknął 'Nie
-    axios.delete(`https://platformaspedytor8-back-production.up.railway.app/articles/${id}`)
+    http.delete(`https://platformaspedytor8-back-production.up.railway.app/articles/${id}`)
           .then(() => setArticles(articles.filter(article => article._id !== id)))
           .catch((err) => console.error("Error deleting article:", err));
   }

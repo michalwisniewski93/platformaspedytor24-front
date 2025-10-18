@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import http from '../api/http';
 import {useNavigate} from 'react-router-dom'
 
 const InvoicesReport = () => {
@@ -9,13 +9,13 @@ const InvoicesReport = () => {
     const [correctives, setCorrectives] = useState([]);
 
     useEffect(() => {
-        axios.get('https://platformaspedytor8-back-production.up.railway.app/invoices')
+        http.get('https://platformaspedytor8-back-production.up.railway.app/invoices')
             .then((response) => setInvoices(response.data))
             .catch((err) => console.log('error fetching invoices, error: ' + err));
     }, []);
 
     useEffect(() => {
-        axios.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+        http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
             .then((response) => setCorrectives(response.data))
             .catch((err) => console.log('error fetching correctives, error: ' + err));
     }, []);

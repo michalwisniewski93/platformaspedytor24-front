@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import axios from 'axios';
+import http from '../api/http';
 import {useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +68,7 @@ useEffect(() => {
       setLogin(loginFromCookie);
       setHasAccess(true);
 
-      axios
+      http
         .get('https://platformaspedytor8-back-production.up.railway.app/invoices')
         .then((response) => {
           const foundInvoices = response.data.filter(invoice => invoice.login === loginFromCookie);
@@ -154,7 +154,7 @@ if (cookie) {
       const loginFromCookie = cookie.split(';')[0];
       setLogin(loginFromCookie);
       setHasAccess(true);
- axios.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+ http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
     .then((response) => {
       const foundCorrectives = response.data.filter(corrective => corrective.login === loginFromCookie);
       setCorrectives(foundCorrectives);

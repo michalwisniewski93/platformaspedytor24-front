@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
-
+import http from '../api/http';
 
 
 const SalesSitesAdmin = () => {
@@ -26,7 +25,7 @@ const SalesSitesAdmin = () => {
   const [accesscode, setAccesscode] = useState('')
 
   useEffect(() => {
-    axios.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
+    http.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
       .then((response) => setSalessites(response.data))
       .catch((err) => console.log('error fetching sales sites, error: ' + err));
   }, []);
@@ -63,13 +62,13 @@ const SalesSitesAdmin = () => {
     formData.append('file', file);
 
     try {
-      const uploadResponse = await axios.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
+      const uploadResponse = await http.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       const imageurl = uploadResponse.data.imageUrl;
 
-      const response = await axios.post("https://platformaspedytor8-back-production.up.railway.app/salessites", {
+      const response = await http.post("https://platformaspedytor8-back-production.up.railway.app/salessites", {
         title, imageurl, numberoflessons, price,
         pricebeforethirtydays, salescontent, linktoyoutube,
         contentlist, author, coursecontent, courselinks, accesscode
@@ -87,7 +86,7 @@ const SalesSitesAdmin = () => {
     const confirmDelete = window.confirm("Czy na pewno chcesz usunąć artykuł?");
     if (!confirmDelete) return;
 
-    axios.delete(`https://platformaspedytor8-back-production.up.railway.app/salessites/${id}`)
+    http.delete(`https://platformaspedytor8-back-production.up.railway.app/salessites/${id}`)
       .then(() => setSalessites(salessites.filter(site => site._id !== id)))
       .catch((err) => console.error("Error deleting sales site:", err));
   };
@@ -119,7 +118,7 @@ const SalesSitesAdmin = () => {
       formData.append('file', file);
 
       try {
-        const response = await axios.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
+        const response = await http.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         finalImageUrl = response.data.imageUrl;
@@ -129,7 +128,7 @@ const SalesSitesAdmin = () => {
       }
     }
 
-    axios.put(`https://platformaspedytor8-back-production.up.railway.app/salessites/${editingSite._id}`, {
+    http.put(`https://platformaspedytor8-back-production.up.railway.app/salessites/${editingSite._id}`, {
       title,
       imageurl: finalImageUrl,
       numberoflessons,
