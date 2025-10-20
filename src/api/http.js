@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: 'https://platformaspedytor8-back-j13epas8y-michals-projects-90f1b870.vercel.app',
+    baseURL: 'https://platformaspedytor8-back-production.up.railway.app',
     withCredentials: true, // for /refresh via httpOnly cookie
 });
 
