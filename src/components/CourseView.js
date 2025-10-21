@@ -5,6 +5,7 @@ import Footer from './Footer'
 import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const CourseView = () => {
 const [showH3Communicate, setShowH3Communicate] = useState(true);
@@ -63,7 +64,7 @@ const [showH3Communicate, setShowH3Communicate] = useState(true);
  
 
 useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/taxdatas')
+    http.get(`${SERVER_URL}/taxdatas`)
         .then((response) => {
           setTaxDatas(response.data);
         })
@@ -84,7 +85,7 @@ useEffect(() => {
     }
 
 
-   http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+   http.get(`${SERVER_URL}/customers`)
   .then((response) => {
     setCustomers(response.data);
     const loginFromCookie = getCookie('user')?.split(';')[0];

@@ -4,12 +4,13 @@ import Footer from './Footer'
 import http from '../api/http';
 import {useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {SERVER_URL} from "../consts";
 
 const Blog = () => {
     const [articles, setArticles] = useState([])
 
      useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/articles')
+        http.get(`${SERVER_URL}/articles`)
         .then((response) => setArticles(response.data))
         .catch((err) => console.log('error fetching articles, error: ' + err))
     }, [])
@@ -38,7 +39,7 @@ const Blog = () => {
                     <h1>Blog</h1>
                     <div className="blogExpertContent">
                         {articles.map(article => <div className="blogExpertContentItem" key={article._id}>
-                         <img src={`https://platformaspedytor8-back-production.up.railway.app/${article.imageurl}`} alt={article.title} />
+                         <img src={`${SERVER_URL}/${article.imageurl}`} alt={article.title} />
                          <h1>{article.title}</h1>
                          <h4>autor: {article.author}</h4>
                          <button onClick={() => handleShowArticle(article.imageurl, article.title, article.description, article.author)}>Czytaj więcej ...</button>

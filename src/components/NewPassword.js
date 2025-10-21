@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 
 
@@ -17,7 +18,7 @@ const NewPassword = () => {
 
 
  useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get(`${SERVER_URL}/customers`)
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])
@@ -38,7 +39,7 @@ const handleSubmit = (e) => {
         const password = newPassword
         // tu będzie put które zmienia password
 
-         http.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {password: newPassword})
+         http.put(`${SERVER_URL}/customers/${editingId}`, {password: newPassword})
            .then((response) => {
                 setCustomers(customers.map(customer => customer._id === editingId ? response.data : customer));
                 setLogin('')

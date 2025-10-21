@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const Messages = () => {
 
@@ -10,7 +11,7 @@ const Messages = () => {
      const [tickets, setTickets] = useState([])
 
       useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/tickets')
+        http.get(`${SERVER_URL}/tickets`)
         .then((response) => setTickets(response.data))
         .catch((err) => console.log('error fetching tickets, error: ' + err))
     }, [])
@@ -19,7 +20,7 @@ const Messages = () => {
     const changeStatus = (id, statusCode) => {
         const status = !statusCode
 
-            http.put(`https://platformaspedytor8-back-production.up.railway.app/tickets/${id}`, {status})
+            http.put(`${SERVER_URL}/tickets/${id}`, {status})
     .then((response) => {
             setTickets(tickets.map(ticket => ticket._id === id ? response.data : ticket));
            })

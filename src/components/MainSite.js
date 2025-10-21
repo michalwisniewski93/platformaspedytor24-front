@@ -4,6 +4,7 @@ import HeroSlider from "./HeroSlider";
 import AboutMeOnMainSite from './AboutMeOnMainSite';
 import HeroContact from './HeroContact';
 import Footer from './Footer';
+import {SERVER_URL} from "../consts";
 
 
 const MainSite = () => {
@@ -19,7 +20,7 @@ useEffect(() => {
     else if (referrer.includes("facebook")) source = "Facebook";
 
     if (source) {
-      fetch("https://platformaspedytor8-back-production.up.railway.app/api/track", {
+      fetch(`${SERVER_URL}/api/track`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ source }),

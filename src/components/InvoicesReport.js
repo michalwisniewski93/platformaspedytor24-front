@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import http from '../api/http';
 import {useNavigate} from 'react-router-dom'
+import {SERVER_URL} from "../consts";
 
 const InvoicesReport = () => {
 
@@ -9,13 +10,13 @@ const InvoicesReport = () => {
     const [correctives, setCorrectives] = useState([]);
 
     useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/invoices')
+        http.get(`${SERVER_URL}/invoices`)
             .then((response) => setInvoices(response.data))
             .catch((err) => console.log('error fetching invoices, error: ' + err));
     }, []);
 
     useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+        http.get(`${SERVER_URL}/correctives`)
             .then((response) => setCorrectives(response.data))
             .catch((err) => console.log('error fetching correctives, error: ' + err));
     }, []);

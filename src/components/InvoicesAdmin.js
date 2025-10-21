@@ -3,6 +3,7 @@ import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector, useDispatch } from 'react-redux';
 import http from '../api/http';
 import { useNavigate } from 'react-router-dom';
+import {SERVER_URL} from "../consts";
 
 const InvoicesAdmin = () => {
  
@@ -147,20 +148,20 @@ useEffect(() => {
 
   
      useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/taxdatas')
+        http.get(`${SERVER_URL}/taxdatas`)
         .then((response) => setTaxdatas(response.data))
         .catch((err) => console.log('error fetching taxdatas, error: ' + err))
     }, [])
 
       useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+        http.get(`${SERVER_URL}/correctives`)
         .then((response) => setCorrectives(response.data))
         .catch((err) => console.log('error fetching correctives, error: ' + err))
     }, [])
 
     
      useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/invoices')
+        http.get(`${SERVER_URL}/invoices`)
         .then((response) => setInvoices(response.data))
         .catch((err) => console.log('error fetching invoices, error: ' + err))
     }, [])
@@ -169,7 +170,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  http.get('https://platformaspedytor8-back-production.up.railway.app/orders')
+  http.get(`${SERVER_URL}/orders`)
     .then((response) => {
       const currentYear = new Date().getFullYear().toString(); // np. "2025"
       const filteredOrders = response.data.filter(order => {
@@ -212,7 +213,7 @@ useEffect(() => {
 
   setIsFormVisible(false);
 
-  http.put(`https://platformaspedytor8-back-production.up.railway.app/taxdatas/${editingId}`, {
+  http.put(`${SERVER_URL}/taxdatas/${editingId}`, {
     sellercompanyname,
     sellercompanystreet,
     sellercompanypostcode,
@@ -389,7 +390,7 @@ const handleEditInvoice = (
 const handleSubmit2 = () => {
 
 
- http.put(`https://platformaspedytor8-back-production.up.railway.app/invoices/${correctionid}`, {
+ http.put(`${SERVER_URL}/invoices/${correctionid}`, {
 invoicenumber: correctioninvoicenumber,
   invoicedateofissue: correctiondateofissue,
   dateofsale: correctiondateofsale,
@@ -520,7 +521,7 @@ function getFormattedDate() {
 
 
 const fetchCorrectives = () => {
-  http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+  http.get(`${SERVER_URL}/correctives`)
     .then((res) => setCorrectives(res.data))
     .catch((err) => console.error('Error fetching correctives:', err));
 };
@@ -530,7 +531,7 @@ const handleAddCorrectiveInvoice = (e) => {
 e.preventDefault()
 
   // TUTAJ UZUPEŁNIĆ PARAMETRY 
-   http.post("https://platformaspedytor8-back-production.up.railway.app/correctives", {
+   http.post(`${SERVER_URL}/correctives`, {
       
       numberofcorrectiveinvoice: 'KOR/' +  cinvoicenumber,
     dateofissuecorrectiveinvoice : getFormattedDate(),

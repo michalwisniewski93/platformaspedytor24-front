@@ -44,10 +44,8 @@ import MarketingTracker from './components/MarketingTracker'
 import PaymentWaiting from './components/PaymentWaiting'
 import NotFound from './components/NotFound';
 
-
 function App() {
-  return (
-  
+    return (
     <Provider store = {store}>
     <Router>
       <Routes>

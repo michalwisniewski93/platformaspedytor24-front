@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {SERVER_URL} from "../consts";
 
 const http = axios.create({
-    baseURL: 'https://platformaspedytor8-back-production.up.railway.app',
+    baseURL: SERVER_URL,
     withCredentials: true, // for /refresh via httpOnly cookie
 });
 

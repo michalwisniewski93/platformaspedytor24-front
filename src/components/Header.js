@@ -3,6 +3,7 @@ import { FaTruck } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const Header = () => {
 
@@ -93,7 +94,7 @@ useEffect(() => {
 
      
   useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get(`${SERVER_URL}/customers`)
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])

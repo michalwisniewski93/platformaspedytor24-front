@@ -3,6 +3,7 @@ import Header from './Header'
 import Footer from './Footer'
 import { useNavigate, Link } from 'react-router-dom'
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 
 const LogInToMakePayment = () => {
@@ -22,7 +23,7 @@ const LogInToMakePayment = () => {
     const navigate = useNavigate()
 
  useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get(`${SERVER_URL}/customers`)
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])

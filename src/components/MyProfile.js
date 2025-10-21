@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const MyProfile = () => {
   const [user, setUser] = useState(null);
@@ -33,7 +34,7 @@ const MyProfile = () => {
       setLogin(loginFromCookie);
       setHasAccess(true);
 
-      http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+      http.get(`${SERVER_URL}/customers`)
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           setUser(foundUser);
@@ -85,14 +86,14 @@ function deleteCookie(name) {
   const handleSubmit = () => {
     setCustomerVisibilityEditForm(false)
     
-http.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {
+http.put(`${SERVER_URL}/customers/${editingId}`, {
   name, surname, street, postcode, city, email, login, password, newsletter, phonenumber, regulations
 })
   .then((response) => {
     deleteCookie('user')
     setCookie('user', login + ';' + password, 30)
     // Pobierz zaktualizowanego użytkownika z serwera
-    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get(`${SERVER_URL}/customers`)
       .then((res) => {
         const updatedUser = res.data.find(customer => customer._id === editingId);
         setUser(updatedUser); // zaktualizuj stan użytkownika na podstawie nowych danych

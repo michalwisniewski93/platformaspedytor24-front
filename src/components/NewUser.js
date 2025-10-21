@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const NewUser = () => {
     const navigate = useNavigate()
@@ -30,7 +31,7 @@ const NewUser = () => {
     const [accesses, setAccesses] = useState('xyz, ');
 
     useEffect(() => {
-        http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+        http.get(`${SERVER_URL}/customers`)
             .then((response) => setCustomers(response.data))
             .catch((err) => console.log('error fetching customers, error: ' + err));
     }, []);
@@ -108,7 +109,7 @@ const NewUser = () => {
         const companyregon = companyRegon;
 
         // Wysyłanie danych
-        http.post("https://platformaspedytor8-back-production.up.railway.app/customers", {
+        http.post(`${SERVER_URL}/customers`, {
             name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity,
             email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses
         })

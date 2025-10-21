@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
-const BACKEND_URL = "https://platformaspedytor8-back-production.up.railway.app";
+const BACKEND_URL = SERVER_URL;
 const MAX_WAIT_TIME = 5 * 60; // 5 minut w sekundach
 
 const PaymentWaiting = () => {

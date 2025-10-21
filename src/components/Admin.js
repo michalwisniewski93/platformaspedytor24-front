@@ -4,6 +4,7 @@ import Footer from './Footer'
 import http from '../api/http';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
+import {SERVER_URL} from "../consts";
 
 
 const Admin = () => {
@@ -39,7 +40,7 @@ const Admin = () => {
 
   
 useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/login')
+    http.get(`${SERVER_URL}/login`)
     .then((response) => setAdmins(response.data))
     .catch((err) => console.log('error fetching admins, error: ' + err))
 }, [])

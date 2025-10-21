@@ -4,6 +4,7 @@ import Footer from './Footer'
 
 import {useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {SERVER_URL} from "../consts";
 
 
 const SingleArticle = () => {
@@ -31,7 +32,7 @@ useEffect(() => {
                 <div className="blogExpert">
                     <h1>{title}</h1>
                     <h6>autor artykułu: {author}</h6>
-                    <img  style={{ margin: '0 auto', display: 'block' }} src={`https://platformaspedytor8-back-production.up.railway.app/${imageurl}`} alt={title} />
+                    <img  style={{ margin: '0 auto', display: 'block' }} src={`${SERVER_URL}/${imageurl}`} alt={title} />
                     <div dangerouslySetInnerHTML={{ __html: description }} />
                     
                  </div>
