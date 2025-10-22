@@ -4,6 +4,7 @@ import Footer from './Footer'
 import { useNavigate, Link } from 'react-router-dom'
 import http from '../api/http';
 import {SERVER_URL} from "../consts";
+import {login as loginUser} from "../api/auth";
 
 
 const LogInToMakePayment = () => {
@@ -61,7 +62,7 @@ function getCookie(name) {
 
 
 
-       const handleSubmit = (e) => {
+       const handleSubmit = async (e) => {
   e.preventDefault()
 
 
@@ -82,7 +83,7 @@ const found = customers.find(customer =>
 
     if(found){
         alert('✅ Zalogowano pomyślnie')
-        
+        await loginUser(login, password);
         setCookie('perm', 'ok', 30);
         setCookie("user", login + ';' + password, 30);
        

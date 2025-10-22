@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import http from '../api/http';
 import {SERVER_URL} from "../consts";
+import {login as loginUser, logout} from '../api/auth';
 
 const Header = () => {
 
@@ -125,7 +126,7 @@ const handleLoggingPanelVisible = () => {
 
 
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault()
 
 
@@ -146,6 +147,7 @@ const found = customers.find(customer =>
 
     if(found){
         alert('✅ Zalogowano pomyślnie')
+        await loginUser(login, password);
         setIsLoggingPanelVisible(false)
         setCookie('perm', 'ok', 30);
         setCookie("user", login + ';' + password, 30);
@@ -176,7 +178,8 @@ const found = customers.find(customer =>
 }
 
 
-const handleLogout = () => {
+const handleLogout = async () => {
+    await logout();
     deleteCookie('user');
     deleteCookie('perm')
     setUser(null);

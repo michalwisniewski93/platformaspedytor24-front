@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, {useEffect, useState} from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from './redux/store'
 import MainSite from './components/MainSite'
@@ -43,8 +43,18 @@ import ProductsAndPricing from './components/ProductsAndPricing'
 import MarketingTracker from './components/MarketingTracker'
 import PaymentWaiting from './components/PaymentWaiting'
 import NotFound from './components/NotFound';
+import {initAuth} from "./api/auth";
+import {getCookie} from "./utils/cookies";
 
 function App() {
+
+    useEffect(() => {
+        const user = getCookie('user');
+        if (user) {
+            initAuth();
+        }
+    }, []);
+
     return (
     <Provider store = {store}>
     <Router>

@@ -10,3 +10,14 @@ export async function logout() {
     await http.post('/logout');
     setAccessToken(null);
 }
+
+export async function initAuth() {
+    try {
+        const { data } = await http.post('/refresh');
+        if (data && data.accessToken) {
+            setAccessToken(data.accessToken);
+        }
+    } catch (err) {
+        setAccessToken(null);
+    }
+}
