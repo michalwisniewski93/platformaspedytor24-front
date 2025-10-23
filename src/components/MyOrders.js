@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const MyOrders = () => {
   const [userorders, setUserOrders] = useState([]);
@@ -26,7 +27,7 @@ const MyOrders = () => {
       setHasAccess(true);
 
       http
-        .get('https://platformaspedytor8-back-production.up.railway.app/orders')
+        .get(`${SERVER_URL}/orders`)
         .then((response) => {
           const foundOrders = response.data.filter(order => order.login === loginFromCookie);
           setUserOrders(foundOrders);

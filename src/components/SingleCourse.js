@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import CommentsWidget from './CommentsWidget';
+import {SERVER_URL} from "../consts";
 
 const SingleCourse = () => {
   const title = useSelector(state => state.temporaryCourseTitle);
@@ -124,7 +125,7 @@ const SingleCourse = () => {
       <div className="singleProductPresentation">
         <div className="topProductPresentation">
           <div className="productPresentationImage">
-            <img src={`https://platformaspedytor8-back-production.up.railway.app/${imageurl}`} alt={title} />
+            <img src={`${SERVER_URL}/${imageurl}`} alt={title} />
           </div>
           <div className="productPresentationPrimaryData">
             <h2>{title}</h2>

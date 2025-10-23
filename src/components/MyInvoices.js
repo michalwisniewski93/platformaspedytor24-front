@@ -4,6 +4,7 @@ import Footer from './Footer';
 import http from '../api/http';
 import {useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import {SERVER_URL} from "../consts";
 
 const MyInvoices = () => {
   const [userinvoices, setUserInvoices] = useState([]);
@@ -69,7 +70,7 @@ useEffect(() => {
       setHasAccess(true);
 
       http
-        .get('https://platformaspedytor8-back-production.up.railway.app/invoices')
+        .get(`${SERVER_URL}/invoices`)
         .then((response) => {
           const foundInvoices = response.data.filter(invoice => invoice.login === loginFromCookie);
           setUserInvoices(foundInvoices);
@@ -154,7 +155,7 @@ if (cookie) {
       const loginFromCookie = cookie.split(';')[0];
       setLogin(loginFromCookie);
       setHasAccess(true);
- http.get('https://platformaspedytor8-back-production.up.railway.app/correctives')
+ http.get(`${SERVER_URL}/correctives`)
     .then((response) => {
       const foundCorrectives = response.data.filter(corrective => corrective.login === loginFromCookie);
       setCorrectives(foundCorrectives);

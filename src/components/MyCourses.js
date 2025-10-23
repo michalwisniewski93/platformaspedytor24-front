@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {SERVER_URL} from "../consts";
 
 const MyCourses = () => {
   const [hasAccess, setHasAccess] = useState(false);
@@ -43,7 +44,7 @@ const MyCourses = () => {
       setHasAccess(true);
 
       // Pobierz dane użytkownika
-      http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+      http.get(`${SERVER_URL}/customers`)
         .then((response) => {
           const foundUser = response.data.find(customer => customer.login === loginFromCookie);
           if (foundUser) {
@@ -57,7 +58,7 @@ const MyCourses = () => {
         .catch((err) => console.error('Błąd podczas pobierania klientów:', err));
 
       // Pobierz listę kursów
-      http.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
+      http.get(`${SERVER_URL}/salessites`)
         .then((response) => {
           setCourses(response.data);
         })
@@ -99,7 +100,7 @@ const MyCourses = () => {
                   <div className="myCoursesList">
                     {availableCourses.map(course => (
                       <div className="myCoursesListItem">
-                        <img src={`https://platformaspedytor8-back-production.up.railway.app/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)} />
+                        <img src={`${SERVER_URL}/${course.imageurl}`} alt={course.title} onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)} />
                          <h1 onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>{course.title}</h1>
                          <button onClick={() => handleDisplayMore(course._id, course.title, course.numberoflessons, course.author, course.coursecontent, course.courselinks)}>Oglądaj</button>
                         

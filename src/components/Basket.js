@@ -4,8 +4,9 @@ import Header from './Header';
 import Footer from './Footer';
 import { useNavigate, Link } from 'react-router-dom';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
-const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
+const BACKEND_URL = SERVER_URL;
 
 const Basket = () => {
   const [basket, setBasket] = useState([]);
@@ -245,7 +246,7 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
           <div className="basket-list">
             {basket.map(item => (
               <div key={item.id} className="basket-list-item">
-                <img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} />
+                <img src={`${SERVER_URL}${item.imageurl}`} alt={item.title} />
                 <div className="basket-list-info">
                   <p><strong>{item.title}</strong></p>
                   <p>Autor: {item.author}</p>
@@ -269,7 +270,7 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
             <tbody>
               {basket.map(item => (
                 <tr key={item.id}>
-                  <td><img src={`https://platformaspedytor8-back-production.up.railway.app${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
+                  <td><img src={`${SERVER_URL}${item.imageurl}`} alt={item.title} style={{ width: '80px', height: 'auto' }} /></td>
                   <td>{item.title}</td>
                   <td>{item.author}</td>
                   <td>{item.price} zł</td>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom'; // <- dodany Link
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
-const BACKEND_URL = 'https://platformaspedytor8-back-production.up.railway.app';
+const BACKEND_URL = SERVER_URL;
 
 const SuccessPage = () => {
   const navigate = useNavigate();

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 
 const SalesSitesAdmin = () => {
@@ -25,7 +26,7 @@ const SalesSitesAdmin = () => {
   const [accesscode, setAccesscode] = useState('')
 
   useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/salessites')
+    http.get(`${SERVER_URL}/salessites`)
       .then((response) => setSalessites(response.data))
       .catch((err) => console.log('error fetching sales sites, error: ' + err));
   }, []);
@@ -62,13 +63,13 @@ const SalesSitesAdmin = () => {
     formData.append('file', file);
 
     try {
-      const uploadResponse = await http.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
+      const uploadResponse = await http.post(`${SERVER_URL}/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       const imageurl = uploadResponse.data.imageUrl;
 
-      const response = await http.post("https://platformaspedytor8-back-production.up.railway.app/salessites", {
+      const response = await http.post(`${SERVER_URL}/salessites`, {
         title, imageurl, numberoflessons, price,
         pricebeforethirtydays, salescontent, linktoyoutube,
         contentlist, author, coursecontent, courselinks, accesscode
@@ -86,7 +87,7 @@ const SalesSitesAdmin = () => {
     const confirmDelete = window.confirm("Czy na pewno chcesz usunąć artykuł?");
     if (!confirmDelete) return;
 
-    http.delete(`https://platformaspedytor8-back-production.up.railway.app/salessites/${id}`)
+    http.delete(`${SERVER_URL}/salessites/${id}`)
       .then(() => setSalessites(salessites.filter(site => site._id !== id)))
       .catch((err) => console.error("Error deleting sales site:", err));
   };
@@ -118,7 +119,7 @@ const SalesSitesAdmin = () => {
       formData.append('file', file);
 
       try {
-        const response = await http.post('https://platformaspedytor8-back-production.up.railway.app/upload', formData, {
+        const response = await http.post(`${SERVER_URL}/upload`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
         finalImageUrl = response.data.imageUrl;
@@ -128,7 +129,7 @@ const SalesSitesAdmin = () => {
       }
     }
 
-    http.put(`https://platformaspedytor8-back-production.up.railway.app/salessites/${editingSite._id}`, {
+    http.put(`${SERVER_URL}/salessites/${editingSite._id}`, {
       title,
       imageurl: finalImageUrl,
       numberoflessons,
@@ -220,7 +221,7 @@ const SalesSitesAdmin = () => {
                 
                 <div className="salesSitesItem" key={site._id}>
                   <h3>Tytuł kursu: {site.title}</h3>
-                  <img src={`https://platformaspedytor8-back-production.up.railway.app/${site.imageurl}`} alt={site.title} />
+                  <img src={`${SERVER_URL}/${site.imageurl}`} alt={site.title} />
                   <h3>Ilość lekcji: {site.numberoflessons}</h3>
                   <h3>Cena brutto: {site.price} zł</h3>
                   <h3>Najniższa cena z 30 dni: {site.pricebeforethirtydays} zł</h3>

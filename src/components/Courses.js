@@ -4,6 +4,7 @@ import Footer from './Footer'
 import http from '../api/http';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {SERVER_URL} from "../consts";
 
 // 🔹 komponent do obsługi WebP -> JPG fallback
 function supportsWebP() {
@@ -55,7 +56,7 @@ const Courses = () => {
 
   useEffect(() => {
     http
-      .get('https://platformaspedytor8-back-production.up.railway.app/salessites')
+      .get(`${SERVER_URL}/salessites`)
       .then(response => {
         setCourses(response.data)
         setLoading(false)
@@ -164,7 +165,7 @@ const Courses = () => {
             courses.map(course => (
               <div className="coursesContentItem" key={course._id}>
                 <SmartImage
-                  srcWebp={`https://platformaspedytor8-back-production.up.railway.app/${course.imageurl}`}
+                  srcWebp={`${SERVER_URL}/${course.imageurl}`}
                   alt={course.title}
                   className="courseImage"
                   onClick={() =>

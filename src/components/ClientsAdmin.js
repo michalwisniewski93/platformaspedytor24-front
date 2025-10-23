@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 
 const ClientsAdmin = () => {
@@ -36,7 +37,7 @@ const ClientsAdmin = () => {
 
      
   useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/customers')
+    http.get(`${SERVER_URL}/customers`)
     .then((response) => setCustomers(response.data))
     .catch((err) => console.log('error fetching customers, error: ' + err))
    }, [])
@@ -92,7 +93,7 @@ if (invoice) {
    }
 
    const handleDelete = (id) => {
-     http.delete(`https://platformaspedytor8-back-production.up.railway.app/customers/${id}`)
+     http.delete(`${SERVER_URL}/customers/${id}`)
       .then(() => setCustomers(customers.filter(customer => customer._id !== id)))
       .catch((err) => console.error("Error deleting customer:", err));
    }
@@ -104,7 +105,7 @@ if (invoice) {
     const companynip = companyNip
     const companyregon = companyRegon
 
-    http.put(`https://platformaspedytor8-back-production.up.railway.app/customers/${editingId}`, {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
+    http.put(`${SERVER_URL}/customers/${editingId}`, {name, surname, street, postcode, city, companyname, companystreet, companypostcode, companycity, email, invoice, login, newsletter, password, phonenumber, regulations, companynip, companyregon, accesses})
    .then((response) => {
         setCustomers(customers.map(customer => customer._id === editingId ? response.data : customer));
         setName('')

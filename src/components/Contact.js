@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const Contact = () => {
 
@@ -66,7 +67,7 @@ const handleMessage = (e) => {
   const status = false;
 
   http
-    .post("https://platformaspedytor8-back-production.up.railway.app/tickets", {
+    .post(`${SERVER_URL}/tickets`, {
       nameandsurname,
       email,
       message,

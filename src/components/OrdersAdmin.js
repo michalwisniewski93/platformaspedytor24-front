@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
 
 const OrdersAdmin = () => {
   const [orders, setOrders] = useState([]);
@@ -10,7 +11,7 @@ const OrdersAdmin = () => {
   const isAdminLogged = useSelector(state => state.isAdminLogged);
 
   useEffect(() => {
-    http.get('https://platformaspedytor8-back-production.up.railway.app/orders')
+    http.get(`${SERVER_URL}/orders`)
       .then(response => setOrders(response.data))
       .catch(err => console.log('error fetching customers, error: ' + err));
   }, []);
