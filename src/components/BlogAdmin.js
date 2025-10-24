@@ -126,7 +126,7 @@ const BlogAdmin = () => {
                         <div style={{border: '1px dotted black'}} dangerouslySetInnerHTML={{ __html: article.description }} />
                         <h3>autor: {article.author}</h3>
                         <h3>zdjęcie produktu:</h3>
-                        <img src={`${SERVER_URL}/${article.imageurl}`} alt={article.title} />
+                        <img src={`${SERVER_URL}${article.imageurl}`} alt={article.title} />
                         <button onClick={() => handleDeleteArticle(article._id)}>Usuń artykuł</button>
                     </div>).reverse()}
                    </div>

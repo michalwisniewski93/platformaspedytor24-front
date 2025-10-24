@@ -125,7 +125,7 @@ const SingleCourse = () => {
       <div className="singleProductPresentation">
         <div className="topProductPresentation">
           <div className="productPresentationImage">
-            <img src={`${SERVER_URL}/${imageurl}`} alt={title} />
+            <img src={`${SERVER_URL}${imageurl}`} alt={title} />
           </div>
           <div className="productPresentationPrimaryData">
             <h2>{title}</h2>

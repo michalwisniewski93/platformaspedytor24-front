@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import AdminWidgetToLogOut from './AdminWidgetToLogOut';
 import { useSelector } from 'react-redux';
 import {SERVER_URL} from "../consts";
+import http from '../api/http';
 
 
 
@@ -12,7 +13,7 @@ const MarketingTracker = () => {
 const [stats, setStats] = useState([]);
 
 useEffect(() => {
-    fetch(`${SERVER_URL}/api/stats`)
+    http.get(`${SERVER_URL}/api/stats`)
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch((err) => console.error("Błąd pobierania statystyk:", err));
