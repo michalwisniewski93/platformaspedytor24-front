@@ -5,7 +5,7 @@ import http from '../api/http';
 import { useNavigate } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import {SERVER_URL} from "../consts";
-
+import {login as loginUser} from "../api/auth";
 
 const Admin = () => {
 
@@ -45,7 +45,7 @@ useEffect(() => {
     .catch((err) => console.log('error fetching admins, error: ' + err))
 }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const correctAnswer = captchaA + captchaB;
@@ -65,6 +65,7 @@ const found = admins.find(admin =>
 
     if(found){
         alert('✅ Zalogowano pomyślnie')
+        await loginUser(login, password);
         changeAdminLogged()
         navigate('/admin-main-page')
     } else {
