@@ -13,9 +13,11 @@ const MarketingTracker = () => {
 const [stats, setStats] = useState([]);
 
 useEffect(() => {
+
     http.get(`${SERVER_URL}/api/stats`)
-      .then((res) => res.json())
-      .then((data) => setStats(data))
+      .then((res) => {
+          setStats(res.data)
+      })
       .catch((err) => console.error("Błąd pobierania statystyk:", err));
   }, []);
 
