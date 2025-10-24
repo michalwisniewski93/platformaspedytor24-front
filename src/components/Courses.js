@@ -165,7 +165,7 @@ const Courses = () => {
             courses.map(course => (
               <div className="coursesContentItem" key={course._id}>
                 <SmartImage
-                  srcWebp={`${SERVER_URL}/${course.imageurl}`}
+                  srcWebp={`${SERVER_URL}${course.imageurl}`}
                   alt={course.title}
                   className="courseImage"
                   onClick={() =>

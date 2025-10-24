@@ -221,7 +221,7 @@ const SalesSitesAdmin = () => {
                 
                 <div className="salesSitesItem" key={site._id}>
                   <h3>Tytuł kursu: {site.title}</h3>
-                  <img src={`${SERVER_URL}/${site.imageurl}`} alt={site.title} />
+                  <img src={`${SERVER_URL}${site.imageurl}`} alt={site.title} />
                   <h3>Ilość lekcji: {site.numberoflessons}</h3>
                   <h3>Cena brutto: {site.price} zł</h3>
                   <h3>Najniższa cena z 30 dni: {site.pricebeforethirtydays} zł</h3>
