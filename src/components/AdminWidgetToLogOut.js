@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import {logout} from "../api/auth";
 
 const AdminWidgetToLogOut = () => {
 
@@ -9,8 +10,9 @@ const AdminWidgetToLogOut = () => {
     const changeAdminLogged = () => dispatch({type: 'CHANGE_ADMIN_LOGGED'})
     const navigate = useNavigate()
 
-    const handleLogOut = () => {
+    const handleLogOut = async () => {
         changeAdminLogged()
+        await logout();
     }
 
     const handleGoToHomeAdmin = () => {
