@@ -8,7 +8,7 @@ const AboutMeOnMainSite = () => {
         <div className="aboutMe">
             <div className="aboutMeDescription">
                 <p>
-        <h1> hello world </h1>
+        
                      Witaj!<br/><br/>
      Nazywam się Radosław Wiśniewski. Od 10 lat jestem aktywnym spedytorem krajowym i międzynarodowym.<br/>
      Studiowałem o zgrozo teleinformatykę {"\u{1F605}"}, ale po studiach mój znajomy zainteresował mnie branżą TSL. <br/>
