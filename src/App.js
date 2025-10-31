@@ -42,6 +42,8 @@ import AboutP24 from './components/AboutP24'
 import ProductsAndPricing from './components/ProductsAndPricing'
 import MarketingTracker from './components/MarketingTracker'
 import PaymentWaiting from './components/PaymentWaiting'
+import SuccessStripe from './components/SuccessStripe'
+import CancelStripe from './components/CancelStripe
 import NotFound from './components/NotFound';
 import {initAuth} from "./api/auth";
 import {getCookie} from "./utils/cookies";
@@ -98,6 +100,8 @@ function App() {
         <Route path="/about-us" element={<AboutP24/>} />
         <Route path="/products-and-pricing" element={<ProductsAndPricing/>} />
         <Route path="/marketing-tracker" element={<MarketingTracker/>} />
+        <Route path="/success-stripe" element={<SuccessStripe />} />
+         <Route path="/cancel-stripe" element={<CancelStripe />} />
         <Route path="/payment-waiting" element={<PaymentWaiting />} />
         <Route path="*" element={<NotFound />} />
        </Routes>
