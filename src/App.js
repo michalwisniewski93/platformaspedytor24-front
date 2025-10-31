@@ -43,7 +43,7 @@ import ProductsAndPricing from './components/ProductsAndPricing'
 import MarketingTracker from './components/MarketingTracker'
 import PaymentWaiting from './components/PaymentWaiting'
 import SuccessStripe from './components/SuccessStripe'
-import CancelStripe from './components/CancelStripe
+import CancelStripe from './components/CancelStripe'
 import NotFound from './components/NotFound';
 import {initAuth} from "./api/auth";
 import {getCookie} from "./utils/cookies";
