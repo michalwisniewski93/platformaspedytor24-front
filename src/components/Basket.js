@@ -144,6 +144,81 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
     return <p>Koszyk jest pusty. <Link to="/">Powrót do strony głównej</Link></p>;
   }
 
+// ===============================
+  // handleBuyNowByStripe
+// ===============================
+
+    const handleBuyNowByStripe = async () => {
+  try {
+    const userCookie = getCookie('user');
+    if (!userCookie) {
+      alert("Nie jesteś zalogowany. Zaloguj się lub załóż konto!");
+      navigate('/sign-up-or-sign-in');
+      return;
+    }
+
+    if (!basket || basket.length === 0) {
+      alert("Koszyk jest pusty");
+      return;
+    }
+
+    if (!acceptregulations) {
+      alert("Musisz zaakceptować regulamin, aby dokonać zakupu");
+      return;
+    }
+
+    const customer = {
+      name: name || "",
+      surname: surname || "",
+      street: street || "",
+      postcode: postcode || "",
+      city: city || "",
+      companyname: companyname || "",
+      companystreet: companystreet || "",
+      companypostcode: companypostcode || "",
+      companycity: companycity || "",
+      email: email || "",
+      invoice: invoice || false,
+      login: login || "",
+      newsletter: newsletter || false,
+      password: password || "",
+      phonenumber: phonenumber || "",
+      regulations: regulations || false,
+      companynip: companynip?.toString() || "",
+      companyregon: companyregon?.toString() || "",
+    };
+
+    // ✅ zgodne z http.js
+    await http.post('/orders', {
+      ...customer,
+      ordercontent: basket,
+      orderamount: totalPrice,
+      ordertime: new Date().toISOString(),
+      transactionId: 'To jest zamówienie przez Stripe, nie ma transaction id',
+      title: 'To jest zamówienie przez Stripe, nie ma title',
+    });
+
+    // ✅ fetch do endpointu Stripe (tu może być inny backend)
+    const res = await fetch(`${BACKEND_URL}/create-checkout-session-stripe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: Math.round(totalPrice * 100) }),
+    });
+
+    const data = await res.json();
+    window.location.href = data.url;
+
+  } catch (err) {
+    console.error("Błąd w handleBuyNowByStripe:", err);
+    alert(err.response?.data?.error || err.message || "Wystąpił błąd podczas zakupu");
+  }
+};
+
+
+
+
+
+  
   // ===============================
   // Obsługa zakupu
   // ===============================
@@ -289,7 +364,8 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
             <input type="checkbox" checked={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} />
           </label>
           <p className="warningToBuyNow">{acceptregulationsinfo}</p>
-          <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz</button>
+          <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz przez tpay</button>
+          <button className="buyNowButton" onClick={handleBuyNowByStripe}>Zapłać teraz przez stripe</button>
         </div>
       </div>
       <Footer />
