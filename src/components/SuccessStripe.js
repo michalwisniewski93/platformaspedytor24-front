@@ -31,8 +31,7 @@ useEffect(() => {
 const assignAccesses = async () => {
     const customersRes = await http.get(`${BACKEND_URL}/customers`);
    
-  };
-  assignAccesses();
+ 
 const foundUser = getCookie('user')?.split(';')[0];
  if (!foundUser) {
     navigate('/', { replace: true });
@@ -45,23 +44,28 @@ const foundUser = getCookie('user')?.split(';')[0];
             return;
           }
 
-const newAccesses = getCookie('newaccesses') || '';
+
+
+          const newAccesses = getCookie('newaccesses') || '';
           const finalAccesses = myUser.accesses ? `${myUser.accesses};${newAccesses}` : newAccesses;
+           await http.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
+           deleteCookie('newaccesses');
+}
 
 
 
-const putAccesses = async () => {
-   await http.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
-   
-  };
-  putAccesses();
+
+assignAccesses();
+
+
+
 
 
 
 
           
 
-          deleteCookie('newaccesses');
+          
           
 
        
