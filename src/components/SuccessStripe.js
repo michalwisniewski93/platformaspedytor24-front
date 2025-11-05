@@ -1,11 +1,16 @@
-import React, { useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom'; // <- dodany Link
 import http from '../api/http';
+import {SERVER_URL} from "../consts";
+
+const BACKEND_URL = SERVER_URL;
 
 const SuccessStripe = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Pobieranie ciasteczka po nazwie
+
   function getCookie(name) {
     const cookies = document.cookie.split('; ');
     for (const cookie of cookies) {
@@ -13,66 +18,72 @@ const SuccessStripe = () => {
       if (key === name) return decodeURIComponent(value);
     }
     return null;
-  }
+  }          //ok
 
-  // Usuwanie ciasteczka
   function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }    //ok
+
+
+
+useEffect(() => {
+
+const assignAccesses = async () => {
+    const customersRes = await http.get(`${BACKEND_URL}/customers`);
+   
+  };
+  assignAccesses();
+const foundUser = getCookie('user')?.split(';')[0];
+ if (!foundUser) {
+    navigate('/', { replace: true });
+    return;
   }
 
-  useEffect(() => {
-    const assignAccesses = async () => {
-      try {
-        const foundUser = getCookie('user');
-        if (!foundUser) {
-          console.log('nie znaleziono usera dlatego przekierowano');
-          navigate('/', { replace: true });
-          return;
-        }
+   const myUser = customersRes.data.find(c => c.login === foundUser);
+          if (!myUser) {
+            navigate('/', { replace: true });
+            return;
+          }
 
-        // Pobranie listy klientów
-        const customersRes = await http.get('/customers');
-        const myUser = customersRes.data.find(c => c.login === foundUser);
+const newAccesses = getCookie('newaccesses') || '';
+          const finalAccesses = myUser.accesses ? `${myUser.accesses};${newAccesses}` : newAccesses;
 
-        console.log('myUser: ' + myUser);
 
-        if (!myUser) {
-          console.log('nie znaleziono my usera dlatego przekierowano');
-          navigate('/', { replace: true });
-          return;
-        }
 
-        // Zaktualizowanie dostępu
-        const newAccesses = getCookie('newaccesses') || '';
-        console.log('newAccesses' + newAccesses)
-        const accessesArray = [
-          ...(myUser.accesses ? myUser.accesses.split(';') : []),
-          ...(newAccesses ? newAccesses.split(';') : []),
-        ];
-        const finalAccesses = accessesArray.filter(Boolean).join(';');
+const putAccesses = async () => {
+   await http.put(`${BACKEND_URL}/customers/${myUser._id}`, { accesses: finalAccesses });
+   
+  };
+  putAccesses();
 
-        await http.put(`/customers/${myUser._id}`, { accesses: finalAccesses });
 
-        // Wyczyszczenie cookie z tymczasowych danych
-        deleteCookie('newaccesses');
-      } catch (err) {
-        console.error('Błąd przy przydzielaniu dostępu:', err);
-        navigate('/', { replace: true });
-      }
-    };
 
-    assignAccesses();
-  }, [navigate]);
+
+          
+
+          deleteCookie('newaccesses');
+          
+
+       
+
+    
+}, [location, navigate])
+
+
+
+
+
+
+ 
 
   return (
-    <div className="greatSuccess" style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>🎉 Dostęp do kursów został przyznany!</h1>
+    <div className="greatSuccess">
+      <h1>🎉 Płatność zakończona sukcesem! Dostęp do kursów został przyznany.</h1>
       <p>
         <Link to="/moje-kursy">Przejdź do Moje kursy</Link>
       </p>
     </div>
-  );
+  ); 
 };
 
 export default SuccessStripe;
-
