@@ -25,6 +25,7 @@ const SuccessStripe = () => {
       try {
         const foundUser = getCookie('user');
         if (!foundUser) {
+          console.log('nie znaleziono usera dlatego przekierowano');
           navigate('/', { replace: true });
           return;
         }
@@ -34,6 +35,7 @@ const SuccessStripe = () => {
         const myUser = customersRes.data.find(c => c.login === foundUser);
 
         if (!myUser) {
+          console.log('nie znaleziono my usera dlatego przekierowano');
           navigate('/', { replace: true });
           return;
         }
