@@ -34,6 +34,8 @@ const SuccessStripe = () => {
         const customersRes = await http.get('/customers');
         const myUser = customersRes.data.find(c => c.login === foundUser);
 
+        console.log('myUser: ' + myUser);
+
         if (!myUser) {
           console.log('nie znaleziono my usera dlatego przekierowano');
           navigate('/', { replace: true });
@@ -42,6 +44,7 @@ const SuccessStripe = () => {
 
         // Zaktualizowanie dostępu
         const newAccesses = getCookie('newaccesses') || '';
+        console.log('newAccesses' + newAccesses)
         const accessesArray = [
           ...(myUser.accesses ? myUser.accesses.split(';') : []),
           ...(newAccesses ? newAccesses.split(';') : []),
