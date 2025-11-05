@@ -28,6 +28,12 @@ const SuccessStripe = () => {
 
 useEffect(() => {
 
+  const referrer = document.referrer;
+      if (!referrer.includes('checkout.stripe.com')) {
+        navigate('/', { replace: true });
+        return;
+      }
+
 const assignAccesses = async () => {
     const customersRes = await http.get(`${BACKEND_URL}/customers`);
    
