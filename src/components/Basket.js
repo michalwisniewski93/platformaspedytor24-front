@@ -364,8 +364,8 @@ const totalPrice = basket.reduce((sum, item) => sum + parseFloat(item.price || 0
             <input type="checkbox" checked={acceptregulations} onChange={(e) => setAcceptRegulations(e.target.checked)} />
           </label>
           <p className="warningToBuyNow">{acceptregulationsinfo}</p>
-          <button className="buyNowButton" onClick={handleBuyNow}>Zapłać teraz przez tpay</button>
-          <button className="buyNowButton" onClick={handleBuyNowByStripe}>Zapłać teraz przez stripe</button>
+          
+          <button className="buyNowButton" onClick={handleBuyNowByStripe}>Zapłać teraz</button>
         </div>
       </div>
       <Footer />
