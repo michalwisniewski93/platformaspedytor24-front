@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { FaTruck } from 'react-icons/fa'
+
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import http from '../api/http';
@@ -225,7 +225,7 @@ const handleMyInvoices = () => {
 
     return (
         <>
-        <div className="logo"><h1><FaTruck size={30}  style={{ verticalAlign: 'middle' }}/>SpedytorSzkolenia.pl</h1></div>
+        
   <div className="logo">
   <img 
     src="/logospedytorszkoleniadocelowe.png" 
