@@ -19,9 +19,9 @@ const [captchaA, setCaptchaA] = useState(0);
 const [captchaB, setCaptchaB] = useState(0);
 const [captchaAnswer, setCaptchaAnswer] = useState('');
 const [captchaValid, setCaptchaValid] = useState(true);
-const [user, setUser] = useState('')
+
 const [basketLength, setBasketLength] = useState(0);
-const [basketCount, setBasketCount] = useState(0);
+
 
 function setCookie(name, value, days) {
   const maxAge = days * 24 * 60 * 60;
