@@ -1,5 +1,6 @@
+
 import React, {useEffect, useState} from 'react'
-import logo from '../images/logospedytorszkoleniadocelowe.png';
+import { FaTruck } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import http from '../api/http';
@@ -19,9 +20,9 @@ const [captchaA, setCaptchaA] = useState(0);
 const [captchaB, setCaptchaB] = useState(0);
 const [captchaAnswer, setCaptchaAnswer] = useState('');
 const [captchaValid, setCaptchaValid] = useState(true);
-
+const [user, setUser] = useState('')
 const [basketLength, setBasketLength] = useState(0);
-
+const [basketCount, setBasketCount] = useState(0);
 
 function setCookie(name, value, days) {
   const maxAge = days * 24 * 60 * 60;
@@ -225,16 +226,7 @@ const handleMyInvoices = () => {
 
     return (
         <>
-        
-  <div className="logo">
- 
-  <img 
-    src={logo}
-    alt="spedytorszkolenia.pl logo"
-    style={{ height: '50px' }}
-  />
-
-</div>
+        <div className="logo"><h1><FaTruck size={30}  style={{ verticalAlign: 'middle' }}/>SpedytorSzkolenia.pl</h1></div>
         <div className="menuicon">
             <FaBars/>
         </div>
@@ -290,4 +282,4 @@ const handleMyInvoices = () => {
     )
 }
 
-export default Header
+export default Header  
