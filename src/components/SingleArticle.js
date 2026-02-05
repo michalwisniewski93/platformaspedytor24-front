@@ -32,7 +32,7 @@ useEffect(() => {
                 <div className="blogExpert">
                     <h1>{title}</h1>
                     <h6>autor artykułu: {author}</h6>
-                    <img  style={{ margin: '0 auto', display: 'block' }} src={`${SERVER_URL}/${imageurl}`} alt={title} />
+                    <img  style={{ margin: '0 auto', display: 'block' }} src={`${SERVER_URL}${imageurl}`} alt={title} />
                     <div dangerouslySetInnerHTML={{ __html: description }} />
                     
                  </div>
