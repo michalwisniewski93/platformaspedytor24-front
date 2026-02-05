@@ -16,7 +16,7 @@ const Footer = () => {
         </div>
 
         <div style={styles.sectionCenter}>
-          &copy; {currentYear} spedytorszkolenia.pl  Wykonanie: <a href="https://stronywisniewski.pl">stronywisniewski.pl - Michał Wiśniewski</a>
+          &copy; {currentYear} spedytorszkolenia.pl  Wykonanie: <a href="https://stronywisniewski.pl" className="collab" target="_blank">stronywisniewski.pl - Michał Wiśniewski</a>
         </div>
 
         <div style={styles.sectionRight}>
