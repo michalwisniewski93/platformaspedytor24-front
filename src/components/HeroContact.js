@@ -1,8 +1,6 @@
 import React from 'react';
 import '../styles/style.css'; // import stylów
-import contactus from '../images/contactus.png'
-
-
+import contactus from '../images/contactus.png';
 
 const HeroContact = () => {
   return (
@@ -36,13 +34,13 @@ const styles = {
     color: 'white',
     textAlign: 'center',
     overflow: 'hidden',
-    marginTop: '20px'
-    
   },
   overlay: {
     position: 'absolute',
     inset: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(102, 102, 214, 0.4)', // półprzezroczysty kolor
+    backdropFilter: 'blur(8px)', // efekt szyby
+    WebkitBackdropFilter: 'blur(8px)', // dla Safari
     zIndex: 1,
   },
   text: {
@@ -54,4 +52,5 @@ const styles = {
 };
 
 export default HeroContact;
+
 
