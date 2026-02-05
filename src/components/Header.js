@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-
+import logo from '../images/logospedytorszkoleniadocelowe.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import http from '../api/http';
@@ -227,11 +227,13 @@ const handleMyInvoices = () => {
         <>
         
   <div className="logo">
+ <div className="logo">
   <img 
-  src={process.env.PUBLIC_URL + "/logospedytorszkoleniadocelowe.png"}
-  alt="spedytorszkolenia.pl logo"
-  style={{ height: '50px' }}
-/>
+    src={logo}
+    alt="spedytorszkolenia.pl logo"
+    style={{ height: '50px' }}
+  />
+</div>
 </div>
         <div className="menuicon">
             <FaBars/>
