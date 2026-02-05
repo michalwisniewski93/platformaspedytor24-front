@@ -228,10 +228,10 @@ const handleMyInvoices = () => {
         
   <div className="logo">
   <img 
-    src="/logospedytorszkoleniadocelowe.png" 
-    alt="spedytorszkolenia.pl logo" 
-    style={{ height: '50px' }}
-  />
+  src={process.env.PUBLIC_URL + "/logospedytorszkoleniadocelowe.png"}
+  alt="spedytorszkolenia.pl logo"
+  style={{ height: '50px' }}
+/>
 </div>
         <div className="menuicon">
             <FaBars/>
