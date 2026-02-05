@@ -226,6 +226,13 @@ const handleMyInvoices = () => {
     return (
         <>
         <div className="logo"><h1><FaTruck size={30}  style={{ verticalAlign: 'middle' }}/>SpedytorSzkolenia.pl</h1></div>
+  <div className="logo">
+  <img 
+    src="/logospedytorszkoleniadocelowe.png" 
+    alt="spedytorszkolenia.pl logo" 
+    style={{ height: '50px' }}
+  />
+</div>
         <div className="menuicon">
             <FaBars/>
         </div>
