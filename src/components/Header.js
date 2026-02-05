@@ -230,7 +230,7 @@ const handleMyInvoices = () => {
       <img 
   src={process.env.PUBLIC_URL + "/logos.png"}
   alt="logo"
-  style={{ height: '50px' }}
+  style={{ height: '80px' }}
 />
   </div>
         <div className="menuicon">
