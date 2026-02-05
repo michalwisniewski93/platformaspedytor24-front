@@ -227,13 +227,13 @@ const handleMyInvoices = () => {
         <>
         
   <div className="logo">
- <div className="logo">
+ 
   <img 
     src={logo}
     alt="spedytorszkolenia.pl logo"
     style={{ height: '50px' }}
   />
-</div>
+
 </div>
         <div className="menuicon">
             <FaBars/>
