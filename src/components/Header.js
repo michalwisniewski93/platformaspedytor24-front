@@ -227,11 +227,13 @@ const handleMyInvoices = () => {
     return (
         <>
         <div className="logo">
-      <img 
-  src={process.env.PUBLIC_URL + "/logos.png"}
-  alt="logo"
-  style={{ height: '80px' }}
-/>
+<Link to="/">
+    <img 
+      src={process.env.PUBLIC_URL + "/logos.png"}
+      alt="logo"
+      style={{ height: '80px', cursor: 'pointer' }}
+    />
+  </Link>
   </div>
         <div className="menuicon">
             <FaBars/>
