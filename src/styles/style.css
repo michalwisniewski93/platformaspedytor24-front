@@ -1614,3 +1614,8 @@ form.opinionForm button{
     border: 1px solid transparent;
 }
 
+a.collab {
+  color: white;
+  text-decoration: none;
+}
+
